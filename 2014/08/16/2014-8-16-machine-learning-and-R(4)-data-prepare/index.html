@@ -1,0 +1,682 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>机器学习与R(4)-数据准备 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="尽管数据准备与整理没有建立模型有趣，但却是极为重要的一步。因为数据的质量决定了模型质量。而多数情况下，输入数据都很复杂，散乱，或者是来自多个数据源，或者是不同格式。正是由于这一复杂性，机器学习大量的工作时实际在于数据准备与探索阶段。
+对于应用R来完成这一任务，则需要我们：
+
+掌握R的基本数据结构，利用它们来存储，抽取数据
+利用R从不同数据源获取数据
+利用R来理解并将复杂数据可视化
+
+R数据结构因为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习与R(4)-数据准备">
+<meta property="og:url" content="http://www.zjdian.com/2014/08/16/2014-8-16-machine-learning-and-R(4)-data-prepare/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="尽管数据准备与整理没有建立模型有趣，但却是极为重要的一步。因为数据的质量决定了模型质量。而多数情况下，输入数据都很复杂，散乱，或者是来自多个数据源，或者是不同格式。正是由于这一复杂性，机器学习大量的工作时实际在于数据准备与探索阶段。
+对于应用R来完成这一任务，则需要我们：
+
+掌握R的基本数据结构，利用它们来存储，抽取数据
+利用R从不同数据源获取数据
+利用R来理解并将复杂数据可视化
+
+R数据结构因为">
+<meta property="og:updated_time" content="2014-08-16T08:09:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习与R(4)-数据准备">
+<meta name="twitter:description" content="尽管数据准备与整理没有建立模型有趣，但却是极为重要的一步。因为数据的质量决定了模型质量。而多数情况下，输入数据都很复杂，散乱，或者是来自多个数据源，或者是不同格式。正是由于这一复杂性，机器学习大量的工作时实际在于数据准备与探索阶段。
+对于应用R来完成这一任务，则需要我们：
+
+掌握R的基本数据结构，利用它们来存储，抽取数据
+利用R从不同数据源获取数据
+利用R来理解并将复杂数据可视化
+
+R数据结构因为">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/16/2014-8-16-machine-learning-and-R(4)-data-prepare/" title="机器学习与R(4)-数据准备" itemprop="url">机器学习与R(4)-数据准备</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-16T07:36:40.000Z" itemprop="datePublished"> 發表於 2014 Aug 16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#R_u6570_u636E_u7ED3_u6784"><span class="toc-number">1.</span> <span class="toc-text">R数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vectors"><span class="toc-number">1.1.</span> <span class="toc-text">vectors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factors"><span class="toc-number">1.2.</span> <span class="toc-text">Factors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lists"><span class="toc-number">1.3.</span> <span class="toc-text">Lists</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>尽管数据准备与整理没有建立模型有趣，但却是极为重要的一步。因为数据的质量决定了模型质量。而多数情况下，输入数据都很复杂，散乱，或者是来自多个数据源，或者是不同格式。正是由于这一复杂性，机器学习大量的工作时实际在于数据准备与探索阶段。</p>
+<p>对于应用R来完成这一任务，则需要我们：</p>
+<ul>
+<li>掌握R的基本数据结构，利用它们来存储，抽取数据</li>
+<li>利用R从不同数据源获取数据</li>
+<li>利用R来理解并将复杂数据可视化</li>
+</ul>
+<h1 id="R_u6570_u636E_u7ED3_u6784"><a href="#R_u6570_u636E_u7ED3_u6784" class="headerlink" title="R数据结构"></a>R数据结构</h1><p>因为R是大量用于统计数据分析的编程语言，因此R中数据结构的设计也是为了更好的操作这些数据。R中常用数据结构有</p>
+<ul>
+<li>vectors</li>
+<li>factors</li>
+<li>lists</li>
+<li>arrays</li>
+<li>data frames</li>
+</ul>
+<h2 id="vectors"><a href="#vectors" class="headerlink" title="vectors"></a>vectors</h2><p>vector是R中基础数据结构，实际就是一个有序排列的元素，这些元素既可以是数字，也可以是factor，逻辑值(TRUE/FALSE)，也可以是字符。我们通常用<code>c()</code>来建立vector，而赋值则可以使用<code>=</code>或者<code>=</code>。关于<code>=</code>还是<code>=</code>的争论好比之前的咸豆浆还是甜豆浆的争论，大家可以看看<a href="http://yihui.name/cn/2012/09/equal-and-arrow/" target="_blank" rel="external">大神谢益辉</a>。</p>
+<p>以下代码分别建立了三个不同的vector(向量)：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subject_name &lt;- c(<span class="string">"John Doe"</span>, <span class="string">"Jane Doe"</span>, <span class="string">"Steve Graves"</span>)</span><br><span class="line">temperature &lt;- c(<span class="number">98.1</span>, <span class="number">98.6</span>, <span class="number">101.4</span>)</span><br><span class="line">flu_status &lt;- c(<span class="literal">FALSE</span>, <span class="literal">FALSE</span>, <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<p>要获取某个向量的值也很简单，用<code>[]</code>直接取下标：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 98.6</span><br></pre></td></tr></table></figure>
+<p>不过要注意<strong>R里面下标都是从1开始，而不是像其他程序从0开始</strong>。</p>
+<p>如果我想取某几个值则可以同时包含对应下标</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[<span class="number">2</span>:<span class="number">3</span>] <span class="comment">#取vector的2，3下标对应值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1]  98.6 101.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[c(<span class="number">1</span>,<span class="number">3</span>)] <span class="comment">#取vector的1，3下标对应值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1]  98.1 101.4</span><br></pre></td></tr></table></figure>
+<p>如果前面加一个<code>-</code>就表示，不要包含该值了</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[-<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1]  98.1 101.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[c(-<span class="number">1</span>,-<span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 98.6</span><br></pre></td></tr></table></figure>
+<p>除了这种方式，采用逻辑变量来取子集也是一样，比如</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[c(<span class="literal">TRUE</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 98.1 98.6</span><br></pre></td></tr></table></figure>
+<h2 id="Factors"><a href="#Factors" class="headerlink" title="Factors"></a>Factors</h2><p>Factors通常用于<strong>nomial</strong>变量，比如性别：male,female。也许你会问为什么不直接用character vector呢？很简单采用fator更高效，计算机会把factor：male,male,female保存为1,1,2，更加高效。另外一个原因就在于机器学习有特殊的处理分类变量的方式。</p>
+<p>建立factor相当简单</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gender = factor(c(<span class="string">"MALE"</span>, <span class="string">"FEMALE"</span>, <span class="string">"MALE"</span>))</span><br><span class="line">gender</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] MALE   FEMALE MALE  &#10;## Levels: FEMALE MALE</span><br></pre></td></tr></table></figure>
+<p>上面是采用了缺省顺序，你也可以指明factor的顺序，例如：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blood = factor(c(<span class="string">"O"</span>, <span class="string">"AB"</span>, <span class="string">"A"</span>),levels = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"AB"</span>, <span class="string">"O"</span>))</span><br><span class="line">blood</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] O  AB A &#10;## Levels: A B AB O</span><br></pre></td></tr></table></figure>
+<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>list是一种特殊类型向量，通常向量只能保存相同类型数据，而list则可以保存不同类型数据。正是由于这一灵活性，list通常用来保存输入输出数据或者机器学习中的配置参数。</p>
+<p>以前面的数据微冷，如果我们要看某一病人的信息，我们需要执行如下操作：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject_name[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &#34;John Doe&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temperature[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 98.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flu_status[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] FALSE</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gender[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] MALE&#10;## Levels: FEMALE MALE</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blood[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] O&#10;## Levels: A B AB O</span><br></pre></td></tr></table></figure>
+<p>实在麻烦，那我可以建立一个list：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">subject = list(fullname = subject_name,</span><br><span class="line">  temperature = temperature,</span><br><span class="line">  flu_status = flu_status,</span><br><span class="line">	gender = gender,</span><br><span class="line">	blood = blood)</span><br></pre></td></tr></table></figure>
+<p>这时输入:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## $fullname&#10;## [1] &#34;John Doe&#34;     &#34;Jane Doe&#34;     &#34;Steve Graves&#34;&#10;## &#10;## $temperature&#10;## [1]  98.1  98.6 101.4&#10;## &#10;## $flu_status&#10;## [1] FALSE FALSE  TRUE&#10;## &#10;## $gender&#10;## [1] MALE   FEMALE MALE  &#10;## Levels: FEMALE MALE&#10;## &#10;## $blood&#10;## [1] O  AB A &#10;## Levels: A B AB O</span><br></pre></td></tr></table></figure>
+<p>全部信息同时都有了，如果我只想看某个变量那么：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject[<span class="number">1</span>][<span class="number">1</span>] <span class="comment">#代表查看list中第一个元素的第1列变量值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## $fullname&#10;## [1] &#34;John Doe&#34;     &#34;Jane Doe&#34;     &#34;Steve Graves&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject$temperature <span class="comment">#代表查看list中temperature列</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1]  98.1  98.6 101.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject[c(<span class="string">"temperature"</span>, <span class="string">"flu_status"</span>)]  <span class="comment">#代表查看list中temperature列以及flu_status列</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## $temperature&#10;## [1]  98.1  98.6 101.4&#10;## &#10;## $flu_status&#10;## [1] FALSE FALSE  TRUE</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/数据科学/">数据科学</a><a href="/tags/机器学习/">机器学习</a><a href="/tags/机器学习与R/">机器学习与R</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/08/16/2014-8-16-machine-learning-and-R(4)-data-prepare/" data-title="机器学习与R(4)-数据准备 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/08/16/2014-8-16-machine-learning-and-R(5)-data-prepare-cont/" title="机器学习与R(5)-数据准备续">
+  <strong>上一篇：</strong><br/>
+  <span>
+  机器学习与R(5)-数据准备续</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/16/2014-8-16-machine-learning-and-R(3)-use-r-for-machine-learning/"  title="机器学习与R(3)-利用R进行机器学习">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习与R(3)-利用R进行机器学习
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/08/16/2014-8-16-machine-learning-and-R(4)-data-prepare/" data-title="机器学习与R(4)-数据准备" data-url="http://www.zjdian.com/2014/08/16/2014-8-16-machine-learning-and-R(4)-data-prepare/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#R_u6570_u636E_u7ED3_u6784"><span class="toc-number">1.</span> <span class="toc-text">R数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vectors"><span class="toc-number">1.1.</span> <span class="toc-text">vectors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factors"><span class="toc-number">1.2.</span> <span class="toc-text">Factors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lists"><span class="toc-number">1.3.</span> <span class="toc-text">Lists</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

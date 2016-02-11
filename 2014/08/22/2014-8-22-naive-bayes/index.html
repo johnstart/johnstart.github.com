@@ -1,0 +1,729 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>机器学习与R(10)-朴素贝叶斯 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="Naive Bayes关于贝叶斯定理阮一峰的博客已经写得相当好了，我就不献丑了，要了解看这里：
+贝叶斯推断及其互联网应用（一）：定理简介贝叶斯推断及其互联网应用（二）：过滤垃圾邮件  
+朴素贝叶斯则是利用贝叶斯定理来进行分类的方法。它具有以下优点：
+
+简单，快速，有效
+能很好处理噪声，缺失数据
+对小和大样本都可以
+比较容易获得预测的概率估计
+
+不过它也存在：
+
+要求特征间平等及重要性相同，特征相互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习与R(10)-朴素贝叶斯">
+<meta property="og:url" content="http://www.zjdian.com/2014/08/22/2014-8-22-naive-bayes/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="Naive Bayes关于贝叶斯定理阮一峰的博客已经写得相当好了，我就不献丑了，要了解看这里：
+贝叶斯推断及其互联网应用（一）：定理简介贝叶斯推断及其互联网应用（二）：过滤垃圾邮件  
+朴素贝叶斯则是利用贝叶斯定理来进行分类的方法。它具有以下优点：
+
+简单，快速，有效
+能很好处理噪声，缺失数据
+对小和大样本都可以
+比较容易获得预测的概率估计
+
+不过它也存在：
+
+要求特征间平等及重要性相同，特征相互">
+<meta property="og:image" content="http://www.zjdian.com/img/rmachine/bayes-laplace.png">
+<meta property="og:image" content="http://www.zjdian.com/img/rmachine/rmachine-10-8.png">
+<meta property="og:image" content="http://www.zjdian.com/img/rmachine/rmachine-10-91.png">
+<meta property="og:image" content="http://www.zjdian.com/img/rmachine/rmachine-10-92.png">
+<meta property="og:updated_time" content="2014-08-22T12:10:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习与R(10)-朴素贝叶斯">
+<meta name="twitter:description" content="Naive Bayes关于贝叶斯定理阮一峰的博客已经写得相当好了，我就不献丑了，要了解看这里：
+贝叶斯推断及其互联网应用（一）：定理简介贝叶斯推断及其互联网应用（二）：过滤垃圾邮件  
+朴素贝叶斯则是利用贝叶斯定理来进行分类的方法。它具有以下优点：
+
+简单，快速，有效
+能很好处理噪声，缺失数据
+对小和大样本都可以
+比较容易获得预测的概率估计
+
+不过它也存在：
+
+要求特征间平等及重要性相同，特征相互">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/22/2014-8-22-naive-bayes/" title="机器学习与R(10)-朴素贝叶斯" itemprop="url">机器学习与R(10)-朴素贝叶斯</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-22T11:49:24.000Z" itemprop="datePublished"> 發表於 2014 Aug 22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Naive_Bayes"><span class="toc-number">1.</span> <span class="toc-text">Naive Bayes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u62C9_u666E_u62C9_u65AF_u4F30_u8BA1_u503C"><span class="toc-number">2.</span> <span class="toc-text">拉普拉斯估计值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u5B57_u7279_u5F81_u7684_u5904_u7406"><span class="toc-number">3.</span> <span class="toc-text">数字特征的处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5229_u7528_u6734_u7D20_u8D1D_u53F6_u65AF_u6765_u5224_u65AD_u5783_u573E_u77ED_u4FE1"><span class="toc-number"></span> <span class="toc-text">利用朴素贝叶斯来判断垃圾短信</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u9884_u5904_u7406"><span class="toc-number">2.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907_u8BAD_u7EC3_u4E0E_u6D4B_u8BD5_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">准备训练与测试数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wordcloud"><span class="toc-number">4.</span> <span class="toc-text">wordcloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BCD_u9891"><span class="toc-number">5.</span> <span class="toc-text">词频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u8BAD_u7EC3"><span class="toc-number">6.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u8BC4_u4F30"><span class="toc-number">7.</span> <span class="toc-text">模型评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u6539_u8FDB"><span class="toc-number">8.</span> <span class="toc-text">模型改进</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="Naive_Bayes"><a href="#Naive_Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h2><p>关于贝叶斯定理阮一峰的博客已经写得相当好了，我就不献丑了，要了解看这里：</p>
+<p><a href="http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_one.html" target="_blank" rel="external">贝叶斯推断及其互联网应用（一）：定理简介</a><br><a href="http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_two.html" target="_blank" rel="external">贝叶斯推断及其互联网应用（二）：过滤垃圾邮件</a>  </p>
+<p>朴素贝叶斯则是利用贝叶斯定理来进行分类的方法。它具有以下优点：</p>
+<ul>
+<li>简单，快速，有效</li>
+<li>能很好处理噪声，缺失数据</li>
+<li>对小和大样本都可以</li>
+<li>比较容易获得预测的概率估计</li>
+</ul>
+<p>不过它也存在：</p>
+<ul>
+<li>要求特征间平等及重要性相同，特征相互独立（通常不会存在，这也是为什么要叫naive的原因）</li>
+<li>对主要是大量数字特征的数据集不太适合</li>
+<li>估计概率不如分类可靠（所以一般用它来分类）</li>
+</ul>
+<h2 id="u62C9_u666E_u62C9_u65AF_u4F30_u8BA1_u503C"><a href="#u62C9_u666E_u62C9_u65AF_u4F30_u8BA1_u503C" class="headerlink" title="拉普拉斯估计值"></a>拉普拉斯估计值</h2><p>朴素贝叶斯用来进行文本分类通常存在一个问题，如果训练的数据中某个词没有出现过，那么该词的概率就变成了0，从而如公式所示，整个计算的垃圾邮件概率就变成了0，这显然不合理，于是就有了拉普拉斯估计的应用，我们给它预估一个值这样就可以避免问题的出现了。</p>
+<p><img src="/img/rmachine/bayes-laplace.png" alt="垃圾邮件计算示例"></p>
+<h2 id="u6570_u5B57_u7279_u5F81_u7684_u5904_u7406"><a href="#u6570_u5B57_u7279_u5F81_u7684_u5904_u7406" class="headerlink" title="数字特征的处理"></a>数字特征的处理</h2><p>贝叶斯是通过计算频数来进行学习，这显然只能用于分类数据，对于连续数据这时可以考虑把它进行分区（bin）处理，比如利用<code>cut</code>函数。不过需要注意的是这样会导致信息的丢失。</p>
+<h1 id="u5229_u7528_u6734_u7D20_u8D1D_u53F6_u65AF_u6765_u5224_u65AD_u5783_u573E_u77ED_u4FE1"><a href="#u5229_u7528_u6734_u7D20_u8D1D_u53F6_u65AF_u6765_u5224_u65AD_u5783_u573E_u77ED_u4FE1" class="headerlink" title="利用朴素贝叶斯来判断垃圾短信"></a>利用朴素贝叶斯来判断垃圾短信</h1><p>这里我们以判断垃圾短信为例，数据来自<a href="http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/" target="_blank" rel="external">sms spam</a>数据集</p>
+<h2 id="u6570_u636E_u51C6_u5907"><a href="#u6570_u636E_u51C6_u5907" class="headerlink" title="数据准备"></a>数据准备</h2><p>把数据下载后读入：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sms_raw &lt;- read.table(<span class="string">"SMSSpamCollection"</span>, stringsAsFactors = <span class="literal">FALSE</span>, sep = <span class="string">"\t"</span>, </span><br><span class="line">    header = <span class="literal">F</span>, comment = <span class="string">""</span>, quote = <span class="literal">NULL</span>)</span><br><span class="line">names(sms_raw) = c(<span class="string">"type"</span>, <span class="string">"text"</span>)</span><br><span class="line">str(sms_raw)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#39;data.frame&#39;:&#9;5574 obs. of  2 variables:&#10;##  $ type: chr  &#34;ham&#34; &#34;ham&#34; &#34;spam&#34; &#34;ham&#34; ...&#10;##  $ text: chr  &#34;Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...&#34; &#34;Ok lar... Joking wif u oni...&#34; &#34;Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&#38;C&#34;| __truncated__ &#34;U dun say so early hor... U c already then say...&#34; ...</span><br></pre></td></tr></table></figure>
+<p>注意如果在<code>read.table</code>里面不指定<code>quote=NULL</code>那么会遇到如下问题</p>
+<blockquote>
+<p>Warning message:In scan(file, what, nmax, sep, dec, quote, skip, nlines, na.strings,  :  EOF within quoted string</p>
+</blockquote>
+<p>实际上你如果仔细研究一下数据，你可以发现这是因为数据里面的5082行开始有<code>&quot;&quot;</code>导致。</p>
+<p>接下来将<code>type</code>转换为factor变量，因为贝叶斯分类要求目标变量为factor类型。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sms_raw$type = factor(sms_raw$type)</span><br><span class="line">table(sms_raw$type)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##  ham spam &#10;## 4827  747</span><br></pre></td></tr></table></figure>
+<p>数据集里面有4827条正常短信，747条垃圾短信</p>
+<h2 id="u6570_u636E_u9884_u5904_u7406"><a href="#u6570_u636E_u9884_u5904_u7406" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>对于文本的分析通常我们会用到<a href="http://tm.r-forge.r-project.org/" target="_blank" rel="external"><code>tm</code>包</a></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(tm)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: tm</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sms_corpus &lt;- Corpus(VectorSource(sms_raw$text))</span><br></pre></td></tr></table></figure>
+<p>这里将原始数据中的短消息都作为向量输入构建语料库</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sms_corpus)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## A corpus with 5574 text documents</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inspect(sms_corpus[<span class="number">1</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## A corpus with 3 text documents&#10;## &#10;## The metadata consists of 2 tag-value pairs and a data frame&#10;## Available tags are:&#10;##   create_date creator &#10;## Available variables in the data frame are:&#10;##   MetaID &#10;## &#10;## [[1]]&#10;## Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...&#10;## &#10;## [[2]]&#10;## Ok lar... Joking wif u oni...&#10;## &#10;## [[3]]&#10;## Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&#38;C&#39;s apply 08452810075over18&#39;s</span><br></pre></td></tr></table></figure>
+<p>这里可以看出语料库有5574个文档，实际与我们的数据集样本数一样。每个文档对应的就是一条短信。从前3条短信我们看出，文档的里面有标题，数字，还有标点符号，以及大小写，为了方便分析我们进行如下处理：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">corpus_clean &lt;- tm_map(sms_corpus, tolower)</span><br><span class="line">corpus_clean &lt;- tm_map(corpus_clean, removeNumbers)</span><br><span class="line">corpus_clean &lt;- tm_map(corpus_clean, removeWords, stopwords())</span><br><span class="line">corpus_clean &lt;- tm_map(corpus_clean, removePunctuation)</span><br><span class="line">corpus_clean &lt;- tm_map(corpus_clean, stripWhitespace)</span><br><span class="line">inspect(corpus_clean[<span class="number">1</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## A corpus with 3 text documents&#10;## &#10;## The metadata consists of 2 tag-value pairs and a data frame&#10;## Available tags are:&#10;##   create_date creator &#10;## Available variables in the data frame are:&#10;##   MetaID &#10;## &#10;## [[1]]&#10;## go jurong point crazy available bugis n great world la e buffet cine got amore wat&#10;## &#10;## [[2]]&#10;## ok lar joking wif u oni&#10;## &#10;## [[3]]&#10;## free entry wkly comp win fa cup final tkts st may text fa receive entry questionstd txt ratetcs apply s</span><br></pre></td></tr></table></figure>
+<p>以上依次把所有词转换为小写，去掉数字，去掉停止词（就是类似and，or，the之类，也就是冠词、介词、副词或连词），去掉标点，最后去掉所有空格。</p>
+<p>完成了上述步骤，我们就需要统计每个词在文档中出现的频率了，这可以通过构建document term稀疏矩阵完成，这个稀疏矩阵的行对应一个文档，列则对应了每个词。term document则反过来。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sms_dtm &lt;- DocumentTermMatrix(corpus_clean)</span><br></pre></td></tr></table></figure>
+<h2 id="u51C6_u5907_u8BAD_u7EC3_u4E0E_u6D4B_u8BD5_u6570_u636E"><a href="#u51C6_u5907_u8BAD_u7EC3_u4E0E_u6D4B_u8BD5_u6570_u636E" class="headerlink" title="准备训练与测试数据"></a>准备训练与测试数据</h2><p>有了上面的矩阵，我们就可以开始准备训练数据与测试数据了，还是用<code>caret</code>包的<code>createDataPartition</code>来完成，可以看出训练与测试数据中的垃圾短信比例都相似。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(caret)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: caret</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: package &#39;caret&#39; was built under R version 3.0.3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: lattice&#10;## Loading required package: ggplot2</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">2014</span>)</span><br><span class="line">inTrain = createDataPartition(y = sms_raw$type, p = <span class="number">0.75</span>, list = <span class="literal">FALSE</span>)</span><br><span class="line">sms_raw_train = sms_raw[inTrain, ]</span><br><span class="line">sms_raw_test = sms_raw[-inTrain, ]</span><br><span class="line"></span><br><span class="line">sms_dtm_train = sms_dtm[inTrain, ]</span><br><span class="line">sms_dtm_test = sms_dtm[-inTrain, ]</span><br><span class="line"></span><br><span class="line">sms_corpus_train = corpus_clean[inTrain]</span><br><span class="line">sms_corpus_test = corpus_clean[-inTrain]</span><br><span class="line"></span><br><span class="line">prop.table(table(sms_raw_train$type))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##    ham   spam &#10;## 0.8659 0.1341</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prop.table(table(sms_raw_test$type))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##    ham   spam &#10;## 0.8664 0.1336</span><br></pre></td></tr></table></figure>
+<h2 id="wordcloud"><a href="#wordcloud" class="headerlink" title="wordcloud"></a>wordcloud</h2><p>最简单的文本分析方法就是市场词云了，我们用<code>wordcloud</code>包</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(wordcloud)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: wordcloud&#10;## Loading required package: Rcpp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: package &#39;Rcpp&#39; was built under R version 3.0.3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: RColorBrewer</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wordcloud(sms_corpus_train, min.freq = <span class="number">40</span>, random.order = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/rmachine/rmachine-10-8.png" alt=""> </p>
+<p>这里的<code>min.freq</code>是词出现的最小频率，通常我们用语料库的10%来开始(训练语料库有4182个文档)。上面那个词云只是给出了一个总体印象，对我们的分析没有太大帮助，所有我们考虑分布看看垃圾邮件与正常邮件的区别</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spam &lt;- subset(sms_raw_train, type == <span class="string">"spam"</span>)</span><br><span class="line">ham &lt;- subset(sms_raw_train, type == <span class="string">"ham"</span>)</span><br><span class="line">wordcloud(spam$text, max.words = <span class="number">40</span>, scale = c(<span class="number">3</span>, <span class="number">0.5</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/img/rmachine/rmachine-10-91.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wordcloud(ham$text, max.words = <span class="number">40</span>, scale = c(<span class="number">3</span>, <span class="number">0.5</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/img/rmachine/rmachine-10-92.png" alt=""> </p>
+<p>很显然可以看出垃圾邮件里面<code>free,now,prize,text claim</code>比较多。</p>
+<h2 id="u8BCD_u9891"><a href="#u8BCD_u9891" class="headerlink" title="词频"></a>词频</h2><p>把所有的词都考虑进来显然不是很好的方法，我们的矩阵有7986个特征，因此我们需要考虑缩小范围，于是采用<code>findFreqTerms</code>的方法取大于5的特征（具体取多少根据数据的数据情况）：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findFreqTerms(sms_dtm_train, <span class="number">5</span>)[<span class="number">10</span>:<span class="number">20</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] &#34;actually&#34;  &#34;add&#34;       &#34;address&#34;   &#34;admirer&#34;   &#34;advance&#34;  &#10;##  [6] &#34;aft&#34;       &#34;afternoon&#34; &#34;age&#34;       &#34;ago&#34;       &#34;ahead&#34;    &#10;## [11] &#34;aight&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sms_dict &lt;- Dictionary(findFreqTerms(sms_dtm_train, <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p>获得了频数大于5的词后，我们再利用它来生成一个字典，这样可以在文档矩阵中指出，我只取字典中有的词，新的矩阵就只有1252个特征了。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sms_train &lt;- DocumentTermMatrix(sms_corpus_train, list(dictionary = sms_dict))</span><br><span class="line">sms_test &lt;- DocumentTermMatrix(sms_corpus_test, list(dictionary = sms_dict))</span><br></pre></td></tr></table></figure>
+<p>我们的目标是想通过短信里面有或者是没有某个词来判断是否是垃圾短信，那么我们很显然应该使用的矩阵是标记某个词在某个短信中出现了还是没有出现。因此写个函数来完成这一个功能：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">convert_counts &lt;- <span class="keyword">function</span>(x) &#123;</span><br><span class="line">    x &lt;- ifelse(x &gt; <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    x &lt;- factor(x, levels = c(<span class="number">0</span>, <span class="number">1</span>), labels = c(<span class="string">"No"</span>, <span class="string">"Yes"</span>))</span><br><span class="line">    <span class="keyword">return</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对矩阵每一列进行这样的处理：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sms_train &lt;- apply(sms_train, MARGIN = <span class="number">2</span>, convert_counts)</span><br><span class="line">sms_test &lt;- apply(sms_test, MARGIN = <span class="number">2</span>, convert_counts)</span><br></pre></td></tr></table></figure>
+<p>于是我们可以得到最终用来构建模型的数据集。</p>
+<h2 id="u6A21_u578B_u8BAD_u7EC3"><a href="#u6A21_u578B_u8BAD_u7EC3" class="headerlink" title="模型训练"></a>模型训练</h2><p>在R里面有多个包都提供朴素贝叶斯分类，比如<code>e1071</code>包，还有<code>klaR</code>包的<code>NaiveBayes()</code>。这里使用<code>e1071</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(e1071)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: e1071&#10;## Loading required package: class</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sms_classifier &lt;- naiveBayes(sms_train, sms_raw_train$type)</span><br></pre></td></tr></table></figure>
+<p>于是我们得到了分类器<code>sms_classifier</code></p>
+<h2 id="u6A21_u578B_u8BC4_u4F30"><a href="#u6A21_u578B_u8BC4_u4F30" class="headerlink" title="模型评估"></a>模型评估</h2><p>有了模型就可以对测试数据进行预测:</p>
+<p>`pred(m,test,type=”class”)</p>
+<p>这里的type如果为class代表是分类，如果是raw则代表概率的计算</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sms_test_pred &lt;- predict(sms_classifier, sms_test)</span><br><span class="line"><span class="keyword">require</span>(gmodels)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: gmodels</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: package &#39;gmodels&#39; was built under R version 3.0.3</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CrossTable(sms_test_pred, sms_raw_test$type, prop.chisq = <span class="literal">FALSE</span>, prop.t = <span class="literal">FALSE</span>, </span><br><span class="line">    dnn = c(<span class="string">"predicted"</span>, <span class="string">"actual"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##  &#10;##    Cell Contents&#10;## |-------------------------|&#10;## |                       N |&#10;## |           N / Row Total |&#10;## |           N / Col Total |&#10;## |-------------------------|&#10;## &#10;##  &#10;## Total Observations in Table:  1392 &#10;## &#10;##  &#10;##              | actual &#10;##    predicted |       ham |      spam | Row Total | &#10;## -------------|-----------|-----------|-----------|&#10;##          ham |      1202 |        29 |      1231 | &#10;##              |     0.976 |     0.024 |     0.884 | &#10;##              |     0.997 |     0.156 |           | &#10;## -------------|-----------|-----------|-----------|&#10;##         spam |         4 |       157 |       161 | &#10;##              |     0.025 |     0.975 |     0.116 | &#10;##              |     0.003 |     0.844 |           | &#10;## -------------|-----------|-----------|-----------|&#10;## Column Total |      1206 |       186 |      1392 | &#10;##              |     0.866 |     0.134 |           | &#10;## -------------|-----------|-----------|-----------|&#10;## &#10;##</span><br></pre></td></tr></table></figure>
+<p>我们可以看出简单的贝叶斯模型的效果却很好，97.6%的正确率，186封垃圾邮件中29封误判为了正常邮件。而1206封正常邮件中4封误判为垃圾邮件。把正常邮件误判为垃圾邮件的影响显然更大，这是需要考虑的地方。</p>
+<h2 id="u6A21_u578B_u6539_u8FDB"><a href="#u6A21_u578B_u6539_u8FDB" class="headerlink" title="模型改进"></a>模型改进</h2><p>前面说过了拉普拉斯估计的问题，那么如果我们假设拉普拉斯估计会怎么样呢？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sms_classifier2 &lt;- naiveBayes(sms_train, sms_raw_train$type, laplace = <span class="number">1</span>)</span><br><span class="line">sms_test_pred2 &lt;- predict(sms_classifier2, sms_test)</span><br><span class="line">CrossTable(sms_test_pred2, sms_raw_test$type, prop.chisq = <span class="literal">FALSE</span>, prop.t = <span class="literal">FALSE</span>, </span><br><span class="line">    prop.r = <span class="literal">FALSE</span>, dnn = c(<span class="string">"predicted"</span>, <span class="string">"actual"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##  &#10;##    Cell Contents&#10;## |-------------------------|&#10;## |                       N |&#10;## |           N / Col Total |&#10;## |-------------------------|&#10;## &#10;##  &#10;## Total Observations in Table:  1392 &#10;## &#10;##  &#10;##              | actual &#10;##    predicted |       ham |      spam | Row Total | &#10;## -------------|-----------|-----------|-----------|&#10;##          ham |      1204 |        30 |      1234 | &#10;##              |     0.998 |     0.161 |           | &#10;## -------------|-----------|-----------|-----------|&#10;##         spam |         2 |       156 |       158 | &#10;##              |     0.002 |     0.839 |           | &#10;## -------------|-----------|-----------|-----------|&#10;## Column Total |      1206 |       186 |      1392 | &#10;##              |     0.866 |     0.134 |           | &#10;## -------------|-----------|-----------|-----------|&#10;## &#10;##</span><br></pre></td></tr></table></figure>
+<p>加了拉普拉斯估计后，正常邮件误判为垃圾邮件减少了2封，而垃圾邮件误判为正常邮件的增加了1封。似乎新的模型要好些。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/数据科学/">数据科学</a><a href="/tags/机器学习/">机器学习</a><a href="/tags/机器学习与R/">机器学习与R</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/08/22/2014-8-22-naive-bayes/" data-title="机器学习与R(10)-朴素贝叶斯 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/08/2014-9-8-data-science-chp8-big-data/" title="数据科学(8)-第八章：大数据">
+  <strong>上一篇：</strong><br/>
+  <span>
+  数据科学(8)-第八章：大数据</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/22/2014-8-22-kNN-2/"  title="机器学习与R(9)-k nearest neighbors-2">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习与R(9)-k nearest neighbors-2
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/08/22/2014-8-22-naive-bayes/" data-title="机器学习与R(10)-朴素贝叶斯" data-url="http://www.zjdian.com/2014/08/22/2014-8-22-naive-bayes/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Naive_Bayes"><span class="toc-number">1.</span> <span class="toc-text">Naive Bayes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u62C9_u666E_u62C9_u65AF_u4F30_u8BA1_u503C"><span class="toc-number">2.</span> <span class="toc-text">拉普拉斯估计值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u5B57_u7279_u5F81_u7684_u5904_u7406"><span class="toc-number">3.</span> <span class="toc-text">数字特征的处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5229_u7528_u6734_u7D20_u8D1D_u53F6_u65AF_u6765_u5224_u65AD_u5783_u573E_u77ED_u4FE1"><span class="toc-number"></span> <span class="toc-text">利用朴素贝叶斯来判断垃圾短信</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u51C6_u5907"><span class="toc-number">1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u9884_u5904_u7406"><span class="toc-number">2.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907_u8BAD_u7EC3_u4E0E_u6D4B_u8BD5_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">准备训练与测试数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wordcloud"><span class="toc-number">4.</span> <span class="toc-text">wordcloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BCD_u9891"><span class="toc-number">5.</span> <span class="toc-text">词频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u8BAD_u7EC3"><span class="toc-number">6.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u8BC4_u4F30"><span class="toc-number">7.</span> <span class="toc-text">模型评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6A21_u578B_u6539_u8FDB"><span class="toc-number">8.</span> <span class="toc-text">模型改进</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

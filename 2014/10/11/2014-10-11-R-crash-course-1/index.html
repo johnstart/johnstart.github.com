@@ -1,0 +1,940 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>R Your Ready? 100分钟R入门教程(上) | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="内容
+安装
+R使用初步
+vector,list,data frame
+read data
+packages
+R编程
+table (选讲)
+t检验(选讲)
+
+安装下载Windows下分别安装：
+
+R  
+Rstudio  
+
+Linux下安装:
+sudo apt-get install r-base
+R 初体验输入命令
+R命令大小写敏感
+R的命令实际就是一个个的函数  
+
+function.name">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R Your Ready? 100分钟R入门教程(上)">
+<meta property="og:url" content="http://www.zjdian.com/2014/10/11/2014-10-11-R-crash-course-1/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="内容
+安装
+R使用初步
+vector,list,data frame
+read data
+packages
+R编程
+table (选讲)
+t检验(选讲)
+
+安装下载Windows下分别安装：
+
+R  
+Rstudio  
+
+Linux下安装:
+sudo apt-get install r-base
+R 初体验输入命令
+R命令大小写敏感
+R的命令实际就是一个个的函数  
+
+function.name">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-11.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-12.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-13.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-141.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-142.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/training/crashcourse/unnamed-chunk-15.png">
+<meta property="og:updated_time" content="2014-10-11T14:47:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R Your Ready? 100分钟R入门教程(上)">
+<meta name="twitter:description" content="内容
+安装
+R使用初步
+vector,list,data frame
+read data
+packages
+R编程
+table (选讲)
+t检验(选讲)
+
+安装下载Windows下分别安装：
+
+R  
+Rstudio  
+
+Linux下安装:
+sudo apt-get install r-base
+R 初体验输入命令
+R命令大小写敏感
+R的命令实际就是一个个的函数  
+
+function.name">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/11/2014-10-11-R-crash-course-1/" title="R Your Ready? 100分钟R入门教程(上)" itemprop="url">R Your Ready? 100分钟R入门教程(上)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-11T14:28:30.000Z" itemprop="datePublished"> 發表於 2014 Oct 11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5185_u5BB9"><span class="toc-number">1.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5_u4E0B_u8F7D"><span class="toc-number">2.</span> <span class="toc-text">安装下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R__u521D_u4F53_u9A8C"><span class="toc-number">3.</span> <span class="toc-text">R 初体验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u8F93_u5165_u547D_u4EE4"><span class="toc-number">3.1.</span> <span class="toc-text">输入命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B80_u5355_u6570_u636E_u5F55_u5165"><span class="toc-number">3.2.</span> <span class="toc-text">简单数据录入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7406_u89E3R_u63A7_u5236_u53F0_u91CC_u9762_u7684_u8F93_u51FA"><span class="toc-number">3.3.</span> <span class="toc-text">理解R控制台里面的输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5EFA_u7ACB_u4E00_u4E2A_u9891_u6570_u8868"><span class="toc-number">3.4.</span> <span class="toc-text">建立一个频数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5BF9_u9891_u6570_u8868_u8FDB_u884C_u7EDF_u8BA1"><span class="toc-number">3.5.</span> <span class="toc-text">对频数表进行统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5BF9_u6570_u5B57_u53D8_u91CF_u5206_u7EC4"><span class="toc-number">3.6.</span> <span class="toc-text">对数字变量分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u7EF4_u5411_u91CF_u7684_u830E_u53F6_u56FE_u8868_u793A"><span class="toc-number">3.7.</span> <span class="toc-text">一维向量的茎叶图表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u76F4_u65B9_u56FE"><span class="toc-number">3.8.</span> <span class="toc-text">直方图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Categorical__28nominal_29__u6570_u636E"><span class="toc-number">3.9.</span> <span class="toc-text">Categorical (nominal) 数据.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BA1_u7B97"><span class="toc-number">3.10.</span> <span class="toc-text">计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u5B66_u51FD_u6570"><span class="toc-number">3.11.</span> <span class="toc-text">数学函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u63CF_u8FF0_u6027_u7EDF_u8BA1"><span class="toc-number">3.12.</span> <span class="toc-text">描述性统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u662F_u81EA_u5DF1_u5BFB_u6C42_u7B54_u6848_u7684_u65F6_u5019_u4E86-help"><span class="toc-number">3.13.</span> <span class="toc-text">是自己寻求答案的时候了-help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vector_2Cdata_frame__u4E0E_list_2Cfactor"><span class="toc-number">4.</span> <span class="toc-text">vector,data frame 与 list,factor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u53D6_u5B50_u96C6"><span class="toc-number">4.1.</span> <span class="toc-text">vector 取子集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector_u64CD_u4F5C"><span class="toc-number">4.2.</span> <span class="toc-text">vector操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u64CD_u4F5C"><span class="toc-number">4.3.</span> <span class="toc-text">vector 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u64CD_u4F5C-1"><span class="toc-number">4.4.</span> <span class="toc-text">vector 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factor"><span class="toc-number">4.5.</span> <span class="toc-text">Factor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factor_u6392_u5E8F"><span class="toc-number">4.6.</span> <span class="toc-text">Factor排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5C06Factor_u8F6C_u6362_u4E3A_u5176_u4ED6_u7C7B_u578B"><span class="toc-number">4.7.</span> <span class="toc-text">将Factor转换为其他类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame"><span class="toc-number">4.8.</span> <span class="toc-text">data frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame__u5E38_u7528_u64CD_u4F5C"><span class="toc-number">4.9.</span> <span class="toc-text">data frame 常用操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u67E5_u770Bdata_frame"><span class="toc-number">4.10.</span> <span class="toc-text">查看data frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame_u64CD_u4F5C"><span class="toc-number">4.11.</span> <span class="toc-text">data frame操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame_u64CD_u4F5C-1"><span class="toc-number">4.12.</span> <span class="toc-text">data frame操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u4ECB_u7ECD"><span class="toc-number">4.13.</span> <span class="toc-text">list介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u64CD_u4F5C"><span class="toc-number">4.14.</span> <span class="toc-text">list操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u64CD_u4F5C-1"><span class="toc-number">4.15.</span> <span class="toc-text">list操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EC3_u4E60"><span class="toc-number">5.1.</span> <span class="toc-text">练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">5.2.</span> <span class="toc-text">sort</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="u5185_u5BB9"><a href="#u5185_u5BB9" class="headerlink" title="内容"></a>内容</h1><ul>
+<li>安装</li>
+<li>R使用初步</li>
+<li>vector,list,data frame</li>
+<li>read data</li>
+<li>packages</li>
+<li>R编程</li>
+<li>table (选讲)</li>
+<li>t检验(选讲)</li>
+</ul>
+<h1 id="u5B89_u88C5_u4E0B_u8F7D"><a href="#u5B89_u88C5_u4E0B_u8F7D" class="headerlink" title="安装下载"></a>安装下载</h1><p>Windows下分别安装：</p>
+<ul>
+<li><a href="http://www.r-project.org" target="_blank" rel="external">R</a>  </li>
+<li><a href="http://www.rstudio.com" target="_blank" rel="external">Rstudio</a>  </li>
+</ul>
+<p>Linux下安装:</p>
+<p><code>sudo apt-get install r-base</code></p>
+<h1 id="R__u521D_u4F53_u9A8C"><a href="#R__u521D_u4F53_u9A8C" class="headerlink" title="R 初体验"></a>R 初体验</h1><h2 id="u8F93_u5165_u547D_u4EE4"><a href="#u8F93_u5165_u547D_u4EE4" class="headerlink" title="输入命令"></a>输入命令</h2><ul>
+<li>R命令大小写敏感</li>
+<li>R的命令实际就是一个个的函数  </li>
+</ul>
+<p><code>function.name( arguments, options )</code></p>
+<p><code>quit()  #退出R</code></p>
+<p><code>rm( myData )  #删除变量myData</code></p>
+<ul>
+<li>#代表注释</li>
+</ul>
+<h2 id="u7B80_u5355_u6570_u636E_u5F55_u5165"><a href="#u7B80_u5355_u6570_u636E_u5F55_u5165" class="headerlink" title="简单数据录入"></a>简单数据录入</h2><p>简单的小数据集通常可以用 c() 函数输入来获得一个数据向量</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my.data = c( <span class="number">22</span>, <span class="number">38</span>, <span class="number">12</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">18</span>, <span class="number">16</span>, <span class="number">24</span> )</span><br><span class="line">my.data                         <span class="comment"># 隐式调用print(my.data)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 22 38 12 23 29 18 16 24</span><br></pre></td></tr></table></figure>
+<p>修改向量中的值my.data[i]，注意R里面的索引是从1开始</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my.data[<span class="number">3</span>] = <span class="number">19</span></span><br><span class="line">my.data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 22 38 19 23 29 18 16 24</span><br></pre></td></tr></table></figure>
+<h2 id="u7406_u89E3R_u63A7_u5236_u53F0_u91CC_u9762_u7684_u8F93_u51FA"><a href="#u7406_u89E3R_u63A7_u5236_u53F0_u91CC_u9762_u7684_u8F93_u51FA" class="headerlink" title="理解R控制台里面的输出"></a>理解R控制台里面的输出</h2><p>R不仅打印变量的值，同时还会输出索引.例如系统数据rivers给出了北美141条主要河流的长度（miles）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rivers</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##   [1]  735  320  325  392  524  450 1459  135  465  600  330  336  280  315&#10;##  [15]  870  906  202  329  290 1000  600  505 1450  840 1243  890  350  407&#10;##  [29]  286  280  525  720  390  250  327  230  265  850  210  630  260  230&#10;##  [43]  360  730  600  306  390  420  291  710  340  217  281  352  259  250&#10;##  [57]  470  680  570  350  300  560  900  625  332 2348 1171 3710 2315 2533&#10;##  [71]  780  280  410  460  260  255  431  350  760  618  338  981 1306  500&#10;##  [85]  696  605  250  411 1054  735  233  435  490  310  460  383  375 1270&#10;##  [99]  545  445 1885  380  300  380  377  425  276  210  800  420  350  360&#10;## [113]  538 1100 1205  314  237  610  360  540 1038  424  310  300  444  301&#10;## [127]  268  620  215  652  900  525  246  360  529  500  720  270  430  671&#10;## [141] 1770</span><br></pre></td></tr></table></figure>
+<p>除了用以下方式访问</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rivers[<span class="number">121</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1038</span><br></pre></td></tr></table></figure>
+<p>还可以用类似python里面的slice的方式访问</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rivers[ <span class="number">10</span>:<span class="number">20</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1]  600  330  336  280  315  870  906  202  329  290 1000</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rivers[<span class="number">1</span>:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 735 320 325 392 524</span><br></pre></td></tr></table></figure>
+<h2 id="u5EFA_u7ACB_u4E00_u4E2A_u9891_u6570_u8868"><a href="#u5EFA_u7ACB_u4E00_u4E2A_u9891_u6570_u8868" class="headerlink" title="建立一个频数表"></a>建立一个频数表</h2><p>假设我们想输入这样的一个数据：</p>
+<pre><code>  X     f
+-----------
+  7     3
+  6     0
+  5     2
+  4     7
+  3     5
+  2     1
+  1     1
+</code></pre><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X = <span class="number">7</span>:<span class="number">1</span>   <span class="comment"># X = c( 7, 6, 5, 4, 3, 2, 1 )</span></span><br><span class="line">f = c( <span class="number">3</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">1</span> )</span><br><span class="line">the.data = rep( X, f )          <span class="comment"># rep() == repeat function</span></span><br><span class="line">the.data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 7 7 7 5 5 4 4 4 4 4 4 4 3 3 3 3 3 2 1</span><br></pre></td></tr></table></figure>
+<h2 id="u5BF9_u9891_u6570_u8868_u8FDB_u884C_u7EDF_u8BA1"><a href="#u5BF9_u9891_u6570_u8868_u8FDB_u884C_u7EDF_u8BA1" class="headerlink" title="对频数表进行统计"></a>对频数表进行统计</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## the.data&#10;## 1 2 3 4 5 7 &#10;## 1 1 5 7 2 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the.data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 7 7 7 5 5 4 4 4 4 4 4 4 3 3 3 3 3 2 1</span><br></pre></td></tr></table></figure>
+<p>这里的输出第一行是代表了X列，而第二行则代表了f列。</p>
+<h2 id="u5BF9_u6570_u5B57_u53D8_u91CF_u5206_u7EC4"><a href="#u5BF9_u6570_u5B57_u53D8_u91CF_u5206_u7EC4" class="headerlink" title="对数字变量分组"></a>对数字变量分组</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my.data=c(<span class="number">1</span>:<span class="number">10</span>,<span class="number">15</span>:<span class="number">19</span>,<span class="number">24</span>:<span class="number">30</span>)</span><br><span class="line">my.data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1]  1  2  3  4  5  6  7  8  9 10 15 16 17 18 19 24 25 26 27 28 29 30</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bins = seq( from=<span class="number">10</span>, to=<span class="number">30</span>, by=<span class="number">5</span>)</span><br><span class="line"><span class="comment"># bins = c( 10, 15, 20, 25, 30 ) </span></span><br><span class="line">table( cut( my.data, bins ))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;## (10,15] (15,20] (20,25] (25,30] &#10;##       1       4       2       5</span><br></pre></td></tr></table></figure>
+<p><code>cut</code>缺省不包含左侧，包含右侧</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bins = c(<span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">30</span>)</span><br><span class="line">temp.table = cut( my.data, bins, right=<span class="literal">FALSE</span> )</span><br><span class="line">temp.table</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;    &#60;NA&#62;   &#10;##  [9] &#60;NA&#62;    [10,15) [15,20) [15,20) [15,20) [15,20) [15,20) [20,25)&#10;## [17] [25,30) [25,30) [25,30) [25,30) [25,30) &#60;NA&#62;   &#10;## Levels: [10,15) [15,20) [20,25) [25,30)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table(temp.table)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## temp.table&#10;## [10,15) [15,20) [20,25) [25,30) &#10;##       1       5       1       5</span><br></pre></td></tr></table></figure>
+<h2 id="u4E00_u7EF4_u5411_u91CF_u7684_u830E_u53F6_u56FE_u8868_u793A"><a href="#u4E00_u7EF4_u5411_u91CF_u7684_u830E_u53F6_u56FE_u8868_u793A" class="headerlink" title="一维向量的茎叶图表示"></a>一维向量的茎叶图表示</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stem( my.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#10;##   The decimal point is 1 digit(s) to the right of the |&#10;## &#10;##   0 | 123456789&#10;##   1 | 056789&#10;##   2 | 456789&#10;##   3 | 0</span><br></pre></td></tr></table></figure>
+<h2 id="u76F4_u65B9_u56FE"><a href="#u76F4_u65B9_u56FE" class="headerlink" title="直方图"></a>直方图</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hist( the.data )</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-11.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the.data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 7 7 7 5 5 4 4 4 4 4 4 4 3 3 3 3 3 2 1</span><br></pre></td></tr></table></figure>
+<p>R的直方图缺省是以包含右侧为界，所以这里1，2是归入1～2</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hist( the.data, right=<span class="literal">F</span> )</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-12.png" alt=""> </p>
+<p>这个更清楚：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bins = seq( <span class="number">.5</span>, <span class="number">7.5</span>, <span class="number">1</span> )        </span><br><span class="line">hist( the.data, breaks=bins )</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-13.png" alt=""> </p>
+<h2 id="Categorical__28nominal_29__u6570_u636E"><a href="#Categorical__28nominal_29__u6570_u636E" class="headerlink" title="Categorical (nominal) 数据."></a>Categorical (nominal) 数据.</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">colors = c( <span class="string">"red"</span>, <span class="string">"black"</span>, <span class="string">"brown"</span>, <span class="string">"blonde"</span> )</span><br><span class="line">freqs  = c(   <span class="number">8</span>  ,    <span class="number">22</span>  ,    <span class="number">30</span>  ,    <span class="number">18</span>    ) </span><br><span class="line">hair.color = rep( colors, freqs )</span><br><span class="line">table( hair.color )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## hair.color&#10;##  black blonde  brown    red &#10;##     22     18     30      8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hair.color</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] &#34;red&#34;    &#34;red&#34;    &#34;red&#34;    &#34;red&#34;    &#34;red&#34;    &#34;red&#34;    &#34;red&#34;   &#10;##  [8] &#34;red&#34;    &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34; &#10;## [15] &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34; &#10;## [22] &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34;  &#34;black&#34; &#10;## [29] &#34;black&#34;  &#34;black&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34; &#10;## [36] &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34; &#10;## [43] &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34; &#10;## [50] &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34; &#10;## [57] &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;brown&#34;  &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34;&#10;## [64] &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34;&#10;## [71] &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34; &#34;blonde&#34;&#10;## [78] &#34;blonde&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">barplot( table( hair.color ))  <span class="comment">#一个函数的输出是另一个函数的输入</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-141.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">barplot( table( hair.color ), col=c( <span class="string">"black"</span>,<span class="string">"yellow"</span>,<span class="string">"brown"</span>,<span class="string">"red"</span> ))</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-142.png" alt=""> </p>
+<p>这里用到了一个函数的输出是另一个函数的输入</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">temp.table = table( hair.color )</span><br><span class="line">barplot( temp.table )</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/training/crashcourse/unnamed-chunk-15.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm( temp.table)</span><br></pre></td></tr></table></figure>
+<h2 id="u8BA1_u7B97"><a href="#u8BA1_u7B97" class="headerlink" title="计算"></a>计算</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 77</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum( the.data ) ^ <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 5929</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum( the.data ^ <span class="number">2</span> )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 359</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the.data ^ <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 49 49 49 25 25 16 16 16 16 16 16 16  9  9  9  9  9  4  1</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = c( <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span> )</span><br><span class="line">y = c( <span class="number">3</span>, <span class="number">8</span>, <span class="number">9</span> )</span><br><span class="line">sum( x * y )                    <span class="comment"># product of x,y</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 75</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(x) * sum(y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 200</span><br></pre></td></tr></table></figure>
+<h2 id="u6570_u5B66_u51FD_u6570"><a href="#u6570_u5B66_u51FD_u6570" class="headerlink" title="数学函数"></a>数学函数</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sqrt()</span><br><span class="line">log()                           </span><br><span class="line">log10()                         </span><br><span class="line">sin()                           </span><br><span class="line">abs()</span><br></pre></td></tr></table></figure>
+<h2 id="u63CF_u8FF0_u6027_u7EDF_u8BA1"><a href="#u63CF_u8FF0_u6027_u7EDF_u8BA1" class="headerlink" title="描述性统计"></a>描述性统计</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 19</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length( hair.color )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 78</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">median( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 4</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mean( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 4.053</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range( the.data )           <span class="comment"># 区间</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1 7</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IQR( the.data )  <span class="comment">#R有9中计算Q1,Q3的方法,sigh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1.5</span><br></pre></td></tr></table></figure>
+<p>方差</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 2.608</span><br></pre></td></tr></table></figure>
+<p>标准差</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sd( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1.615</span><br></pre></td></tr></table></figure>
+<p>使用summary</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary( the.data )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. &#10;##    1.00    3.00    4.00    4.05    4.50    7.00</span><br></pre></td></tr></table></figure>
+<p>不同的方法计算Q1，Q3</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quantile( the.data, c( <span class="number">.25</span>,<span class="number">.75</span> ), type=<span class="number">2</span> )     <span class="comment"># 教科书的方法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 25% 75% &#10;##   3   5</span><br></pre></td></tr></table></figure>
+<h2 id="u662F_u81EA_u5DF1_u5BFB_u6C42_u7B54_u6848_u7684_u65F6_u5019_u4E86-help"><a href="#u662F_u81EA_u5DF1_u5BFB_u6C42_u7B54_u6848_u7684_u65F6_u5019_u4E86-help" class="headerlink" title="是自己寻求答案的时候了-help"></a>是自己寻求答案的时候了-help</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help( t.test )                  <span class="comment"># ?t.test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## starting httpd help server ... done</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help.search( <span class="string">"distribution"</span> )   <span class="comment"># 搜索</span></span><br></pre></td></tr></table></figure>
+<h1 id="vector_2Cdata_frame__u4E0E_list_2Cfactor"><a href="#vector_2Cdata_frame__u4E0E_list_2Cfactor" class="headerlink" title="vector,data frame 与 list,factor"></a>vector,data frame 与 list,factor</h1><h2 id="vector__u53D6_u5B50_u96C6"><a href="#vector__u53D6_u5B50_u96C6" class="headerlink" title="vector 取子集"></a>vector 取子集</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x=seq(<span class="number">2</span>,<span class="number">12</span>)</span><br><span class="line">x[]</span><br><span class="line">x[<span class="number">0</span>]</span><br><span class="line">x[<span class="number">2</span>]</span><br><span class="line">x[-<span class="number">2</span>]</span><br><span class="line">x[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">x[-<span class="number">2</span>:-<span class="number">5</span>]</span><br><span class="line">names(x)</span><br><span class="line"><span class="comment">#length(x)==11</span></span><br><span class="line">names(x)=LETTERS[<span class="number">1</span>:<span class="number">11</span>]</span><br><span class="line">names(x)</span><br><span class="line">x[c(<span class="string">"A"</span>,<span class="string">"B"</span>)]</span><br><span class="line">x[c(<span class="literal">T</span>,<span class="literal">F</span>)]</span><br></pre></td></tr></table></figure>
+<h2 id="vector_u64CD_u4F5C"><a href="#vector_u64CD_u4F5C" class="headerlink" title="vector操作"></a>vector操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">1</span>:<span class="number">10</span></span><br><span class="line">x*<span class="number">3</span></span><br><span class="line">x+<span class="number">3</span></span><br><span class="line">x/<span class="number">3</span></span><br><span class="line">x^<span class="number">2</span></span><br><span class="line">sqrt(x)</span><br><span class="line"><span class="number">10</span>:<span class="number">1</span></span><br><span class="line">-<span class="number">1</span>:<span class="number">10</span></span><br><span class="line"><span class="number">5</span>:-<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<h2 id="vector__u64CD_u4F5C"><a href="#vector__u64CD_u4F5C" class="headerlink" title="vector 操作"></a>vector 操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">1</span>:<span class="number">10</span></span><br><span class="line">y=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line">x+y</span><br><span class="line">x-y</span><br><span class="line">x*y</span><br><span class="line">x/y</span><br></pre></td></tr></table></figure>
+<h2 id="vector__u64CD_u4F5C-1"><a href="#vector__u64CD_u4F5C-1" class="headerlink" title="vector 操作"></a>vector 操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">1</span>:<span class="number">10</span></span><br><span class="line">y=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">x+y</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: longer object length is not a multiple of shorter object length</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x&lt;<span class="number">5</span></span><br><span class="line">x&lt;y</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: longer object length is not a multiple of shorter object length</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">any(x&lt;y) <span class="comment">#?</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: longer object length is not a multiple of shorter object length</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all(x&lt;y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: longer object length is not a multiple of shorter object length</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q = c(<span class="string">"Hockey"</span>, <span class="string">"Football"</span>, <span class="string">"Baseball"</span>, <span class="string">"Curling"</span>, <span class="string">"Rugby"</span>,</span><br><span class="line">        <span class="string">"Lacrosse"</span>, <span class="string">"Basketball"</span>, <span class="string">"Tennis"</span>, <span class="string">"Cricket"</span>, <span class="string">"Soccer"</span>)</span><br><span class="line">nchar(q)</span><br></pre></td></tr></table></figure>
+<h2 id="Factor"><a href="#Factor" class="headerlink" title="Factor"></a>Factor</h2><p>factor是R中的一类特殊类型</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myfac=factor(c(<span class="string">"basic"</span>,<span class="string">"proficient"</span>,<span class="string">"advanced"</span>,<span class="string">"minimal"</span>))</span><br><span class="line">class(myfac)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &#34;factor&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myfac</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] basic      proficient advanced   minimal   &#10;## Levels: advanced basic minimal proficient</span><br></pre></td></tr></table></figure>
+<p>如果我们想改变factor顺序怎么办？</p>
+<h2 id="Factor_u6392_u5E8F"><a href="#Factor_u6392_u5E8F" class="headerlink" title="Factor排序"></a>Factor排序</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myfac_o=ordered(myfac,levels=c(<span class="string">"minimal"</span>,<span class="string">"basic"</span>,<span class="string">"proficient"</span>,<span class="string">"advanced"</span>)) <span class="comment">#?ordered</span></span><br><span class="line">myfac_o</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] basic      proficient advanced   minimal   &#10;## Levels: minimal &#60; basic &#60; proficient &#60; advanced</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary(myfac_o) <span class="comment">#?summary</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##    minimal      basic proficient   advanced &#10;##          1          1          1          1</span><br></pre></td></tr></table></figure>
+<h2 id="u5C06Factor_u8F6C_u6362_u4E3A_u5176_u4ED6_u7C7B_u578B"><a href="#u5C06Factor_u8F6C_u6362_u4E3A_u5176_u4ED6_u7C7B_u578B" class="headerlink" title="将Factor转换为其他类型"></a>将Factor转换为其他类型</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">as.character(myfac_o)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &#34;basic&#34;      &#34;proficient&#34; &#34;advanced&#34;   &#34;minimal&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="data_frame"><a href="#data_frame" class="headerlink" title="data frame"></a>data frame</h2><p><code>data.frame</code>函数创建数据框</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span>:<span class="number">1</span></span><br><span class="line">y = -<span class="number">4</span>:<span class="number">5</span></span><br><span class="line">q = c(<span class="string">"Hockey"</span>, <span class="string">"Football"</span>, <span class="string">"Baseball"</span>, <span class="string">"Curling"</span>, <span class="string">"Rugby"</span>,</span><br><span class="line">        <span class="string">"Lacrosse"</span>, <span class="string">"Basketball"</span>, <span class="string">"Tennis"</span>, <span class="string">"Cricket"</span>, <span class="string">"Soccer"</span>)</span><br><span class="line">theDF = data.frame(x, y, q)</span><br><span class="line">theDF</span><br></pre></td></tr></table></figure>
+<p>如果我想每一列的名字为预先我设定的值，而不是x,y,q，应该怎么办？</p>
+<h2 id="data_frame__u5E38_u7528_u64CD_u4F5C"><a href="#data_frame__u5E38_u7528_u64CD_u4F5C" class="headerlink" title="data frame 常用操作"></a>data frame 常用操作</h2><ul>
+<li>行数，列数</li>
+<li>每列的数据类型</li>
+<li>数据框的维度</li>
+<li>每列，每行的名称</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">theDF = data.frame(First = x, Second = y, Sport = q)</span><br><span class="line">theDF</span><br><span class="line">nrow(theDF)</span><br><span class="line">ncol(theDF)</span><br><span class="line">str(theDF)</span><br><span class="line">dim(theDF)</span><br><span class="line">names(theDF)</span><br><span class="line">names(theDF)[<span class="number">1</span>]</span><br><span class="line">names(theDF)=c(<span class="string">"First"</span>,<span class="string">"Second"</span>,<span class="string">"Sport"</span>)</span><br><span class="line">rownames(theDF)</span><br><span class="line">rownames(theDF) = c(<span class="string">"One"</span>, <span class="string">"Two"</span>, <span class="string">"Three"</span>, <span class="string">"Four"</span>, <span class="string">"Five"</span>, <span class="string">"Six"</span>,</span><br><span class="line">                      <span class="string">"Seven"</span>, <span class="string">"Eight"</span>, <span class="string">"Nine"</span>, <span class="string">"Ten"</span>)</span><br><span class="line">rownames(theDF)</span><br><span class="line">theDF</span><br><span class="line">rownames(theDF)=<span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+<h2 id="u67E5_u770Bdata_frame"><a href="#u67E5_u770Bdata_frame" class="headerlink" title="查看data frame"></a>查看data frame</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">head(theDF,<span class="number">10</span>)</span><br><span class="line">tail(theDF)</span><br><span class="line">?head</span><br></pre></td></tr></table></figure>
+<h2 id="data_frame_u64CD_u4F5C"><a href="#data_frame_u64CD_u4F5C" class="headerlink" title="data frame操作"></a>data frame操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">theDF$Sport</span><br><span class="line">theDF[<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">theDF[<span class="number">3</span>,<span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">theDF[c(<span class="number">3</span>, <span class="number">5</span>), <span class="number">2</span>]</span><br><span class="line">theDF[c(<span class="number">3</span>, <span class="number">5</span>), <span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">theDF[, <span class="number">3</span>]</span><br><span class="line">theDF[, <span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">theDF[<span class="number">2</span>, ]</span><br><span class="line">theDF[, c(<span class="string">"First"</span>, <span class="string">"Sport"</span>)]</span><br><span class="line"><span class="comment">#subset(theDF,theDF$Sport=="Hockey")</span></span><br><span class="line">?subset</span><br></pre></td></tr></table></figure>
+<h2 id="data_frame_u64CD_u4F5C-1"><a href="#data_frame_u64CD_u4F5C-1" class="headerlink" title="data frame操作"></a>data frame操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">theDF[<span class="string">"Sport"</span>]</span><br><span class="line">class(theDF[<span class="string">"Sport"</span>])</span><br><span class="line">theDF[[<span class="string">"Sport"</span>]]</span><br><span class="line">class(theDF[[<span class="string">"Sport"</span>]])</span><br><span class="line"><span class="comment">#[]与[[]]区别？</span></span><br><span class="line">theDF[, <span class="string">"Sport"</span>, drop = <span class="literal">FALSE</span>]</span><br><span class="line">class(theDF[, <span class="string">"Sport"</span>, drop = <span class="literal">FALSE</span>])</span><br></pre></td></tr></table></figure>
+<p>##</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myData = matrix( c( <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">18</span>, <span class="number">22</span>, <span class="number">17</span>, <span class="number">10</span> ), ncol=<span class="number">3</span> )</span><br><span class="line">myData = as.data.frame( myData )</span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##   V1 V2 V3&#10;## 1  2  6 18&#10;## 2  5  7 22&#10;## 3  3  3 17&#10;## 4  4  2 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">colnames( myData ) = c( <span class="string">"Quiz1"</span>, <span class="string">"Quiz2"</span>, <span class="string">"Exam"</span> )</span><br><span class="line">rownames( myData ) = c( <span class="string">"Jeff"</span>, <span class="string">"Barbara"</span>, <span class="string">"Rachel"</span>, <span class="string">"Bob"</span> )</span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##         Quiz1 Quiz2 Exam&#10;## Jeff        2     6   18&#10;## Barbara     5     7   22&#10;## Rachel      3     3   17&#10;## Bob         4     2   10</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rownames( myData )[<span class="number">4</span>] = <span class="string">"Robb"</span></span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##         Quiz1 Quiz2 Exam&#10;## Jeff        2     6   18&#10;## Barbara     5     7   22&#10;## Rachel      3     3   17&#10;## Robb        4     2   10</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myData[<span class="number">4</span>] = c( <span class="number">24</span>, <span class="number">28</span>, <span class="number">30</span>, <span class="number">20</span> )</span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##         Quiz1 Quiz2 Exam V4&#10;## Jeff        2     6   18 24&#10;## Barbara     5     7   22 28&#10;## Rachel      3     3   17 30&#10;## Robb        4     2   10 20</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">colnames( myData )[<span class="number">4</span>] = <span class="string">"Paper"</span></span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##         Quiz1 Quiz2 Exam Paper&#10;## Jeff        2     6   18    24&#10;## Barbara     5     7   22    28&#10;## Rachel      3     3   17    30&#10;## Robb        4     2   10    20</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myData$Major = c( <span class="string">"Psych"</span>, <span class="string">"Biology"</span>, <span class="string">"Math"</span>, <span class="string">"Business"</span> ) <span class="comment"># $</span></span><br><span class="line">myData</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##         Quiz1 Quiz2 Exam Paper    Major&#10;## Jeff        2     6   18    24    Psych&#10;## Barbara     5     7   22    28  Biology&#10;## Rachel      3     3   17    30     Math&#10;## Robb        4     2   10    20 Business</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myData$Exam</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 18 22 17 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm(myData)  </span><br><span class="line">ls()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] &#34;bins&#34;       &#34;colors&#34;     &#34;f&#34;          &#34;freqs&#34;      &#34;hair.color&#34;&#10;##  [6] &#34;my.data&#34;    &#34;myfac&#34;      &#34;myfac_o&#34;    &#34;q&#34;          &#34;the.data&#34;  &#10;## [11] &#34;theDF&#34;      &#34;x&#34;          &#34;X&#34;          &#34;y&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="list_u4ECB_u7ECD"><a href="#list_u4ECB_u7ECD" class="headerlink" title="list介绍"></a>list介绍</h2><p>vector里面每个变量的类型都是一样，data frame每列变量类型都一样，同时每列的长度一致。而list则可以长度不一致</p>
+<p>Hadley Wickham’s <a href="http://adv-r.had.co.nz/Data-structures.html" target="_blank" rel="external">Data structures</a></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">list(c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">mylist1 = list(c(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), <span class="number">3</span>:<span class="number">7</span>)</span><br><span class="line">mylist1</span><br></pre></td></tr></table></figure>
+<h2 id="list_u64CD_u4F5C"><a href="#list_u64CD_u4F5C" class="headerlink" title="list操作"></a>list操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list(theDF,<span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">mylist2 = list(theDF, <span class="number">1</span>:<span class="number">10</span>, mylist1)</span><br><span class="line">names(mylist2)</span><br><span class="line">names(mylist2) = c(<span class="string">"data.frame"</span>, <span class="string">"vector"</span>, <span class="string">"list"</span>)</span><br><span class="line">names(mylist2)</span><br><span class="line">mylist2</span><br><span class="line">mylist3 = list(TheDataFrame = theDF, TheVector = <span class="number">1</span>:<span class="number">10</span>, TheList = mylist2)</span><br><span class="line">names(mylist3)</span><br></pre></td></tr></table></figure>
+<h2 id="list_u64CD_u4F5C-1"><a href="#list_u64CD_u4F5C-1" class="headerlink" title="list操作"></a>list操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mylist3[[<span class="number">1</span>]]</span><br><span class="line">mylist3[[<span class="string">"TheDataFrame"</span>]]</span><br><span class="line">mylist3[[<span class="number">1</span>]]$Sport</span><br><span class="line">length(mylist3)</span><br></pre></td></tr></table></figure>
+<h1 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h1><p>我们已经学习了</p>
+<ul>
+<li>vector,list,data frame</li>
+<li>列出工作空间中的变量: ls()</li>
+<li>了解data frame的维度: dim()</li>
+<li>列名称: colnames(), names(), dimnames()</li>
+<li>行: rownames() , dimnames()</li>
+<li>查看前几行: head()/tail()</li>
+<li>data frame的变量名称</li>
+<li>利用索引取子集dataframe.name[ row.number, col.number ]</li>
+<li>利用行名，列名取子集: dataframe.name[ “row.name”, “col.name” ]</li>
+<li>修改列名: colnames() = …</li>
+<li>修改行名: rownames() = …</li>
+<li>添加一列到data frame: 2种方法，索引以及直接使用变量名</li>
+<li>$ </li>
+</ul>
+<h2 id="u7EC3_u4E60"><a href="#u7EC3_u4E60" class="headerlink" title="练习"></a>练习</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="string">"Iowa"</span>, <span class="string">"UrbanPop"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 57</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="string">"Iowa"</span>, <span class="string">"UrbanPop"</span> ] = <span class="number">33</span></span><br><span class="line">USArrests[ <span class="string">"Iowa"</span>, <span class="string">"UrbanPop"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 33</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="string">"Iowa"</span>, <span class="string">"UrbanPop"</span> ] = <span class="number">57</span></span><br><span class="line">USArrests[ <span class="string">"Iowa"</span>, <span class="string">"UrbanPop"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 57</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="string">"Pennsylvania"</span>, ]    <span class="comment"># 注意那个,</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##              Murder Assault UrbanPop Rape&#10;## Pennsylvania    6.3     106       72 14.9</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="number">38</span>, ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##              Murder Assault UrbanPop Rape&#10;## Pennsylvania    6.3     106       72 14.9</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果是访问某列</span></span><br><span class="line"></span><br><span class="line">USArrests[ <span class="string">"UrbanPop"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                UrbanPop&#10;## Alabama              58&#10;## Alaska               48&#10;## Arizona              80&#10;## Arkansas             50&#10;## California           91&#10;## Colorado             78&#10;## Connecticut          77&#10;## Delaware             72&#10;## Florida              80&#10;## Georgia              60&#10;## Hawaii               83&#10;## Idaho                54&#10;## Illinois             83&#10;## Indiana              65&#10;## Iowa                 57&#10;## Kansas               66&#10;## Kentucky             52&#10;## Louisiana            66&#10;## Maine                51&#10;## Maryland             67&#10;## Massachusetts        85&#10;## Michigan             74&#10;## Minnesota            66&#10;## Mississippi          44&#10;## Missouri             70&#10;## Montana              53&#10;## Nebraska             62&#10;## Nevada               81&#10;## New Hampshire        56&#10;## New Jersey           89&#10;## New Mexico           70&#10;## New York             86&#10;## North Carolina       45&#10;## North Dakota         44&#10;## Ohio                 75&#10;## Oklahoma             68&#10;## Oregon               67&#10;## Pennsylvania         72&#10;## Rhode Island         87&#10;## South Carolina       48&#10;## South Dakota         45&#10;## Tennessee            59&#10;## Texas                80&#10;## Utah                 80&#10;## Vermont              32&#10;## Virginia             63&#10;## Washington           73&#10;## West Virginia        39&#10;## Wisconsin            66&#10;## Wyoming              60</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                UrbanPop&#10;## Alabama              58&#10;## Alaska               48&#10;## Arizona              80&#10;## Arkansas             50&#10;## California           91&#10;## Colorado             78&#10;## Connecticut          77&#10;## Delaware             72&#10;## Florida              80&#10;## Georgia              60&#10;## Hawaii               83&#10;## Idaho                54&#10;## Illinois             83&#10;## Indiana              65&#10;## Iowa                 57&#10;## Kansas               66&#10;## Kentucky             52&#10;## Louisiana            66&#10;## Maine                51&#10;## Maryland             67&#10;## Massachusetts        85&#10;## Michigan             74&#10;## Minnesota            66&#10;## Mississippi          44&#10;## Missouri             70&#10;## Montana              53&#10;## Nebraska             62&#10;## Nevada               81&#10;## New Hampshire        56&#10;## New Jersey           89&#10;## New Mexico           70&#10;## New York             86&#10;## North Carolina       45&#10;## North Dakota         44&#10;## Ohio                 75&#10;## Oklahoma             68&#10;## Oregon               67&#10;## Pennsylvania         72&#10;## Rhode Island         87&#10;## South Carolina       48&#10;## South Dakota         45&#10;## Tennessee            59&#10;## Texas                80&#10;## Utah                 80&#10;## Vermont              32&#10;## Virginia             63&#10;## Washington           73&#10;## West Virginia        39&#10;## Wisconsin            66&#10;## Wyoming              60</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ ,<span class="string">"UrbanPop"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 58 48 80 50 91 78 77 72 80 60 83 54 83 65 57 66 52 66 51 67 85 74 66&#10;## [24] 44 70 53 62 81 56 89 70 86 45 44 75 68 67 72 87 48 45 59 80 80 32 63&#10;## [47] 73 39 66 60</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ ,<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 58 48 80 50 91 78 77 72 80 60 83 54 83 65 57 66 52 66 51 67 85 74 66&#10;## [24] 44 70 53 62 81 56 89 70 86 45 44 75 68 67 72 87 48 45 59 80 80 32 63&#10;## [47] 73 39 66 60</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里需要注意，如果在取列是没有用那个`,`，那么结果是一个data frame，如果用了那么结果就是一个向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 区别在这里</span></span><br><span class="line"></span><br><span class="line">USArrests[ <span class="string">"Murder"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder&#10;## Alabama          13.2&#10;## Alaska           10.0&#10;## Arizona           8.1&#10;## Arkansas          8.8&#10;## California        9.0&#10;## Colorado          7.9&#10;## Connecticut       3.3&#10;## Delaware          5.9&#10;## Florida          15.4&#10;## Georgia          17.4&#10;## Hawaii            5.3&#10;## Idaho             2.6&#10;## Illinois         10.4&#10;## Indiana           7.2&#10;## Iowa              2.2&#10;## Kansas            6.0&#10;## Kentucky          9.7&#10;## Louisiana        15.4&#10;## Maine             2.1&#10;## Maryland         11.3&#10;## Massachusetts     4.4&#10;## Michigan         12.1&#10;## Minnesota         2.7&#10;## Mississippi      16.1&#10;## Missouri          9.0&#10;## Montana           6.0&#10;## Nebraska          4.3&#10;## Nevada           12.2&#10;## New Hampshire     2.1&#10;## New Jersey        7.4&#10;## New Mexico       11.4&#10;## New York         11.1&#10;## North Carolina   13.0&#10;## North Dakota      0.8&#10;## Ohio              7.3&#10;## Oklahoma          6.6&#10;## Oregon            4.9&#10;## Pennsylvania      6.3&#10;## Rhode Island      3.4&#10;## South Carolina   14.4&#10;## South Dakota      3.8&#10;## Tennessee        13.2&#10;## Texas            12.7&#10;## Utah              3.2&#10;## Vermont           2.2&#10;## Virginia          8.5&#10;## Washington        4.0&#10;## West Virginia     5.7&#10;## Wisconsin         2.6&#10;## Wyoming           6.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ ,<span class="string">"Murder"</span> ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 13.2 10.0  8.1  8.8  9.0  7.9  3.3  5.9 15.4 17.4  5.3  2.6 10.4  7.2&#10;## [15]  2.2  6.0  9.7 15.4  2.1 11.3  4.4 12.1  2.7 16.1  9.0  6.0  4.3 12.2&#10;## [29]  2.1  7.4 11.4 11.1 13.0  0.8  7.3  6.6  4.9  6.3  3.4 14.4  3.8 13.2&#10;## [43] 12.7  3.2  2.2  8.5  4.0  5.7  2.6  6.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder&#10;## Alabama          13.2&#10;## Alaska           10.0&#10;## Arizona           8.1&#10;## Arkansas          8.8&#10;## California        9.0&#10;## Colorado          7.9&#10;## Connecticut       3.3&#10;## Delaware          5.9&#10;## Florida          15.4&#10;## Georgia          17.4&#10;## Hawaii            5.3&#10;## Idaho             2.6&#10;## Illinois         10.4&#10;## Indiana           7.2&#10;## Iowa              2.2&#10;## Kansas            6.0&#10;## Kentucky          9.7&#10;## Louisiana        15.4&#10;## Maine             2.1&#10;## Maryland         11.3&#10;## Massachusetts     4.4&#10;## Michigan         12.1&#10;## Minnesota         2.7&#10;## Mississippi      16.1&#10;## Missouri          9.0&#10;## Montana           6.0&#10;## Nebraska          4.3&#10;## Nevada           12.2&#10;## New Hampshire     2.1&#10;## New Jersey        7.4&#10;## New Mexico       11.4&#10;## New York         11.1&#10;## North Carolina   13.0&#10;## North Dakota      0.8&#10;## Ohio              7.3&#10;## Oklahoma          6.6&#10;## Oregon            4.9&#10;## Pennsylvania      6.3&#10;## Rhode Island      3.4&#10;## South Carolina   14.4&#10;## South Dakota      3.8&#10;## Tennessee        13.2&#10;## Texas            12.7&#10;## Utah              3.2&#10;## Vermont           2.2&#10;## Virginia          8.5&#10;## Washington        4.0&#10;## West Virginia     5.7&#10;## Wisconsin         2.6&#10;## Wyoming           6.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ ,<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 13.2 10.0  8.1  8.8  9.0  7.9  3.3  5.9 15.4 17.4  5.3  2.6 10.4  7.2&#10;## [15]  2.2  6.0  9.7 15.4  2.1 11.3  4.4 12.1  2.7 16.1  9.0  6.0  4.3 12.2&#10;## [29]  2.1  7.4 11.4 11.1 13.0  0.8  7.3  6.6  4.9  6.3  3.4 14.4  3.8 13.2&#10;## [43] 12.7  3.2  2.2  8.5  4.0  5.7  2.6  6.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取10：20行</span></span><br><span class="line"></span><br><span class="line">USArrests[ <span class="number">10</span>:<span class="number">20</span>, ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##           Murder Assault UrbanPop Rape&#10;## Georgia     17.4     211       60 25.8&#10;## Hawaii       5.3      46       83 20.2&#10;## Idaho        2.6     120       54 14.2&#10;## Illinois    10.4     249       83 24.0&#10;## Indiana      7.2     113       65 21.0&#10;## Iowa         2.2      56       57 11.3&#10;## Kansas       6.0     115       66 18.0&#10;## Kentucky     9.7     109       52 16.3&#10;## Louisiana   15.4     249       66 22.2&#10;## Maine        2.1      83       51  7.8&#10;## Maryland    11.3     300       67 27.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ c(<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">20</span>), ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##           Murder Assault UrbanPop Rape&#10;## Georgia     17.4     211       60 25.8&#10;## Hawaii       5.3      46       83 20.2&#10;## Idaho        2.6     120       54 14.2&#10;## Illinois    10.4     249       83 24.0&#10;## Indiana      7.2     113       65 21.0&#10;## Iowa         2.2      56       57 11.3&#10;## Kansas       6.0     115       66 18.0&#10;## Kentucky     9.7     109       52 16.3&#10;## Louisiana   15.4     249       66 22.2&#10;## Maine        2.1      83       51  7.8&#10;## Maryland    11.3     300       67 27.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ seq( from = <span class="number">10</span>, to = <span class="number">20</span>, by = <span class="number">1</span> ), ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##           Murder Assault UrbanPop Rape&#10;## Georgia     17.4     211       60 25.8&#10;## Hawaii       5.3      46       83 20.2&#10;## Idaho        2.6     120       54 14.2&#10;## Illinois    10.4     249       83 24.0&#10;## Indiana      7.2     113       65 21.0&#10;## Iowa         2.2      56       57 11.3&#10;## Kansas       6.0     115       66 18.0&#10;## Kentucky     9.7     109       52 16.3&#10;## Louisiana   15.4     249       66 22.2&#10;## Maine        2.1      83       51  7.8&#10;## Maryland    11.3     300       67 27.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取murder rate&gt;12的行</span></span><br><span class="line"></span><br><span class="line">USArrests[ Murder &gt; <span class="number">12</span>, ] <span class="comment"># 怎么不对啊?</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Error: object &#39;Murder&#39; not found</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ <span class="string">"Murder"</span> &gt; <span class="number">12</span>, ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Alabama          13.2     236       58 21.2&#10;## Alaska           10.0     263       48 44.5&#10;## Arizona           8.1     294       80 31.0&#10;## Arkansas          8.8     190       50 19.5&#10;## California        9.0     276       91 40.6&#10;## Colorado          7.9     204       78 38.7&#10;## Connecticut       3.3     110       77 11.1&#10;## Delaware          5.9     238       72 15.8&#10;## Florida          15.4     335       80 31.9&#10;## Georgia          17.4     211       60 25.8&#10;## Hawaii            5.3      46       83 20.2&#10;## Idaho             2.6     120       54 14.2&#10;## Illinois         10.4     249       83 24.0&#10;## Indiana           7.2     113       65 21.0&#10;## Iowa              2.2      56       57 11.3&#10;## Kansas            6.0     115       66 18.0&#10;## Kentucky          9.7     109       52 16.3&#10;## Louisiana        15.4     249       66 22.2&#10;## Maine             2.1      83       51  7.8&#10;## Maryland         11.3     300       67 27.8&#10;## Massachusetts     4.4     149       85 16.3&#10;## Michigan         12.1     255       74 35.1&#10;## Minnesota         2.7      72       66 14.9&#10;## Mississippi      16.1     259       44 17.1&#10;## Missouri          9.0     178       70 28.2&#10;## Montana           6.0     109       53 16.4&#10;## Nebraska          4.3     102       62 16.5&#10;## Nevada           12.2     252       81 46.0&#10;## New Hampshire     2.1      57       56  9.5&#10;## New Jersey        7.4     159       89 18.8&#10;## New Mexico       11.4     285       70 32.1&#10;## New York         11.1     254       86 26.1&#10;## North Carolina   13.0     337       45 16.1&#10;## North Dakota      0.8      45       44  7.3&#10;## Ohio              7.3     120       75 21.4&#10;## Oklahoma          6.6     151       68 20.0&#10;## Oregon            4.9     159       67 29.3&#10;## Pennsylvania      6.3     106       72 14.9&#10;## Rhode Island      3.4     174       87  8.3&#10;## South Carolina   14.4     279       48 22.5&#10;## South Dakota      3.8      86       45 12.8&#10;## Tennessee        13.2     188       59 26.9&#10;## Texas            12.7     201       80 25.5&#10;## Utah              3.2     120       80 22.9&#10;## Vermont           2.2      48       32 11.2&#10;## Virginia          8.5     156       63 20.7&#10;## Washington        4.0     145       73 26.2&#10;## West Virginia     5.7      81       39  9.3&#10;## Wisconsin         2.6      53       66 10.8&#10;## Wyoming           6.8     161       60 15.6</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## subset</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subset( USArrests, select = UrbanPop )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                UrbanPop&#10;## Alabama              58&#10;## Alaska               48&#10;## Arizona              80&#10;## Arkansas             50&#10;## California           91&#10;## Colorado             78&#10;## Connecticut          77&#10;## Delaware             72&#10;## Florida              80&#10;## Georgia              60&#10;## Hawaii               83&#10;## Idaho                54&#10;## Illinois             83&#10;## Indiana              65&#10;## Iowa                 57&#10;## Kansas               66&#10;## Kentucky             52&#10;## Louisiana            66&#10;## Maine                51&#10;## Maryland             67&#10;## Massachusetts        85&#10;## Michigan             74&#10;## Minnesota            66&#10;## Mississippi          44&#10;## Missouri             70&#10;## Montana              53&#10;## Nebraska             62&#10;## Nevada               81&#10;## New Hampshire        56&#10;## New Jersey           89&#10;## New Mexico           70&#10;## New York             86&#10;## North Carolina       45&#10;## North Dakota         44&#10;## Ohio                 75&#10;## Oklahoma             68&#10;## Oregon               67&#10;## Pennsylvania         72&#10;## Rhode Island         87&#10;## South Carolina       48&#10;## South Dakota         45&#10;## Tennessee            59&#10;## Texas                80&#10;## Utah                 80&#10;## Vermont              32&#10;## Virginia             63&#10;## Washington           73&#10;## West Virginia        39&#10;## Wisconsin            66&#10;## Wyoming              60</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subset( USArrests, subset = Murder &gt; <span class="number">12</span> )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Alabama          13.2     236       58 21.2&#10;## Florida          15.4     335       80 31.9&#10;## Georgia          17.4     211       60 25.8&#10;## Louisiana        15.4     249       66 22.2&#10;## Michigan         12.1     255       74 35.1&#10;## Mississippi      16.1     259       44 17.1&#10;## Nevada           12.2     252       81 46.0&#10;## North Carolina   13.0     337       45 16.1&#10;## South Carolina   14.4     279       48 22.5&#10;## Tennessee        13.2     188       59 26.9&#10;## Texas            12.7     201       80 25.5</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subset( USArrests, subset = Murder &gt; <span class="number">12</span> &amp; Assault &gt;= <span class="number">255</span> )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Florida          15.4     335       80 31.9&#10;## Michigan         12.1     255       74 35.1&#10;## Mississippi      16.1     259       44 17.1&#10;## North Carolina   13.0     337       45 16.1&#10;## South Carolina   14.4     279       48 22.5</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subset( USArrests, subset = Murder &gt; <span class="number">12</span> &amp; Assault &gt;= <span class="number">255</span>, select = Rape )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Rape&#10;## Florida        31.9&#10;## Michigan       35.1&#10;## Mississippi    17.1&#10;## North Carolina 16.1&#10;## South Carolina 22.5</span><br></pre></td></tr></table></figure>
+<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">attach</span>(USArrests)</span><br><span class="line">sort( Murder )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1]  0.8  2.1  2.1  2.2  2.2  2.6  2.6  2.7  3.2  3.3  3.4  3.8  4.0  4.3&#10;## [15]  4.4  4.9  5.3  5.7  5.9  6.0  6.0  6.3  6.6  6.8  7.2  7.3  7.4  7.9&#10;## [29]  8.1  8.5  8.8  9.0  9.0  9.7 10.0 10.4 11.1 11.3 11.4 12.1 12.2 12.7&#10;## [43] 13.0 13.2 13.2 14.4 15.4 15.4 16.1 17.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort( Murder, decreasing = <span class="literal">TRUE</span> )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 17.4 16.1 15.4 15.4 14.4 13.2 13.2 13.0 12.7 12.2 12.1 11.4 11.3 11.1&#10;## [15] 10.4 10.0  9.7  9.0  9.0  8.8  8.5  8.1  7.9  7.4  7.3  7.2  6.8  6.6&#10;## [29]  6.3  6.0  6.0  5.9  5.7  5.3  4.9  4.4  4.3  4.0  3.8  3.4  3.3  3.2&#10;## [43]  2.7  2.6  2.6  2.2  2.2  2.1  2.1  0.8</span><br></pre></td></tr></table></figure>
+<p>不过如果我想data frame里面的数据根据某列来排序呢？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SO = order( Murder )</span><br><span class="line">SO</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##  [1] 34 19 29 15 45 12 49 23 44  7 39 41 47 27 21 37 11 48  8 16 26 38 36&#10;## [24] 50 14 35 30  6  3 46  4  5 25 17  2 13 32 20 31 22 28 43 33  1 42 40&#10;## [47]  9 18 24 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head(USArrests[ SO, ])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##               Murder Assault UrbanPop Rape&#10;## North Dakota     0.8      45       44  7.3&#10;## Maine            2.1      83       51  7.8&#10;## New Hampshire    2.1      57       56  9.5&#10;## Iowa             2.2      56       57 11.3&#10;## Vermont          2.2      48       32 11.2&#10;## Idaho            2.6     120       54 14.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[<span class="number">34</span>,]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##              Murder Assault UrbanPop Rape&#10;## North Dakota    0.8      45       44  7.3</span><br></pre></td></tr></table></figure>
+<p>SO 成为了我们用了排序的dummy variable</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head(USArrests[ order( Murder ), ])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##               Murder Assault UrbanPop Rape&#10;## North Dakota     0.8      45       44  7.3&#10;## Maine            2.1      83       51  7.8&#10;## New Hampshire    2.1      57       56  9.5&#10;## Iowa             2.2      56       57 11.3&#10;## Vermont          2.2      48       32 11.2&#10;## Idaho            2.6     120       54 14.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意我们没有改变USArrests</span></span><br><span class="line">USArrests</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Alabama          13.2     236       58 21.2&#10;## Alaska           10.0     263       48 44.5&#10;## Arizona           8.1     294       80 31.0&#10;## Arkansas          8.8     190       50 19.5&#10;## California        9.0     276       91 40.6&#10;## Colorado          7.9     204       78 38.7&#10;## Connecticut       3.3     110       77 11.1&#10;## Delaware          5.9     238       72 15.8&#10;## Florida          15.4     335       80 31.9&#10;## Georgia          17.4     211       60 25.8&#10;## Hawaii            5.3      46       83 20.2&#10;## Idaho             2.6     120       54 14.2&#10;## Illinois         10.4     249       83 24.0&#10;## Indiana           7.2     113       65 21.0&#10;## Iowa              2.2      56       57 11.3&#10;## Kansas            6.0     115       66 18.0&#10;## Kentucky          9.7     109       52 16.3&#10;## Louisiana        15.4     249       66 22.2&#10;## Maine             2.1      83       51  7.8&#10;## Maryland         11.3     300       67 27.8&#10;## Massachusetts     4.4     149       85 16.3&#10;## Michigan         12.1     255       74 35.1&#10;## Minnesota         2.7      72       66 14.9&#10;## Mississippi      16.1     259       44 17.1&#10;## Missouri          9.0     178       70 28.2&#10;## Montana           6.0     109       53 16.4&#10;## Nebraska          4.3     102       62 16.5&#10;## Nevada           12.2     252       81 46.0&#10;## New Hampshire     2.1      57       56  9.5&#10;## New Jersey        7.4     159       89 18.8&#10;## New Mexico       11.4     285       70 32.1&#10;## New York         11.1     254       86 26.1&#10;## North Carolina   13.0     337       45 16.1&#10;## North Dakota      0.8      45       44  7.3&#10;## Ohio              7.3     120       75 21.4&#10;## Oklahoma          6.6     151       68 20.0&#10;## Oregon            4.9     159       67 29.3&#10;## Pennsylvania      6.3     106       72 14.9&#10;## Rhode Island      3.4     174       87  8.3&#10;## South Carolina   14.4     279       48 22.5&#10;## South Dakota      3.8      86       45 12.8&#10;## Tennessee        13.2     188       59 26.9&#10;## Texas            12.7     201       80 25.5&#10;## Utah              3.2     120       80 22.9&#10;## Vermont           2.2      48       32 11.2&#10;## Virginia          8.5     156       63 20.7&#10;## Washington        4.0     145       73 26.2&#10;## West Virginia     5.7      81       39  9.3&#10;## Wisconsin         2.6      53       66 10.8&#10;## Wyoming           6.8     161       60 15.6</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USArrests.sorted = USArrests[ SO, ]</span><br><span class="line">USArrests.sorted</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## North Dakota      0.8      45       44  7.3&#10;## Maine             2.1      83       51  7.8&#10;## New Hampshire     2.1      57       56  9.5&#10;## Iowa              2.2      56       57 11.3&#10;## Vermont           2.2      48       32 11.2&#10;## Idaho             2.6     120       54 14.2&#10;## Wisconsin         2.6      53       66 10.8&#10;## Minnesota         2.7      72       66 14.9&#10;## Utah              3.2     120       80 22.9&#10;## Connecticut       3.3     110       77 11.1&#10;## Rhode Island      3.4     174       87  8.3&#10;## South Dakota      3.8      86       45 12.8&#10;## Washington        4.0     145       73 26.2&#10;## Nebraska          4.3     102       62 16.5&#10;## Massachusetts     4.4     149       85 16.3&#10;## Oregon            4.9     159       67 29.3&#10;## Hawaii            5.3      46       83 20.2&#10;## West Virginia     5.7      81       39  9.3&#10;## Delaware          5.9     238       72 15.8&#10;## Kansas            6.0     115       66 18.0&#10;## Montana           6.0     109       53 16.4&#10;## Pennsylvania      6.3     106       72 14.9&#10;## Oklahoma          6.6     151       68 20.0&#10;## Wyoming           6.8     161       60 15.6&#10;## Indiana           7.2     113       65 21.0&#10;## Ohio              7.3     120       75 21.4&#10;## New Jersey        7.4     159       89 18.8&#10;## Colorado          7.9     204       78 38.7&#10;## Arizona           8.1     294       80 31.0&#10;## Virginia          8.5     156       63 20.7&#10;## Arkansas          8.8     190       50 19.5&#10;## California        9.0     276       91 40.6&#10;## Missouri          9.0     178       70 28.2&#10;## Kentucky          9.7     109       52 16.3&#10;## Alaska           10.0     263       48 44.5&#10;## Illinois         10.4     249       83 24.0&#10;## New York         11.1     254       86 26.1&#10;## Maryland         11.3     300       67 27.8&#10;## New Mexico       11.4     285       70 32.1&#10;## Michigan         12.1     255       74 35.1&#10;## Nevada           12.2     252       81 46.0&#10;## Texas            12.7     201       80 25.5&#10;## North Carolina   13.0     337       45 16.1&#10;## Alabama          13.2     236       58 21.2&#10;## Tennessee        13.2     188       59 26.9&#10;## South Carolina   14.4     279       48 22.5&#10;## Florida          15.4     335       80 31.9&#10;## Louisiana        15.4     249       66 22.2&#10;## Mississippi      16.1     259       44 17.1&#10;## Georgia          17.4     211       60 25.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rm( USArrests.sorted )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从高到低排序</span></span><br><span class="line"></span><br><span class="line">SO = order( Murder, decreasing = <span class="literal">TRUE</span> )</span><br><span class="line">USArrests[ SO, ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Georgia          17.4     211       60 25.8&#10;## Mississippi      16.1     259       44 17.1&#10;## Florida          15.4     335       80 31.9&#10;## Louisiana        15.4     249       66 22.2&#10;## South Carolina   14.4     279       48 22.5&#10;## Alabama          13.2     236       58 21.2&#10;## Tennessee        13.2     188       59 26.9&#10;## North Carolina   13.0     337       45 16.1&#10;## Texas            12.7     201       80 25.5&#10;## Nevada           12.2     252       81 46.0&#10;## Michigan         12.1     255       74 35.1&#10;## New Mexico       11.4     285       70 32.1&#10;## Maryland         11.3     300       67 27.8&#10;## New York         11.1     254       86 26.1&#10;## Illinois         10.4     249       83 24.0&#10;## Alaska           10.0     263       48 44.5&#10;## Kentucky          9.7     109       52 16.3&#10;## California        9.0     276       91 40.6&#10;## Missouri          9.0     178       70 28.2&#10;## Arkansas          8.8     190       50 19.5&#10;## Virginia          8.5     156       63 20.7&#10;## Arizona           8.1     294       80 31.0&#10;## Colorado          7.9     204       78 38.7&#10;## New Jersey        7.4     159       89 18.8&#10;## Ohio              7.3     120       75 21.4&#10;## Indiana           7.2     113       65 21.0&#10;## Wyoming           6.8     161       60 15.6&#10;## Oklahoma          6.6     151       68 20.0&#10;## Pennsylvania      6.3     106       72 14.9&#10;## Kansas            6.0     115       66 18.0&#10;## Montana           6.0     109       53 16.4&#10;## Delaware          5.9     238       72 15.8&#10;## West Virginia     5.7      81       39  9.3&#10;## Hawaii            5.3      46       83 20.2&#10;## Oregon            4.9     159       67 29.3&#10;## Massachusetts     4.4     149       85 16.3&#10;## Nebraska          4.3     102       62 16.5&#10;## Washington        4.0     145       73 26.2&#10;## South Dakota      3.8      86       45 12.8&#10;## Rhode Island      3.4     174       87  8.3&#10;## Connecticut       3.3     110       77 11.1&#10;## Utah              3.2     120       80 22.9&#10;## Minnesota         2.7      72       66 14.9&#10;## Idaho             2.6     120       54 14.2&#10;## Wisconsin         2.6      53       66 10.8&#10;## Iowa              2.2      56       57 11.3&#10;## Vermont           2.2      48       32 11.2&#10;## Maine             2.1      83       51  7.8&#10;## New Hampshire     2.1      57       56  9.5&#10;## North Dakota      0.8      45       44  7.3</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USArrests[ order( Murder, decreasing = <span class="literal">TRUE</span> ), ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##                Murder Assault UrbanPop Rape&#10;## Georgia          17.4     211       60 25.8&#10;## Mississippi      16.1     259       44 17.1&#10;## Florida          15.4     335       80 31.9&#10;## Louisiana        15.4     249       66 22.2&#10;## South Carolina   14.4     279       48 22.5&#10;## Alabama          13.2     236       58 21.2&#10;## Tennessee        13.2     188       59 26.9&#10;## North Carolina   13.0     337       45 16.1&#10;## Texas            12.7     201       80 25.5&#10;## Nevada           12.2     252       81 46.0&#10;## Michigan         12.1     255       74 35.1&#10;## New Mexico       11.4     285       70 32.1&#10;## Maryland         11.3     300       67 27.8&#10;## New York         11.1     254       86 26.1&#10;## Illinois         10.4     249       83 24.0&#10;## Alaska           10.0     263       48 44.5&#10;## Kentucky          9.7     109       52 16.3&#10;## California        9.0     276       91 40.6&#10;## Missouri          9.0     178       70 28.2&#10;## Arkansas          8.8     190       50 19.5&#10;## Virginia          8.5     156       63 20.7&#10;## Arizona           8.1     294       80 31.0&#10;## Colorado          7.9     204       78 38.7&#10;## New Jersey        7.4     159       89 18.8&#10;## Ohio              7.3     120       75 21.4&#10;## Indiana           7.2     113       65 21.0&#10;## Wyoming           6.8     161       60 15.6&#10;## Oklahoma          6.6     151       68 20.0&#10;## Pennsylvania      6.3     106       72 14.9&#10;## Kansas            6.0     115       66 18.0&#10;## Montana           6.0     109       53 16.4&#10;## Delaware          5.9     238       72 15.8&#10;## West Virginia     5.7      81       39  9.3&#10;## Hawaii            5.3      46       83 20.2&#10;## Oregon            4.9     159       67 29.3&#10;## Massachusetts     4.4     149       85 16.3&#10;## Nebraska          4.3     102       62 16.5&#10;## Washington        4.0     145       73 26.2&#10;## South Dakota      3.8      86       45 12.8&#10;## Rhode Island      3.4     174       87  8.3&#10;## Connecticut       3.3     110       77 11.1&#10;## Utah              3.2     120       80 22.9&#10;## Minnesota         2.7      72       66 14.9&#10;## Idaho             2.6     120       54 14.2&#10;## Wisconsin         2.6      53       66 10.8&#10;## Iowa              2.2      56       57 11.3&#10;## Vermont           2.2      48       32 11.2&#10;## Maine             2.1      83       51  7.8&#10;## New Hampshire     2.1      57       56  9.5&#10;## North Dakota      0.8      45       44  7.3</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/R培训/">R培训</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/10/11/2014-10-11-R-crash-course-1/" data-title="R Your Ready? 100分钟R入门教程(上) | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/11/2014-10-11-R-crash-course-2/" title="R Your Ready? 100分钟R入门教程(下)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  R Your Ready? 100分钟R入门教程(下)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/10/09/2014-10-09-hurricane/"  title="2010~2014 飓风可视化尝试">
+ <strong>下一篇：</strong><br/> 
+ <span>2010~2014 飓风可视化尝试
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/10/11/2014-10-11-R-crash-course-1/" data-title="R Your Ready? 100分钟R入门教程(上)" data-url="http://www.zjdian.com/2014/10/11/2014-10-11-R-crash-course-1/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5185_u5BB9"><span class="toc-number">1.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5_u4E0B_u8F7D"><span class="toc-number">2.</span> <span class="toc-text">安装下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R__u521D_u4F53_u9A8C"><span class="toc-number">3.</span> <span class="toc-text">R 初体验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u8F93_u5165_u547D_u4EE4"><span class="toc-number">3.1.</span> <span class="toc-text">输入命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B80_u5355_u6570_u636E_u5F55_u5165"><span class="toc-number">3.2.</span> <span class="toc-text">简单数据录入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7406_u89E3R_u63A7_u5236_u53F0_u91CC_u9762_u7684_u8F93_u51FA"><span class="toc-number">3.3.</span> <span class="toc-text">理解R控制台里面的输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5EFA_u7ACB_u4E00_u4E2A_u9891_u6570_u8868"><span class="toc-number">3.4.</span> <span class="toc-text">建立一个频数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5BF9_u9891_u6570_u8868_u8FDB_u884C_u7EDF_u8BA1"><span class="toc-number">3.5.</span> <span class="toc-text">对频数表进行统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5BF9_u6570_u5B57_u53D8_u91CF_u5206_u7EC4"><span class="toc-number">3.6.</span> <span class="toc-text">对数字变量分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u7EF4_u5411_u91CF_u7684_u830E_u53F6_u56FE_u8868_u793A"><span class="toc-number">3.7.</span> <span class="toc-text">一维向量的茎叶图表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u76F4_u65B9_u56FE"><span class="toc-number">3.8.</span> <span class="toc-text">直方图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Categorical__28nominal_29__u6570_u636E"><span class="toc-number">3.9.</span> <span class="toc-text">Categorical (nominal) 数据.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BA1_u7B97"><span class="toc-number">3.10.</span> <span class="toc-text">计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u5B66_u51FD_u6570"><span class="toc-number">3.11.</span> <span class="toc-text">数学函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u63CF_u8FF0_u6027_u7EDF_u8BA1"><span class="toc-number">3.12.</span> <span class="toc-text">描述性统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u662F_u81EA_u5DF1_u5BFB_u6C42_u7B54_u6848_u7684_u65F6_u5019_u4E86-help"><span class="toc-number">3.13.</span> <span class="toc-text">是自己寻求答案的时候了-help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vector_2Cdata_frame__u4E0E_list_2Cfactor"><span class="toc-number">4.</span> <span class="toc-text">vector,data frame 与 list,factor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u53D6_u5B50_u96C6"><span class="toc-number">4.1.</span> <span class="toc-text">vector 取子集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector_u64CD_u4F5C"><span class="toc-number">4.2.</span> <span class="toc-text">vector操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u64CD_u4F5C"><span class="toc-number">4.3.</span> <span class="toc-text">vector 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector__u64CD_u4F5C-1"><span class="toc-number">4.4.</span> <span class="toc-text">vector 操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factor"><span class="toc-number">4.5.</span> <span class="toc-text">Factor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Factor_u6392_u5E8F"><span class="toc-number">4.6.</span> <span class="toc-text">Factor排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5C06Factor_u8F6C_u6362_u4E3A_u5176_u4ED6_u7C7B_u578B"><span class="toc-number">4.7.</span> <span class="toc-text">将Factor转换为其他类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame"><span class="toc-number">4.8.</span> <span class="toc-text">data frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame__u5E38_u7528_u64CD_u4F5C"><span class="toc-number">4.9.</span> <span class="toc-text">data frame 常用操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u67E5_u770Bdata_frame"><span class="toc-number">4.10.</span> <span class="toc-text">查看data frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame_u64CD_u4F5C"><span class="toc-number">4.11.</span> <span class="toc-text">data frame操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_frame_u64CD_u4F5C-1"><span class="toc-number">4.12.</span> <span class="toc-text">data frame操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u4ECB_u7ECD"><span class="toc-number">4.13.</span> <span class="toc-text">list介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u64CD_u4F5C"><span class="toc-number">4.14.</span> <span class="toc-text">list操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list_u64CD_u4F5C-1"><span class="toc-number">4.15.</span> <span class="toc-text">list操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7EC3_u4E60"><span class="toc-number">5.1.</span> <span class="toc-text">练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort"><span class="toc-number">5.2.</span> <span class="toc-text">sort</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

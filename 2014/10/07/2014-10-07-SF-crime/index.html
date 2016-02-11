@@ -1,0 +1,660 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>San Francisco过去3月的犯罪案件可视化分析 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+<meta property="og:type" content="article">
+<meta property="og:title" content="San Francisco过去3月的犯罪案件可视化分析">
+<meta property="og:url" content="http://www.zjdian.com/2014/10/07/2014-10-07-SF-crime/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+<meta property="og:image" content="http://www.zjdian.com/img/project/SF/vehicle-theft-map.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/SF/crime-dist-day-time.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/SF/crime-type-district.png">
+<meta property="og:updated_time" content="2014-10-07T12:10:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="San Francisco过去3月的犯罪案件可视化分析">
+<meta name="twitter:description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/07/2014-10-07-SF-crime/" title="San Francisco过去3月的犯罪案件可视化分析" itemprop="url">San Francisco过去3月的犯罪案件可视化分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-07T11:55:37.000Z" itemprop="datePublished"> 發表於 2014 Oct 7</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u76EE_u6807"><span class="toc-number">1.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u5206_u6790_u7528_u7684_u5305"><span class="toc-number">2.</span> <span class="toc-text">准备分析用的包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">准备数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F85_u52A9_u51FD_u6570"><span class="toc-number">4.</span> <span class="toc-text">辅助函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u54EA_u91CC_u505C_u8F66_3F"><span class="toc-number">5.</span> <span class="toc-text">在哪里停车?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SF_u6700_u5B89_u5168_u7684_u5730_u65B9_u662F_u54EA_u91CC_3F__u6BCF_u5468_u7684_u54EA_u5929/_u54EA_u4E2A_u65F6_u95F4_u6700_u5371_u9669_3F"><span class="toc-number">6.</span> <span class="toc-text">SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u67D0_u79CD_u7279_u5B9A_u5077_u7A83_u6848_u4EF6_u662F_u5426_u5728_u67D0_u4E2A_u533A_u57DF_u66F4_u666E_u904D_3F"><span class="toc-number">7.</span> <span class="toc-text">某种特定偷窃案件是否在某个区域更普遍?</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="u76EE_u6807"><a href="#u76EE_u6807" class="headerlink" title="目标"></a>目标</h1><p>分析San Francisco的犯罪案件的模式。数据来自:<br><a href="https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?" target="_blank" rel="external">https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?</a></p>
+<p>希望回答以下问题:</p>
+<ul>
+<li>在哪里停车最危险?</li>
+<li>SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</li>
+<li>某种特定偷窃案件是否在某个区域更普遍?</li>
+</ul>
+<h1 id="u51C6_u5907_u5206_u6790_u7528_u7684_u5305"><a href="#u51C6_u5907_u5206_u6790_u7528_u7684_u5305" class="headerlink" title="准备分析用的包"></a>准备分析用的包</h1><p>我们用dplyr来整理数据，ggplot2以及ggmap来进行数据可视化</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(dplyr)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(ggplot2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: ggplot2</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(ggmap)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: ggmap</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(ggthemes)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: ggthemes</span><br></pre></td></tr></table></figure>
+<h1 id="u51C6_u5907_u6570_u636E"><a href="#u51C6_u5907_u6570_u636E" class="headerlink" title="准备数据"></a>准备数据</h1><p>先设置工作目录，读入数据。然后呢把日期格式化，同时呢我们把时间按照小时来分，不考虑分钟。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">setwd(<span class="string">"d:/project/datascience/teamleada"</span>)</span><br><span class="line"><span class="comment">#read in the data</span></span><br><span class="line">crime=read.csv(<span class="string">"./SFPD_Incidents_-_Previous_Three_Months.csv"</span>)</span><br><span class="line"><span class="comment"># format the data</span></span><br><span class="line">crime$Location=<span class="literal">NULL</span></span><br><span class="line">crime$IncidntNum=<span class="literal">NULL</span></span><br><span class="line">crime$Date=as.Date(crime$Date,format=<span class="string">"%m/%d/%Y"</span>)</span><br><span class="line">crime$Hour=as.factor(substr(as.character(crime$Time),<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line"><span class="comment"># we will use dplyr package to do the work</span></span><br><span class="line">crime.df=tbl_df(crime)</span><br><span class="line">crime.df</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Source: local data frame [30,760 x 11]&#10;## &#10;##         Category                                   Descript DayOfWeek&#10;## 1  LARCENY/THEFT             GRAND THEFT FROM UNLOCKED AUTO    Sunday&#10;## 2  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday&#10;## 3  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday&#10;## 4  DRUG/NARCOTIC             POSSESSION OF METH-AMPHETAMINE    Sunday&#10;## 5  DRUG/NARCOTIC                      POSSESSION OF COCAINE    Sunday&#10;## 6  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday&#10;## 7       WARRANTS                             WARRANT ARREST    Sunday&#10;## 8  VEHICLE THEFT                          STOLEN AUTOMOBILE    Sunday&#10;## 9  LARCENY/THEFT                    PETTY THEFT OF PROPERTY    Sunday&#10;## 10       ROBBERY ROBBERY OF A CHAIN STORE WITH BODILY FORCE    Sunday&#10;## ..           ...                                        ...       ...&#10;## Variables not shown: Date (date), Time (fctr), PdDistrict (fctr),&#10;##   Resolution (fctr), Address (fctr), X (dbl), Y (dbl), Hour (fctr)</span><br></pre></td></tr></table></figure>
+<h1 id="u8F85_u52A9_u51FD_u6570"><a href="#u8F85_u52A9_u51FD_u6570" class="headerlink" title="辅助函数"></a>辅助函数</h1><p>这里主要有两个，因为在画直方图的时候，我们希望按count大小来排序，而不是按照数据中的factor变量的level来排序，所以写了一个辅助函数来对factor的lvel重新排序</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">order.level=<span class="keyword">function</span>(level.var,count) &#123;</span><br><span class="line">  level.var=factor(level.var,levels = </span><br><span class="line">                     levels(level.var)[order(count,decreasing=<span class="literal">T</span>)])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一个函数就是控制多个图形绘制时的排版，这个直接使用的R cookbook提供了函数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Multiple plot function</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)</span></span><br><span class="line"><span class="comment"># - cols:   Number of columns in layout</span></span><br><span class="line"><span class="comment"># - layout: A matrix specifying the layout. If present, 'cols' is ignored.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),</span></span><br><span class="line"><span class="comment"># then plot 1 will go in the upper left, 2 will go in the upper right, and</span></span><br><span class="line"><span class="comment"># 3 will go all the way across the bottom.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">multiplot &lt;- <span class="keyword">function</span>(<span class="keyword">...</span>, plotlist=<span class="literal">NULL</span>, file, cols=<span class="number">1</span>, layout=<span class="literal">NULL</span>) &#123;</span><br><span class="line">  <span class="keyword">require</span>(grid)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Make a list from the ... arguments and plotlist</span></span><br><span class="line">  plots &lt;- c(list(<span class="keyword">...</span>), plotlist)</span><br><span class="line">  </span><br><span class="line">  numPlots = length(plots)</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># If layout is NULL, then use 'cols' to determine layout</span></span><br><span class="line">  <span class="keyword">if</span> (is.null(layout)) &#123;</span><br><span class="line">    <span class="comment"># Make the panel</span></span><br><span class="line">    <span class="comment"># ncol: Number of columns of plots</span></span><br><span class="line">    <span class="comment"># nrow: Number of rows needed, calculated from # of cols</span></span><br><span class="line">    layout &lt;- matrix(seq(<span class="number">1</span>, cols * ceiling(numPlots/cols)),</span><br><span class="line">                     ncol = cols, nrow = ceiling(numPlots/cols))</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (numPlots==<span class="number">1</span>) &#123;</span><br><span class="line">    print(plots[[<span class="number">1</span>]])</span><br><span class="line">    </span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment"># Set up the page</span></span><br><span class="line">    grid.newpage()</span><br><span class="line">    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Make each plot, in the correct location</span></span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:numPlots) &#123;</span><br><span class="line">      <span class="comment"># Get the i,j matrix positions of the regions that contain this subplot</span></span><br><span class="line">      matchidx &lt;- as.data.frame(which(layout == i, arr.ind = <span class="literal">TRUE</span>))</span><br><span class="line">      </span><br><span class="line">      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,</span><br><span class="line">                                      layout.pos.col = matchidx$col))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="u5728_u54EA_u91CC_u505C_u8F66_3F"><a href="#u5728_u54EA_u91CC_u505C_u8F66_3F" class="headerlink" title="在哪里停车?"></a>在哪里停车?</h1><p>这里我们先只取VEHICLE THEFT进行分析，之后按照案件发生的区域分组统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">crime.df.vehicle=filter(crime.df,Category==<span class="string">"VEHICLE THEFT"</span>)</span><br><span class="line">crime.vehicle.district=crime.df.vehicle %&gt;% </span><br><span class="line">  group_by(PdDistrict)%&gt;% </span><br><span class="line">  summarise(count=n())</span><br><span class="line"></span><br><span class="line"><span class="comment"># PdDistrict变量按照count进行排序</span></span><br><span class="line">crime.vehicle.district$PdDistrict=order.level(crime.vehicle.district$PdDistrict,</span><br><span class="line">                                              crime.vehicle.district$count)</span><br><span class="line">p1=qplot(crime.vehicle.district$PdDistrict,data=crime.vehicle.district,</span><br><span class="line">      weight=crime.vehicle.district$count,geom=<span class="string">"histogram"</span>,</span><br><span class="line">      xlab=<span class="string">"District"</span>,ylab=<span class="string">"Vehicle Theft Count"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 经纬度</span></span><br><span class="line">crime.df$lon=crime.df$X</span><br><span class="line">crime.df$lat=crime.df$Y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得San Francisco地图</span></span><br><span class="line">SFMap &lt;- qmap(<span class="string">'San Francisco'</span>, zoom = <span class="number">13</span>, color = <span class="string">'bw'</span>, legend = <span class="string">'topleft'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=San+Francisco&#38;zoom=13&#38;size=%20640x640&#38;scale=%202&#38;maptype=terrain&#38;sensor=false&#10;## Google Maps API Terms of Service : http://developers.google.com/maps/terms&#10;## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=San+Francisco&#38;sensor=false&#10;## Google Maps API Terms of Service : http://developers.google.com/maps/terms</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制密度图</span></span><br><span class="line">p2=SFMap+</span><br><span class="line">  geom_density2d(data=crime.df.vehicle,aes(group=<span class="number">1</span>))+</span><br><span class="line">  stat_density2d(data=crime.df.vehicle,aes(group=<span class="number">1</span>,fill=..level..,</span><br><span class="line">                                           alpha=..level..),</span><br><span class="line">                 size=<span class="number">0.01</span>,bins=<span class="number">16</span>,geom=<span class="string">'polygon'</span>)+</span><br><span class="line">  scale_fill_gradient(low=<span class="string">"green"</span>,high=<span class="string">"red"</span>)+</span><br><span class="line">  scale_alpha(range=c(<span class="number">0.00</span>,<span class="number">0.25</span>),guide=<span class="literal">FALSE</span>)+</span><br><span class="line">  theme(legend.position=<span class="string">"none"</span>,axis.title=element_blank(),</span><br><span class="line">        text=element_text(size=<span class="number">12</span>))+</span><br><span class="line">  ggtitle(<span class="string">"Vehicle Theft"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">multiplot(p1, p2,  cols=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: grid</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Error: object &#39;lon&#39; not found</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/SF/vehicle-theft-map.png" alt="VEHICLE THEFT"> </p>
+<p>显然Ingleside,Mission,Bayview去案件更多，密度图也反映了相同信息</p>
+<h1 id="SF_u6700_u5B89_u5168_u7684_u5730_u65B9_u662F_u54EA_u91CC_3F__u6BCF_u5468_u7684_u54EA_u5929/_u54EA_u4E2A_u65F6_u95F4_u6700_u5371_u9669_3F"><a href="#SF_u6700_u5B89_u5168_u7684_u5730_u65B9_u662F_u54EA_u91CC_3F__u6BCF_u5468_u7684_u54EA_u5929/_u54EA_u4E2A_u65F6_u95F4_u6700_u5371_u9669_3F" class="headerlink" title="SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?"></a>SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</h1><p>先按照每个区计算案件数目</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">crime.by.district=crime.df %&gt;% group_by(PdDistrict)%&gt;%summarise(count=n())</span><br><span class="line">crime.by.district$PdDistrict=order.level(crime.by.district$PdDistrict,</span><br><span class="line">                                         crime.by.district$count)</span><br><span class="line">p1=qplot(crime.by.district$PdDistrict,data=crime.by.district,</span><br><span class="line">      weight=crime.by.district$count,geom=<span class="string">"histogram"</span>,</span><br><span class="line">      xlab=<span class="string">"District"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by District"</span>)</span><br></pre></td></tr></table></figure>
+<p>根据每天来统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">crime.by.day=crime.df %&gt;% group_by(DayOfWeek)%&gt;%summarise(count=n())</span><br><span class="line">crime.by.day$DayOfWeek=order.level(crime.by.day$DayOfWeek,</span><br><span class="line">                                   crime.by.day$count)</span><br><span class="line">p2=qplot(crime.by.day$DayOfWeek,data=crime.by.day,</span><br><span class="line">      weight=crime.by.day$count,geom=<span class="string">"histogram"</span>,</span><br><span class="line">      xlab=<span class="string">"Day of Week"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by Day"</span>)</span><br></pre></td></tr></table></figure>
+<p>按照犯罪时间统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">crime.by.time=crime.df %&gt;% group_by(Hour)%&gt;%summarise(count=n())</span><br><span class="line">crime.by.time$Hour=order.level(crime.by.time$Hour,</span><br><span class="line">                               crime.by.time$count)</span><br><span class="line">p3=qplot(crime.by.time$Hour,data=crime.by.time,</span><br><span class="line">      weight=crime.by.time$count,geom=<span class="string">"histogram"</span>,</span><br><span class="line">      xlab=<span class="string">"Time"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by Time"</span>)</span><br><span class="line"></span><br><span class="line">multiplot(p1, p2,p3  ,cols=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/SF/crime-dist-day-time.png" alt="犯罪区域，日期，时间分析"> </p>
+<p>Richmond和Park区域是最安全的地方，案件什么少于了200.而案件发生的日期显然没有太明显规律，周一到周日基本都在4000左右。相反案件发生时间有高峰期和低点，18:00pm~19:00pm(2087),17:00~18:00pm(2022),19:00pm~20:00pm(1838)是典型的高峰，而04:00am~06:00am(&lt;400)则是低点.</p>
+<h1 id="u67D0_u79CD_u7279_u5B9A_u5077_u7A83_u6848_u4EF6_u662F_u5426_u5728_u67D0_u4E2A_u533A_u57DF_u66F4_u666E_u904D_3F"><a href="#u67D0_u79CD_u7279_u5B9A_u5077_u7A83_u6848_u4EF6_u662F_u5426_u5728_u67D0_u4E2A_u533A_u57DF_u66F4_u666E_u904D_3F" class="headerlink" title="某种特定偷窃案件是否在某个区域更普遍?"></a>某种特定偷窃案件是否在某个区域更普遍?</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">theft.filter=grep(<span class="string">"THEFT"</span>,as.character(crime.df$Category))</span><br><span class="line">crime.by.theft=crime.df[theft.filter,]</span><br><span class="line"></span><br><span class="line"><span class="comment"># get the crime by district and category</span></span><br><span class="line">crime.by.group=crime.by.theft %&gt;% group_by(PdDistrict,Category)%&gt;%summarise(count=n())%&gt;%arrange(Category,desc(count))</span><br><span class="line"><span class="comment"># sum the count by crime category</span></span><br><span class="line">crime.by.number=crime.by.theft%&gt;%group_by(Category)%&gt;%summarise(count=n())%&gt;%arrange(desc(count))</span><br><span class="line"></span><br><span class="line">ggplot(crime.by.group,</span><br><span class="line">       aes(x=Category,fill=PdDistrict,weight=count))+</span><br><span class="line">  geom_histogram(position=<span class="string">"fill"</span>,col=gray(<span class="number">0.2</span>))+</span><br><span class="line">  ylab(label=<span class="string">"Ratio by District"</span>)+</span><br><span class="line">  theme_tufte()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/SF/crime-type-district.png" alt="不同偷窃案件发生区域对比"> </p>
+<p>larcen/theft 在Southern和 Central 区域更普遍，而vehicle theft则在Ingleside,Misson 和 Tenderloin区域更普遍。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/data-science/">data science</a><a href="/tags/可视化/">可视化</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/10/07/2014-10-07-SF-crime/" data-title="San Francisco过去3月的犯罪案件可视化分析 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/09/2014-10-09-hurricane/" title="2010~2014 飓风可视化尝试">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2010~2014 飓风可视化尝试</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/"  title="R语言数据挖掘与机器学习实战培训(计划中)">
+ <strong>下一篇：</strong><br/> 
+ <span>R语言数据挖掘与机器学习实战培训(计划中)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/10/07/2014-10-07-SF-crime/" data-title="San Francisco过去3月的犯罪案件可视化分析" data-url="http://www.zjdian.com/2014/10/07/2014-10-07-SF-crime/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u76EE_u6807"><span class="toc-number">1.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u5206_u6790_u7528_u7684_u5305"><span class="toc-number">2.</span> <span class="toc-text">准备分析用的包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">准备数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F85_u52A9_u51FD_u6570"><span class="toc-number">4.</span> <span class="toc-text">辅助函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5728_u54EA_u91CC_u505C_u8F66_3F"><span class="toc-number">5.</span> <span class="toc-text">在哪里停车?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SF_u6700_u5B89_u5168_u7684_u5730_u65B9_u662F_u54EA_u91CC_3F__u6BCF_u5468_u7684_u54EA_u5929/_u54EA_u4E2A_u65F6_u95F4_u6700_u5371_u9669_3F"><span class="toc-number">6.</span> <span class="toc-text">SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u67D0_u79CD_u7279_u5B9A_u5077_u7A83_u6848_u4EF6_u662F_u5426_u5728_u67D0_u4E2A_u533A_u57DF_u66F4_u666E_u904D_3F"><span class="toc-number">7.</span> <span class="toc-text">某种特定偷窃案件是否在某个区域更普遍?</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,656 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>R语言机器学习实践视频课程上线 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="课程链接http://study.163.com/course/introduction/854064.htm
+课程章节第1章 掌握什么是机器学习第2章. K最近邻方法  
+
+KNN方法简介  
+R语言中KNN方法应用案例-乳腺癌分类  
+R语言中KNN方法应用案例-鸢尾属植物分类  
+
+第3章：朴素贝叶斯方法(Naive Bayes)  
+
+贝叶斯方法原理简介  
+R语言中利用贝叶斯方法进行垃圾">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言机器学习实践视频课程上线">
+<meta property="og:url" content="http://www.zjdian.com/2014/12/31/2014-10-27-R-machine-practice-training/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="课程链接http://study.163.com/course/introduction/854064.htm
+课程章节第1章 掌握什么是机器学习第2章. K最近邻方法  
+
+KNN方法简介  
+R语言中KNN方法应用案例-乳腺癌分类  
+R语言中KNN方法应用案例-鸢尾属植物分类  
+
+第3章：朴素贝叶斯方法(Naive Bayes)  
+
+贝叶斯方法原理简介  
+R语言中利用贝叶斯方法进行垃圾">
+<meta property="og:updated_time" content="2014-10-27T11:26:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言机器学习实践视频课程上线">
+<meta name="twitter:description" content="课程链接http://study.163.com/course/introduction/854064.htm
+课程章节第1章 掌握什么是机器学习第2章. K最近邻方法  
+
+KNN方法简介  
+R语言中KNN方法应用案例-乳腺癌分类  
+R语言中KNN方法应用案例-鸢尾属植物分类  
+
+第3章：朴素贝叶斯方法(Naive Bayes)  
+
+贝叶斯方法原理简介  
+R语言中利用贝叶斯方法进行垃圾">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/31/2014-10-27-R-machine-practice-training/" title="R语言机器学习实践视频课程上线" itemprop="url">R语言机器学习实践视频课程上线</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-31T11:45:37.000Z" itemprop="datePublished"> 發表於 2014 Dec 31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u94FE_u63A5"><span class="toc-number">1.</span> <span class="toc-text">课程链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u7AE0_u8282"><span class="toc-number">2.</span> <span class="toc-text">课程章节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u76EE_u6807"><span class="toc-number">3.</span> <span class="toc-text">课程目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u6848_u4F8B"><span class="toc-number">4.</span> <span class="toc-text">课程案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u8BB2_u89E3_u65B9_u5F0F"><span class="toc-number">5.</span> <span class="toc-text">课程讲解方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u8FDE_u8F7D_u65B9_u5F0F"><span class="toc-number">6.</span> <span class="toc-text">课程连载方式</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="u8BFE_u7A0B_u94FE_u63A5"><a href="#u8BFE_u7A0B_u94FE_u63A5" class="headerlink" title="课程链接"></a>课程链接</h1><p><a href="http://study.163.com/course/introduction/854064.htm" target="_blank" rel="external">http://study.163.com/course/introduction/854064.htm</a></p>
+<h1 id="u8BFE_u7A0B_u7AE0_u8282"><a href="#u8BFE_u7A0B_u7AE0_u8282" class="headerlink" title="课程章节"></a>课程章节</h1><p>第1章 掌握什么是机器学习<br>第2章. K最近邻方法  </p>
+<ul>
+<li>KNN方法简介  </li>
+<li>R语言中KNN方法应用案例-乳腺癌分类  </li>
+<li>R语言中KNN方法应用案例-鸢尾属植物分类  </li>
+</ul>
+<p>第3章：朴素贝叶斯方法(Naive Bayes)  </p>
+<ul>
+<li>贝叶斯方法原理简介  </li>
+<li>R语言中利用贝叶斯方法进行垃圾信息分类  </li>
+</ul>
+<p>第4章 决策树方法<br>第5章 分类规则（Classification Rule）<br>第6章：分类模型评估<br>第7章：Crosss Validation<br>第8章：神经网络<br>第9章： SVM<br>第10章： 关联规则<br>第11章： K-means方法<br>第12章：模型优化  </p>
+<h1 id="u8BFE_u7A0B_u76EE_u6807"><a href="#u8BFE_u7A0B_u76EE_u6807" class="headerlink" title="课程目标"></a>课程目标</h1><p>掌握什么是机器学习, 学习R语言中机器学习应用:分类，聚类，预测，关联</p>
+<h1 id="u8BFE_u7A0B_u6848_u4F8B"><a href="#u8BFE_u7A0B_u6848_u4F8B" class="headerlink" title="课程案例"></a>课程案例</h1><ul>
+<li>乳腺癌诊断</li>
+<li>垃圾信息分类</li>
+<li>房价回归预测</li>
+<li>社交网络用户分类画像</li>
+<li>商品推荐</li>
+<li>信用卡数据坏账风险分析</li>
+<li>白酒质量评价</li>
+<li>…</li>
+</ul>
+<h1 id="u8BFE_u7A0B_u8BB2_u89E3_u65B9_u5F0F"><a href="#u8BFE_u7A0B_u8BB2_u89E3_u65B9_u5F0F" class="headerlink" title="课程讲解方式"></a>课程讲解方式</h1><ul>
+<li>简单介绍原理（不会涉及详细数学推导）+利用R语言完成案例分析</li>
+<li>课后练习+小组Kaggle竞赛</li>
+</ul>
+<h1 id="u8BFE_u7A0B_u8FDE_u8F7D_u65B9_u5F0F"><a href="#u8BFE_u7A0B_u8FDE_u8F7D_u65B9_u5F0F" class="headerlink" title="课程连载方式"></a>课程连载方式</h1><p>2014.10.24开始，每周连载一章</p>
+<p>本课程有较多练习，将以小组方式完成，请加入QQ群 51489458 （R机器学习实践），附加信息为你的网易云课堂用户名。我们将通过QQ群进行小组分组，同时课程中的数据将在群中分享。课程的最终项目为小组方式参加Kaggle网站上的数据科学项目。</p>
+<p><strong>由于本人水平有限，错误之处在所难免，还望不吝指正！</strong></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/data-science/">data science</a><a href="/tags/培训/">培训</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/12/31/2014-10-27-R-machine-practice-training/" data-title="R语言机器学习实践视频课程上线 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/31/2014-10-27-r-data-analysis-visualization/" title="R数据分析与可视化基础视频课程上线">
+  <strong>上一篇：</strong><br/>
+  <span>
+  R数据分析与可视化基础视频课程上线</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/01/2014-11-1-RMySQL/"  title="RMySQL 安装">
+ <strong>下一篇：</strong><br/> 
+ <span>RMySQL 安装
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/12/31/2014-10-27-R-machine-practice-training/" data-title="R语言机器学习实践视频课程上线" data-url="http://www.zjdian.com/2014/12/31/2014-10-27-R-machine-practice-training/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u94FE_u63A5"><span class="toc-number">1.</span> <span class="toc-text">课程链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u7AE0_u8282"><span class="toc-number">2.</span> <span class="toc-text">课程章节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u76EE_u6807"><span class="toc-number">3.</span> <span class="toc-text">课程目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u6848_u4F8B"><span class="toc-number">4.</span> <span class="toc-text">课程案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u8BB2_u89E3_u65B9_u5F0F"><span class="toc-number">5.</span> <span class="toc-text">课程讲解方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BFE_u7A0B_u8FDE_u8F7D_u65B9_u5F0F"><span class="toc-number">6.</span> <span class="toc-text">课程连载方式</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

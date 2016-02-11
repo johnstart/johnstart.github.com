@@ -1,0 +1,754 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>R语言数据挖掘与机器学习实战培训(计划中) | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="计划整理一个R语言数据挖掘与机器学习实战的培训，大致规划内容如下：
+机器学习简介
+机器学习起源
+什么是机器学习
+机器学习的分类
+R提供的机器学习工具
+
+利用R管理与统计数据
+R数据类型：Vector,Factor,List,Data Frame
+R数据管理：数据读入，存储，R访问数据库
+探索与理解数据
+数据结构
+中心趋势，分布
+可视化：boxplot,histogram
+分组变量
+变量关系
+
+
+d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R语言数据挖掘与机器学习实战培训(计划中)">
+<meta property="og:url" content="http://www.zjdian.com/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="计划整理一个R语言数据挖掘与机器学习实战的培训，大致规划内容如下：
+机器学习简介
+机器学习起源
+什么是机器学习
+机器学习的分类
+R提供的机器学习工具
+
+利用R管理与统计数据
+R数据类型：Vector,Factor,List,Data Frame
+R数据管理：数据读入，存储，R访问数据库
+探索与理解数据
+数据结构
+中心趋势，分布
+可视化：boxplot,histogram
+分组变量
+变量关系
+
+
+d">
+<meta property="og:updated_time" content="2014-09-28T12:51:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R语言数据挖掘与机器学习实战培训(计划中)">
+<meta name="twitter:description" content="计划整理一个R语言数据挖掘与机器学习实战的培训，大致规划内容如下：
+机器学习简介
+机器学习起源
+什么是机器学习
+机器学习的分类
+R提供的机器学习工具
+
+利用R管理与统计数据
+R数据类型：Vector,Factor,List,Data Frame
+R数据管理：数据读入，存储，R访问数据库
+探索与理解数据
+数据结构
+中心趋势，分布
+可视化：boxplot,histogram
+分组变量
+变量关系
+
+
+d">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/" title="R语言数据挖掘与机器学习实战培训(计划中)" itemprop="url">R语言数据挖掘与机器学习实战培训(计划中)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-28T08:05:35.000Z" itemprop="datePublished"> 發表於 2014 Sep 28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u673A_u5668_u5B66_u4E60_u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">机器学习简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5229_u7528R_u7BA1_u7406_u4E0E_u7EDF_u8BA1_u6570_u636E"><span class="toc-number">2.</span> <span class="toc-text">利用R管理与统计数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u56DE_u5F52"><span class="toc-number">3.</span> <span class="toc-text">回归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kNN__u6700_u8FD1_u90BB_u5C45_u5206_u7C7B"><span class="toc-number">4.</span> <span class="toc-text">kNN 最近邻居分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B"><span class="toc-number">5.</span> <span class="toc-text">朴素贝叶斯分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51B3_u7B56_u6811"><span class="toc-number">6.</span> <span class="toc-text">决策树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Classification_Rules"><span class="toc-number">7.</span> <span class="toc-text">Classification Rules</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u903B_u8F91_u56DE_u5F52"><span class="toc-number">8.</span> <span class="toc-text">逻辑回归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5206_u7C7B_u6A21_u578B_u8BC4_u4F30"><span class="toc-number">9.</span> <span class="toc-text">分类模型评估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u795E_u7ECF_u7F51_u7EDC"><span class="toc-number">10.</span> <span class="toc-text">神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u652F_u6301_u5411_u91CF_u673A_uFF08SVM_uFF09"><span class="toc-number">11.</span> <span class="toc-text">支持向量机（SVM）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5173_u8054_28association_rule_29"><span class="toc-number">12.</span> <span class="toc-text">关联(association rule)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u805A_u7C7B_uFF08k-means_29"><span class="toc-number">13.</span> <span class="toc-text">聚类（k-means)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6587_u672C_u5206_u6790"><span class="toc-number">14.</span> <span class="toc-text">文本分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6A21_u578B_u4F18_u5316"><span class="toc-number">15.</span> <span class="toc-text">模型优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51E0_u70B9_u8BF4_u660E"><span class="toc-number">16.</span> <span class="toc-text">几点说明</span></a></li></ol>
+		
+		</div>
+		
+		<p>计划整理一个R语言数据挖掘与机器学习实战的培训，大致规划内容如下：</p>
+<h1 id="u673A_u5668_u5B66_u4E60_u7B80_u4ECB"><a href="#u673A_u5668_u5B66_u4E60_u7B80_u4ECB" class="headerlink" title="机器学习简介"></a>机器学习简介</h1><ul>
+<li>机器学习起源</li>
+<li>什么是机器学习</li>
+<li>机器学习的分类</li>
+<li>R提供的机器学习工具</li>
+</ul>
+<h1 id="u5229_u7528R_u7BA1_u7406_u4E0E_u7EDF_u8BA1_u6570_u636E"><a href="#u5229_u7528R_u7BA1_u7406_u4E0E_u7EDF_u8BA1_u6570_u636E" class="headerlink" title="利用R管理与统计数据"></a>利用R管理与统计数据</h1><ul>
+<li>R数据类型：Vector,Factor,List,Data Frame</li>
+<li>R数据管理：数据读入，存储，R访问数据库</li>
+<li>探索与理解数据<ul>
+<li>数据结构</li>
+<li>中心趋势，分布</li>
+<li>可视化：boxplot,histogram</li>
+<li>分组变量</li>
+<li>变量关系</li>
+</ul>
+</li>
+<li>dplyr/tidyR</li>
+</ul>
+<h1 id="u56DE_u5F52"><a href="#u56DE_u5F52" class="headerlink" title="回归"></a>回归</h1><ul>
+<li>线性回归简介</li>
+<li>实战：预测房价，预测酒的质量</li>
+<li>作业：UCI机器学习库中选择一个数据集利用回归方法进行预测，提交报告以及代码</li>
+</ul>
+<h1 id="kNN__u6700_u8FD1_u90BB_u5C45_u5206_u7C7B"><a href="#kNN__u6700_u8FD1_u90BB_u5C45_u5206_u7C7B" class="headerlink" title="kNN 最近邻居分类"></a>kNN 最近邻居分类</h1><ul>
+<li>kNN原理介绍</li>
+<li>实战讲解：利用kNN诊断乳腺癌</li>
+<li>作业：UCI机器学习库中选择一个分类数据集利用kNN进行分类，提交报告以及代码</li>
+</ul>
+<h1 id="u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B"><a href="#u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B" class="headerlink" title="朴素贝叶斯分类"></a>朴素贝叶斯分类</h1><ul>
+<li>贝叶斯算法简介</li>
+<li>实战讲解：利用朴素贝叶斯进行垃圾短信判断</li>
+<li>作业：UCI机器学习库中选择一个分类数据集利用朴素贝叶斯进行分类，提交报告以及代码</li>
+</ul>
+<h1 id="u51B3_u7B56_u6811"><a href="#u51B3_u7B56_u6811" class="headerlink" title="决策树"></a>决策树</h1><ul>
+<li>决策树原理介绍</li>
+<li>实战讲解：信用卡坏账判断</li>
+<li>作业：UCI机器学习库中选择一个数据集利用决策树进行分类，提交报告以及代码</li>
+</ul>
+<h1 id="Classification_Rules"><a href="#Classification_Rules" class="headerlink" title="Classification Rules"></a>Classification Rules</h1><ul>
+<li>Classification Rule原理</li>
+<li>实战：判断哪些蘑菇是毒蘑菇</li>
+<li>作业：UCI机器学习库中选择一个数据集利用classification rule进行分类，提交报告以及代码</li>
+</ul>
+<h1 id="u903B_u8F91_u56DE_u5F52"><a href="#u903B_u8F91_u56DE_u5F52" class="headerlink" title="逻辑回归"></a>逻辑回归</h1><ul>
+<li>逻辑回归原理</li>
+<li>实战：不同法官，人种死刑判断</li>
+<li>作业：UCI机器学习库选择一个数据集利用逻辑回归进行预测，提交报告以及代码</li>
+</ul>
+<h1 id="u5206_u7C7B_u6A21_u578B_u8BC4_u4F30"><a href="#u5206_u7C7B_u6A21_u578B_u8BC4_u4F30" class="headerlink" title="分类模型评估"></a>分类模型评估</h1><ul>
+<li>confusion矩阵</li>
+<li>Kappa统计</li>
+<li>Sensitivity/Specificity</li>
+<li>ROC曲线</li>
+<li>CV以及Bootstrap</li>
+</ul>
+<h1 id="u795E_u7ECF_u7F51_u7EDC"><a href="#u795E_u7ECF_u7F51_u7EDC" class="headerlink" title="神经网络"></a>神经网络</h1><ul>
+<li>神经网络原理简介</li>
+<li>实战：利用神经网络判断水泥强度</li>
+<li>作业：UCI机器学习库中选择一个数据集利用神经网络进行预测，提交报告以及代码</li>
+</ul>
+<h1 id="u652F_u6301_u5411_u91CF_u673A_uFF08SVM_uFF09"><a href="#u652F_u6301_u5411_u91CF_u673A_uFF08SVM_uFF09" class="headerlink" title="支持向量机（SVM）"></a>支持向量机（SVM）</h1><ul>
+<li>支持向量机简介</li>
+<li>实战：利用SVM识别手写字母</li>
+<li>作业：UCI机器学习库中选择一个数据集利用SVM进行预测，提交报告以及代码</li>
+</ul>
+<h1 id="u5173_u8054_28association_rule_29"><a href="#u5173_u8054_28association_rule_29" class="headerlink" title="关联(association rule)"></a>关联(association rule)</h1><ul>
+<li>Apriori简介</li>
+<li>实战：利用商场销售记录来获得用户购买模式</li>
+<li>作业：UCI机器学习库中选择一个数据集进行market basket分析，提交报告以及代码</li>
+</ul>
+<h1 id="u805A_u7C7B_uFF08k-means_29"><a href="#u805A_u7C7B_uFF08k-means_29" class="headerlink" title="聚类（k-means)"></a>聚类（k-means)</h1><ul>
+<li>k-means简介</li>
+<li>实战：对社交用户进行聚类分析</li>
+<li>作业：UCI机器学习库中选择一个数据集进行clustering分析，提交报告以及代码</li>
+</ul>
+<h1 id="u6587_u672C_u5206_u6790"><a href="#u6587_u672C_u5206_u6790" class="headerlink" title="文本分析"></a>文本分析</h1><ul>
+<li>tm包介绍</li>
+<li>实战：这是谁的发言，奥巴马还是罗姆尼</li>
+<li>作业：微博文本分析</li>
+</ul>
+<h1 id="u6A21_u578B_u4F18_u5316"><a href="#u6A21_u578B_u4F18_u5316" class="headerlink" title="模型优化"></a>模型优化</h1><ul>
+<li>模型参数调优</li>
+<li>背包(Bagging)</li>
+<li>Boosting</li>
+<li>随机森林(random forest)</li>
+<li>作业: Kaggle上的自行车租用预测竞赛</li>
+</ul>
+<h1 id="u51E0_u70B9_u8BF4_u660E"><a href="#u51E0_u70B9_u8BF4_u660E" class="headerlink" title="几点说明"></a>几点说明</h1><p>问：什么时候开始？  </p>
+<p>目前不确定，如果有兴趣的人能达到50人就考虑吧。  </p>
+<p>问：收费吗？</p>
+<p>或者您可以考虑来做一个免费的？</p>
+<p>目前的打算：也许会考虑预收点，39～49待定（已经够低了吧，呜呜），或者最后会退，如果你完成作业很好的话。原因：</p>
+<ul>
+<li>之前做免费R数据分析培训的教训，大家报名的时候积极，讲了4～5次，交作业之类就不积极了，所以可能会考虑一个措施来解决这个问题，因为作业比较多，都自己动手才能真的学有所得</li>
+<li>如果真准备这个培训，花的准备时间肯定不少，算是劳动的一点点回报吧。而且收这点费用&lt;&lt;&lt;我干别的事情获得的收入。</li>
+<li>你可以先听2～3次后，再做决定是否继续听</li>
+</ul>
+<p>问：MOOC上有很多免费课程，为何还要准备这个课程</p>
+<p>这个与MOOC上的课有些地方有相似，不过目标稍有不同。主要目标是保证R的初学者能较快的掌握利用R来进行机器学习，会比Coursera上的机器学习课更偏向实际应用，同时比约翰霍普金斯的数据科学系列课程中的R编程，以及机器学习更详细，深入一些。如果你的自学能力还好，个人觉得可以直接听免费的MOOC课。</p>
+<p>问：如何组织</p>
+<p>打算考虑采用QQ群视频方式进行。计划每周1次课，每次课完了后有作业，安排一次作业讨论。</p>
+<p>问：如果我有兴趣，怎么报名</p>
+<p>目前还没有确定会进行，可以先加入群 397066090，如果感兴趣的人多再说。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/培训/">培训</a><a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/" data-title="R语言数据挖掘与机器学习实战培训(计划中) | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/07/2014-10-07-SF-crime/" title="San Francisco过去3月的犯罪案件可视化分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  San Francisco过去3月的犯罪案件可视化分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/09/17/2014-09-17-kaggle-titanic/"  title="Kaggle上的泰坦尼克生还数据分析">
+ <strong>下一篇：</strong><br/> 
+ <span>Kaggle上的泰坦尼克生还数据分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/" data-title="R语言数据挖掘与机器学习实战培训(计划中)" data-url="http://www.zjdian.com/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u673A_u5668_u5B66_u4E60_u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">机器学习简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5229_u7528R_u7BA1_u7406_u4E0E_u7EDF_u8BA1_u6570_u636E"><span class="toc-number">2.</span> <span class="toc-text">利用R管理与统计数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u56DE_u5F52"><span class="toc-number">3.</span> <span class="toc-text">回归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kNN__u6700_u8FD1_u90BB_u5C45_u5206_u7C7B"><span class="toc-number">4.</span> <span class="toc-text">kNN 最近邻居分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6734_u7D20_u8D1D_u53F6_u65AF_u5206_u7C7B"><span class="toc-number">5.</span> <span class="toc-text">朴素贝叶斯分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51B3_u7B56_u6811"><span class="toc-number">6.</span> <span class="toc-text">决策树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Classification_Rules"><span class="toc-number">7.</span> <span class="toc-text">Classification Rules</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u903B_u8F91_u56DE_u5F52"><span class="toc-number">8.</span> <span class="toc-text">逻辑回归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5206_u7C7B_u6A21_u578B_u8BC4_u4F30"><span class="toc-number">9.</span> <span class="toc-text">分类模型评估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u795E_u7ECF_u7F51_u7EDC"><span class="toc-number">10.</span> <span class="toc-text">神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u652F_u6301_u5411_u91CF_u673A_uFF08SVM_uFF09"><span class="toc-number">11.</span> <span class="toc-text">支持向量机（SVM）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5173_u8054_28association_rule_29"><span class="toc-number">12.</span> <span class="toc-text">关联(association rule)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u805A_u7C7B_uFF08k-means_29"><span class="toc-number">13.</span> <span class="toc-text">聚类（k-means)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6587_u672C_u5206_u6790"><span class="toc-number">14.</span> <span class="toc-text">文本分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u6A21_u578B_u4F18_u5316"><span class="toc-number">15.</span> <span class="toc-text">模型优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51E0_u70B9_u8BF4_u660E"><span class="toc-number">16.</span> <span class="toc-text">几点说明</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

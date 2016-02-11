@@ -1,0 +1,631 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>2010~2014 飓风可视化尝试 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="最近对数据可视化进行了一些研究学习，下面是参考Gaston Sanchez之前对2009～2010年飓风的可视化方法对2010~2014发生的飓风进行了一个可视化尝试，采用R实现。
+数据获取International Best Track Archive for Climate Stewardship网站会收集飓风信息数据，我们这里选择下载csv格式数据。
+12345678setwd(&quot;d:/pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2010~2014 飓风可视化尝试">
+<meta property="og:url" content="http://www.zjdian.com/2014/10/09/2014-10-09-hurricane/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="最近对数据可视化进行了一些研究学习，下面是参考Gaston Sanchez之前对2009～2010年飓风的可视化方法对2010~2014发生的飓风进行了一个可视化尝试，采用R实现。
+数据获取International Best Track Archive for Climate Stewardship网站会收集飓风信息数据，我们这里选择下载csv格式数据。
+12345678setwd(&quot;d:/pr">
+<meta property="og:image" content="http://www.zjdian.com/img/project/hurricane/hurricane.png">
+<meta property="og:image" content="http://www.zjdian.com/img/project/hurricane/hurricane-month.png">
+<meta property="og:updated_time" content="2014-10-09T14:37:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2010~2014 飓风可视化尝试">
+<meta name="twitter:description" content="最近对数据可视化进行了一些研究学习，下面是参考Gaston Sanchez之前对2009～2010年飓风的可视化方法对2010~2014发生的飓风进行了一个可视化尝试，采用R实现。
+数据获取International Best Track Archive for Climate Stewardship网站会收集飓风信息数据，我们这里选择下载csv格式数据。
+12345678setwd(&quot;d:/pr">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/09/2014-10-09-hurricane/" title="2010~2014 飓风可视化尝试" itemprop="url">2010~2014 飓风可视化尝试</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-09T14:35:37.000Z" itemprop="datePublished"> 發表於 2014 Oct 9</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6570_u636E_u83B7_u53D6"><span class="toc-number">1.</span> <span class="toc-text">数据获取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u9884_u5904_u7406_u6570_u636E"><span class="toc-number">2.</span> <span class="toc-text">预处理数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u7ED8_u56FE"><span class="toc-number">3.</span> <span class="toc-text">准备绘图</span></a></li></ol>
+		
+		</div>
+		
+		<p>最近对数据可视化进行了一些研究学习，下面是参考<a href="http://www.gastonsanchez.com" target="_blank" rel="external">Gaston Sanchez</a>之前对2009～2010年飓风的可视化方法对2010~2014发生的飓风进行了一个可视化尝试，采用R实现。</p>
+<h1 id="u6570_u636E_u83B7_u53D6"><a href="#u6570_u636E_u83B7_u53D6" class="headerlink" title="数据获取"></a>数据获取</h1><p><a href="http://www.ncdc.noaa.gov/oa/ibtracs/index.php?name=wmo-data" target="_blank" rel="external">International Best Track Archive for Climate Stewardship</a>网站会收集飓风信息数据，我们这里选择下载csv格式数据。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">setwd(<span class="string">"d:/project/datascience/hurricane/"</span>)</span><br><span class="line">row.names=c(<span class="string">"Serial_Num"</span>,<span class="string">"Season"</span>,<span class="string">"Num"</span>,<span class="string">"Basin"</span>,<span class="string">"Sub_basin"</span>,<span class="string">"Name"</span>,</span><br><span class="line">            <span class="string">"ISO_time"</span>,<span class="string">"Nature"</span>,<span class="string">"Latitude"</span>,<span class="string">"Longitude"</span>,<span class="string">"Wind.WMO"</span>,<span class="string">"Pres.WMO"</span>,</span><br><span class="line">            <span class="string">"Center"</span>,<span class="string">"Wind.WMO.Percentile"</span>,<span class="string">"Pres.WMO.Percentile"</span>,<span class="string">"Track_type"</span>)</span><br><span class="line">hurricane=read.csv(<span class="string">"Allstorms.ibtracs_wmo.v03r06.csv"</span>,skip=<span class="number">3</span>,</span><br><span class="line">                   header=<span class="literal">F</span>,stringsAsFactors=<span class="literal">F</span>)</span><br><span class="line">names(hurricane)=row.names</span><br><span class="line">head(hurricane)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##      Serial_Num Season Num Basin Sub_basin       Name            ISO_time&#10;## 1 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-11 06:00:00&#10;## 2 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-12 06:00:00&#10;## 3 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-13 06:00:00&#10;## 4 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-14 06:00:00&#10;## 5 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-15 06:00:00&#10;## 6 1848011S09080   1848   2    SI        MM XXXX848003 1848-01-16 06:00:00&#10;##   Nature Latitude Longitude Wind.WMO Pres.WMO  Center Wind.WMO.Percentile&#10;## 1     NR     -8.6      79.8        0        0 reunion                -100&#10;## 2     NR     -9.0      78.9        0        0 reunion                -100&#10;## 3     NR    -10.4      73.2        0        0 reunion                -100&#10;## 4     NR    -12.8      69.9        0        0 reunion                -100&#10;## 5     NR    -13.9      68.9        0        0 reunion                -100&#10;## 6     NR    -15.3      67.7        0        0 reunion                -100&#10;##   Pres.WMO.Percentile Track_type&#10;## 1                -100       main&#10;## 2                -100       main&#10;## 3                -100       main&#10;## 4                -100       main&#10;## 5                -100       main&#10;## 6                -100       main</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str(hurricane)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#39;data.frame&#39;:&#9;189855 obs. of  16 variables:&#10;##  $ Serial_Num         : chr  &#34;1848011S09080&#34; &#34;1848011S09080&#34; &#34;1848011S09080&#34; &#34;1848011S09080&#34; ...&#10;##  $ Season             : int  1848 1848 1848 1848 1848 1848 1848 1848 1848 1848 ...&#10;##  $ Num                : int  2 2 2 2 2 2 2 2 2 2 ...&#10;##  $ Basin              : chr  &#34; SI&#34; &#34; SI&#34; &#34; SI&#34; &#34; SI&#34; ...&#10;##  $ Sub_basin          : chr  &#34; MM&#34; &#34; MM&#34; &#34; MM&#34; &#34; MM&#34; ...&#10;##  $ Name               : chr  &#34;XXXX848003&#34; &#34;XXXX848003&#34; &#34;XXXX848003&#34; &#34;XXXX848003&#34; ...&#10;##  $ ISO_time           : chr  &#34;1848-01-11 06:00:00&#34; &#34;1848-01-12 06:00:00&#34; &#34;1848-01-13 06:00:00&#34; &#34;1848-01-14 06:00:00&#34; ...&#10;##  $ Nature             : chr  &#34; NR&#34; &#34; NR&#34; &#34; NR&#34; &#34; NR&#34; ...&#10;##  $ Latitude           : num  -8.6 -9 -10.4 -12.8 -13.9 -15.3 -16.5 -18 -20.6 -22.8 ...&#10;##  $ Longitude          : num  79.8 78.9 73.2 69.9 68.9 67.7 67 67.4 69.8 72 ...&#10;##  $ Wind.WMO           : num  0 0 0 0 0 0 0 0 0 0 ...&#10;##  $ Pres.WMO           : num  0 0 0 0 0 0 0 0 0 0 ...&#10;##  $ Center             : chr  &#34;reunion&#34; &#34;reunion&#34; &#34;reunion&#34; &#34;reunion&#34; ...&#10;##  $ Wind.WMO.Percentile: num  -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 ...&#10;##  $ Pres.WMO.Percentile: num  -100 -100 -100 -100 -100 -100 -100 -100 -100 -100 ...&#10;##  $ Track_type         : chr  &#34;main&#34; &#34;main&#34; &#34;main&#34; &#34;main&#34; ...</span><br></pre></td></tr></table></figure>
+<h1 id="u9884_u5904_u7406_u6570_u636E"><a href="#u9884_u5904_u7406_u6570_u636E" class="headerlink" title="预处理数据"></a>预处理数据</h1><p>通过对数据大致了解，我们知道Season实际也对应于年，即Season为1848就代表了该行对应1848。这里取2010年以后数据进行分析</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(dplyr)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hurricane.df=tbl_df(hurricane)</span><br><span class="line">hurricane.after.2010=hurricane.df%&gt;%filter(Season&gt;=<span class="number">2010</span>)</span><br><span class="line">hurricane.after.2010</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Source: local data frame [12,324 x 16]&#10;## &#10;##       Serial_Num Season Num Basin Sub_basin Name            ISO_time&#10;## 1  2009317S10073   2010   1    SI        MM ANJA 2009-11-13 06:00:00&#10;## 2  2009317S10073   2010   1    SI        MM ANJA 2009-11-13 12:00:00&#10;## 3  2009317S10073   2010   1    SI        MM ANJA 2009-11-13 18:00:00&#10;## 4  2009317S10073   2010   1    SI        MM ANJA 2009-11-14 00:00:00&#10;## 5  2009317S10073   2010   1    SI        MM ANJA 2009-11-14 06:00:00&#10;## 6  2009317S10073   2010   1    SI        MM ANJA 2009-11-14 12:00:00&#10;## 7  2009317S10073   2010   1    SI        MM ANJA 2009-11-14 18:00:00&#10;## 8  2009317S10073   2010   1    SI        MM ANJA 2009-11-15 00:00:00&#10;## 9  2009317S10073   2010   1    SI        MM ANJA 2009-11-15 06:00:00&#10;## 10 2009317S10073   2010   1    SI        MM ANJA 2009-11-15 12:00:00&#10;## ..           ...    ... ...   ...       ...  ...                 ...&#10;## Variables not shown: Nature (chr), Latitude (dbl), Longitude (dbl),&#10;##   Wind.WMO (dbl), Pres.WMO (dbl), Center (chr), Wind.WMO.Percentile (dbl),&#10;##   Pres.WMO.Percentile (dbl), Track_type (chr)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dim(hurricane.after.2010)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 12324    16</span><br></pre></td></tr></table></figure>
+<p>这里的ISO_time同时包含了年月日以及时间，我们这里先把月份给单独取出来。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拆分</span></span><br><span class="line">date.time=strsplit(hurricane.after.2010$ISO_time,<span class="string">" "</span>)</span><br><span class="line"><span class="comment">#只取日期</span></span><br><span class="line">iso.date=unlist(lapply(date.time,<span class="keyword">function</span>(x) x[<span class="number">1</span>]))</span><br><span class="line"><span class="comment">#取月份</span></span><br><span class="line">iso.month=substr(iso.date,<span class="number">6</span>,<span class="number">7</span>)</span><br><span class="line">hurricane.after.2010$Month=iso.month</span><br></pre></td></tr></table></figure>
+<p>对于没有命名的飓风一般都不是特别厉害，这里就不考虑了</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hurricane.after.2010=hurricane.after.2010%&gt;%filter(Name!=<span class="string">"NAMED"</span> &amp; Name!=<span class="string">"NOT NAMED"</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="u51C6_u5907_u7ED8_u56FE"><a href="#u51C6_u5907_u7ED8_u56FE" class="headerlink" title="准备绘图"></a>准备绘图</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(ggplot2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: ggplot2</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span>(ggthemes)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Loading required package: ggthemes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: package &#39;ggthemes&#39; was built under R version 3.1.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们再给飓风加上一个ID，以飓风的Name+Season来命名</span></span><br><span class="line"><span class="comment"># 这样后面我们可以获得飓风的路径用来绘图</span></span><br><span class="line">hurricane.after.2010$ID = as.factor(paste(hurricane.after.2010$Name, </span><br><span class="line">                                          hurricane.after.2010$Season, sep = <span class="string">"."</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将飓风Name转换为factor</span></span><br><span class="line">hurricane.after.2010$Name = as.factor(hurricane.after.2010$Name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 经过试验发现其他地区数据有些错误，所以只使用NA与EP区域</span></span><br><span class="line">hurricane.after.2010$Basin=gsub(<span class="string">"^ "</span>, <span class="string">""</span>, hurricane.after.2010$Basin)</span><br><span class="line">hurricane.after.2010=hurricane.after.2010%&gt;%filter(Basin==<span class="string">"NA"</span>|Basin==<span class="string">"EP"</span>)</span><br></pre></td></tr></table></figure>
+<p>现在一切就绪开始绘图</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">x.range=range(hurricane.after.2010$Longitude)</span><br><span class="line">y.range=range(hurricane.after.2010$Latitude)</span><br><span class="line">hurricane.map = ggplot(hurricane.after.2010, </span><br><span class="line">                       aes(x = Longitude, y = Latitude, group = ID)) + </span><br><span class="line">  geom_polygon(data = map_data(<span class="string">"world"</span>), aes(x = long, y = lat, group = group), </span><br><span class="line">               fill = <span class="string">"gray25"</span>, colour = <span class="string">"gray10"</span>, size = <span class="number">0.2</span>) + </span><br><span class="line">  geom_path(data = hurricane.after.2010, aes(group = ID, colour = Wind.WMO), </span><br><span class="line">            alpha = <span class="number">0.5</span>, size = <span class="number">0.8</span>) + </span><br><span class="line">  xlim(x.range) + </span><br><span class="line">  ylim(y.range) + </span><br><span class="line">  labs(x = <span class="string">""</span>, y = <span class="string">""</span>)+</span><br><span class="line">  theme(panel.background = element_rect(fill = <span class="string">"gray10"</span>, colour = <span class="string">"gray30"</span>),      </span><br><span class="line">       axis.text.x = element_blank(), </span><br><span class="line">       axis.text.y = element_blank(),</span><br><span class="line">       axis.ticks = element_blank(), </span><br><span class="line">       panel.grid.major = element_blank(), </span><br><span class="line">       panel.grid.minor = element_blank())+</span><br><span class="line">  ggtitle(label = <span class="string">"飓风 2010 - 2014"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hurricane.map</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/hurricane/hurricane.png" alt="飓风2010～2014"></p>
+<p>按月绘制</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">hurricane.map.month = ggplot(hurricane.after.2010, </span><br><span class="line">                       aes(x = Longitude, y = Latitude, group = ID)) + </span><br><span class="line">  geom_polygon(data = map_data(<span class="string">"world"</span>), aes(x = long, y = lat, group = group), </span><br><span class="line">               fill = <span class="string">"gray25"</span>, colour = <span class="string">"gray10"</span>, size = <span class="number">0.2</span>) + </span><br><span class="line">  geom_path(data = hurricane.after.2010, aes(group = ID, colour = Wind.WMO), </span><br><span class="line">            alpha = <span class="number">0.5</span>, size = <span class="number">0.8</span>) + </span><br><span class="line">  xlim(x.range) + </span><br><span class="line">  ylim(y.range) + </span><br><span class="line">  labs(x = <span class="string">""</span>, y = <span class="string">""</span>)+</span><br><span class="line">  facet_wrap(~Month)+</span><br><span class="line">  theme(panel.background = element_rect(fill = <span class="string">"gray10"</span>, colour = <span class="string">"gray30"</span>),      </span><br><span class="line">       axis.text.x = element_blank(), </span><br><span class="line">       axis.text.y = element_blank(),</span><br><span class="line">       axis.ticks = element_blank(), </span><br><span class="line">       panel.grid.major = element_blank(), </span><br><span class="line">       panel.grid.minor = element_blank())+</span><br><span class="line">  ggtitle(label = <span class="string">"飓风 2010 - 2014/月"</span>)</span><br><span class="line"></span><br><span class="line">hurricane.map.month</span><br></pre></td></tr></table></figure>
+<p><img src="/img/project/hurricane/hurricane-month.png" alt="飓风2010～2014 月度趋势图"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/R/">R</a><a href="/tags/data-science/">data science</a><a href="/tags/可视化/">可视化</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/10/09/2014-10-09-hurricane/" data-title="2010~2014 飓风可视化尝试 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/11/2014-10-11-R-crash-course-1/" title="R Your Ready? 100分钟R入门教程(上)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  R Your Ready? 100分钟R入门教程(上)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/10/07/2014-10-07-SF-crime/"  title="San Francisco过去3月的犯罪案件可视化分析">
+ <strong>下一篇：</strong><br/> 
+ <span>San Francisco过去3月的犯罪案件可视化分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/10/09/2014-10-09-hurricane/" data-title="2010~2014 飓风可视化尝试" data-url="http://www.zjdian.com/2014/10/09/2014-10-09-hurricane/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6570_u636E_u83B7_u53D6"><span class="toc-number">1.</span> <span class="toc-text">数据获取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u9884_u5904_u7406_u6570_u636E"><span class="toc-number">2.</span> <span class="toc-text">预处理数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u51C6_u5907_u7ED8_u56FE"><span class="toc-number">3.</span> <span class="toc-text">准备绘图</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

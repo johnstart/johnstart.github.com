@@ -1,0 +1,648 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>数据科学(5)-行与列-1 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第五章     行与列
+
+
+
+###表现数据的最基础和应用最广的方法之一就是使用行与列，每一行是一个案例或是实例，每一列是一个变量或是属性。尽管电子表格并不常常提到案例或变量的概念，但是大部分电子表格依然用行与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据科学(5)-行与列-1">
+<meta property="og:url" content="http://www.zjdian.com/2014/08/17/2014-8-data-science-chp5-row-col-1/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第五章     行与列
+
+
+
+###表现数据的最基础和应用最广的方法之一就是使用行与列，每一行是一个案例或是实例，每一列是一个变量或是属性。尽管电子表格并不常常提到案例或变量的概念，但是大部分电子表格依然用行与">
+<meta property="og:image" content="http://www.zjdian.com/img/datascience/f.png">
+<meta property="og:image" content="http://www.zjdian.com/img/datascience/table1.png">
+<meta property="og:updated_time" content="2014-08-17T03:14:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据科学(5)-行与列-1">
+<meta name="twitter:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第五章     行与列
+
+
+
+###表现数据的最基础和应用最广的方法之一就是使用行与列，每一行是一个案例或是实例，每一列是一个变量或是属性。尽管电子表格并不常常提到案例或变量的概念，但是大部分电子表格依然用行与">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/17/2014-8-data-science-chp5-row-col-1/" title="数据科学(5)-行与列-1" itemprop="url">数据科学(5)-行与列-1</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-17T03:06:44.000Z" itemprop="datePublished"> 發表於 2014 Aug 17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u7B2C_u4E94_u7AE0__u884C_u4E0E_u5217"><span class="toc-number">1.</span> <span class="toc-text">第五章     行与列</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文为<strong>Introduction to Data Science</strong>一书的翻译，由网友义务完成，了解参加翻译的网友，请点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/task.md" target="_blank" rel="external">这里</a>，如果要加入我们请加入qq群171546473,了解翻译规则点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/index.md" target="_blank" rel="external">这里</a></p>
+<h1 id="u7B2C_u4E94_u7AE0__u884C_u4E0E_u5217"><a href="#u7B2C_u4E94_u7AE0__u884C_u4E0E_u5217" class="headerlink" title="第五章     行与列"></a>第五章     行与列</h1><hr>
+<center><img src="/img/datascience/f.png" alt="f"></center>
+
+<hr>
+<p>###表现数据的最基础和应用最广的方法之一就是使用行与列，每一行是一个案例或是实例，每一列是一个变量或是属性。尽管电子表格并不常常提到案例或变量的概念，但是大部分电子表格依然用行与列的形式来组织数据。R语言中行与列的的形式可以通过数据框这种对象来表现出来。</p>
+<p>我们生活在一个三维的世界中，在这个世界里，麦片盒有着高度，宽度，深度。然而一个可悲的事实是，现实生活中也存在着诸如纸张，黑板，白色写字板和电脑屏幕这些只有二维的物体。其结果是，大部分统计学家，会计，计算机科学家和与大量数据打交道的工程师倾向于用行与列的形式来组织数据。</p>
+<p>这种形式除了使得用数字填写一张矩形纸片的过程变得容易之外，再无更好的使用理由。行与列可以通过你想要的任意方式来组织数据。但是最常见的方式是，行表示案例或实例，列则表示属性或是变量。我们来看下这种的行与列的二维呈现形式。</p>
+<center><img src="/img/datascience/table1.png" alt="table1"></center>
+
+<p>一目了然，对吧？最上面粗体字那行并不是数据的一部分，它包含了属性或变量的名称。注意，计算机科学家喜欢叫它们为属性，而统计学家则喜欢叫它们为变量，这两种术语都行。比如说，年龄是每个活物都具有的一个属性，你可以用分，时，日，月，年，或者其它的时间计量单位来度量它。在上表中，我们用年来度量年龄这个属性。从技术上讲，在顶行的变量名称是元数据，或者你也可以把它当作数据的数据。试想一下，如果没有元数据，凭空去理解上面这张表中的数据是很难的。元数据有很多种不同的类型，变量名称只是元数据类型中的一种简单形式而已。</p>
+<p>如果你无视包含有变量名称的顶行，那么剩下的每一行则是一个案例或实例。再次提醒一下，计算机学家可能会称它为实例，统计学家则可能会称它为案例，但是两种术语都行。重要的是，每一行对应着一个实际事物。在这个例子中，我们的所有的事物都是来自于同一个家庭的生物。你可以把NAME列看成一个案例标签列，每个标签对应着且只对应着我们数据中的唯一一行。当你在处理大型数据集的时候，大部分情况下，案例标签都是数字，每个案例的数字都是独一无二的（换句话说，相同的数字不会在两行或者两行以上中出现）。计算机学家有时把这列独一无二的数字称为键，键是一个很有用的东西，尤其是在从不同的数据源中匹配事物时，我们稍后再讨论这个问题。现在，只要关注这个信息，即虽然他们都是男性,但”Dad”行明显不同于”BRO”行。即使我们再加一个”Uncle”行，与”Dad”有着相同的年龄，性别，体重，我们仍然能够能把这两行分开，因为一行有着”Dad”的名称，而另一行的名称则为”Uncle”。</p>
+<p>另一个重要的提示：每一列都包含着相同类型的数据。举例来说，年龄这列都是数字。这列中并没有诸如“老”或者“年轻”这样的词汇。这是一种使事物有组织的一种真正有价值的方式。毕竟，如果这列有一些诸如老或年轻之类的小段文本的话，我们在年龄这列不能运行mean()这个函数。作一个相关的提醒，每个元胞（行与列的交集处，举例说，姐姐的年龄）包含着一条信息。尽管电子表或者字处理程序可能允许我们将两个或两个以上事物放到元胞中，但实数处理程序却不会允许我们这样的行为。最后，我们可以看到每列有着相同的数字输入，以致于整体形成了一个漂亮的矩形。统计学家和处理大型数据库的那些人在处理数据集的时候，他们期望能见到这种矩形的组织结构。</p>
+<p>现在我们来看下，怎样把数据以行与列的形式输入R中。你在R中很快就可以学到的一件事是，实现一个目标往往有多种方法。有时，最快或者最有效的方法并不是最容易理解的方法。在此例中，我们将逐列建立每列，然后将它们合并于一个数据框中。这种方法有一些费工费力，同时并不是我们处理一个数据集的常规方法，然而，这种方法易于理解。首先，我们运行下列命令来创建列的名称:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFamilyNames &lt;- c(<span class="string">"Dad"</span>,<span class="string">"Mom"</span>,<span class="string">"Sis"</span>,<span class="string">"Bro"</span>,<span class="string">"Dog"</span>)</span><br></pre></td></tr></table></figure>
+<p>你可能要注意的一件事是每个名字都被放到双引号之中。这个双引号的意思是你给了R一个信号，表示你想要把双引号中的内容看作一个字符串，而非存储地点的名字。如果我们要求R使用Dad而非“Dad”,它将会寻找一个叫Dad的存储位置（即一个数据对象）。需要注意的另一件事情是双引号之外不同的值之间用逗号分隔开。如果你写了一个普通的句子，那么这件事无关紧要，但是对于计算机编程来说，逗号只有不在引号之间的时候，它才能分开不同的值。一旦你键入上面那行代码，随后要记得输入下面这行命令来检查myFamilyNames的内容</p>
+<pre><code>&gt; myFamilyNames
+</code></pre><p>输出应如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &#34;Dad&#34; &#34;Mom&#34; &#34;Sis&#34; &#34;Bro&#34; &#34;Dog&#34;</span><br></pre></td></tr></table></figure>
+<p>下一步，你可以建立一个关于家庭成员年龄的向量，就像这样：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFamilyAges &lt;- c(<span class="number">43</span>, <span class="number">42</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>注意，这个命令同我们先前几章用到的命令是完全相同的。如果你一直在运行R的话，那么你现在无需再次输入这行命令。因为myFamilyAges一直都在。实际上，如果你关闭了R，当处理完先前几章的例子后，你关闭了R， 系统提示“保存工作区”。如果你这样做了，R会存储所有的你在先前几节使用的数据对象。你可以在一个空白的命令行上输入myFamilyAges来检查。输出应如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFamilyAges</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 43 42 12  8  5</span><br></pre></td></tr></table></figure>
+<p>嘿，现在你已经使用c()函数和赋值箭头来为myFamilyNames和<br>myFamilyAges来赋值。如果你在这章的先前部分看到这张数据表。你应该能够想出创建myFamilyGenders和myFamilyWeights的命令语句。如果你遇到了困难，那么你也可以在下一页中找到相应的答案。但是你在翻到下一页之前，还是应该努力找出答案。在你键入命令来建立新的数据对象之后的每一个案例，你也应该在命令行中键入数据对象的名称以确保它看起来像那么回事。对于变量，每一个变量有五个值。两个变量是字符型数据，另两个变量则是整数型数据。以防你需要它们，下面给出这两个额外的命令语句：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myFamilyGenders &lt;- c(<span class="string">"Male"</span>,<span class="string">"Female"</span>,<span class="string">"Female"</span>,<span class="string">"Male"</span>,<span class="string">"Female"</span>)</span><br><span class="line"></span><br><span class="line">myFamilyWeights &lt;- c(<span class="number">188</span>,<span class="number">136</span>,<span class="number">83</span>,<span class="number">61</span>,<span class="number">44</span>)</span><br></pre></td></tr></table></figure>
+<p>现在，我们来介绍一下数据框。在R中，数据框是一个列表(关于列的），列表中的每个元素都是一个向量。每个向量都具有相同的长度，这样我们才能让我们的漂亮矩形的行和列建立起来。一般每个向量也有它自己的名称。建立一个数据框的命令很简单：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myFamily &lt;- data.frame(myFamilyNames, + </span><br><span class="line">myFamilyAges, myFamilyGenders, myFamilyWeights)</span><br></pre></td></tr></table></figure>
+<p>注意哦，上面这个命令有点略长，所以我们不得不把它断成两行<br>。第一行行尾的加号告诉R在处理命令前要等下一行的输入。当然了，如果你想的话，你可以把所有的命令都塞到一行中，但是这样做的话呢，就得把“+”去掉。无论如何，data.frame()函数可以把我们先前输入的四个向量变成一个数据框。当然我们也可以使用赋值箭头来生成一个新的储存位置来放入数据框。这种新的数据对象就是我们所说的数据框，它的名称叫做myFamily。一旦你输入了上述命令，可以在命令行中输入myFamily来得到一个数据框内容的回馈。你看到的输出应如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFamily</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##   myFamilyNames X.myFamilyAges myFamilyGenders myFamilyWeights&#10;## 1           Dad             43            Male             188&#10;## 2           Mom             42          Female             136&#10;## 3           Sis             12          Female              83&#10;## 4           Bro              8            Male              61&#10;## 5           Dog              5          Female              44</span><br></pre></td></tr></table></figure>
+<p>看起来不错哈。注意哦，R把行数（也就是那1，2，3，4，5）放在了我们数据每一行的前面。这不同于我们先前在[]括号中看到的数字，因为这些数字是数据框中的实际“索引”。换句话来说，这些行号是R用来追踪某一特定的数据在哪一行。</p>
+<p>像这样的小型数据集，只有五行，对所有的数据进行一览也很简单。但是当我们处理一个大型数据集的时候，这种方法也不实际。我们需要其他的方法来总结这些数据集。第一种方法是用来来显示结构的类型，结构就是是R用来存储数据对象的</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str(myFamily)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## &#39;data.frame&#39;:&#9;5 obs. of  4 variables:&#10;##  $ myFamilyNames  : Factor w/ 5 levels &#34;Bro&#34;,&#34;Dad&#34;,&#34;Dog&#34;,..: 2 4 5 1 3&#10;##  $ X.myFamilyAges : num  43 42 12 8 5&#10;##  $ myFamilyGenders: Factor w/ 2 levels &#34;Female&#34;,&#34;Male&#34;: 2 1 1 2 1&#10;##  $ myFamilyWeights: num  188 136 83 61 44</span><br></pre></td></tr></table></figure>
+<p>在此献上首次提醒，这个例子表明，命令提示”&gt;”是用来区分命令与其后的输出结果的。你无需键入这个符号，当R准备接受新的输入时，它会自动产生这个符号。这本书从现在开始的例子中，R命令将与输出结果混合在一起，所以哦，要时刻注意”&gt;”这个符号，因为在这个符号之后的命令才是你所要键入的。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Introduction-to-data-science/">Introduction to data science</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/08/17/2014-8-data-science-chp5-row-col-1/" data-title="数据科学(5)-行与列-1 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/08/17/2014-8-data-science-chp5-row-col-2/" title="数据科学(5)-行与列-2">
+  <strong>上一篇：</strong><br/>
+  <span>
+  数据科学(5)-行与列-2</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/16/2014-8-data-science-chp4-follow-the-data/"  title="数据科学(4)-跟着数据走">
+ <strong>下一篇：</strong><br/> 
+ <span>数据科学(4)-跟着数据走
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/08/17/2014-8-data-science-chp5-row-col-1/" data-title="数据科学(5)-行与列-1" data-url="http://www.zjdian.com/2014/08/17/2014-8-data-science-chp5-row-col-1/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u7B2C_u4E94_u7AE0__u884C_u4E0E_u5217"><span class="toc-number">1.</span> <span class="toc-text">第五章     行与列</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

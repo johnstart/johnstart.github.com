@@ -1,0 +1,634 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>数据科学(8)-第八章：大数据 | 中继点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="中继点">
+    
+
+    
+    <meta name="description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+#第八章 大数据？了不起！
+在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据科学(8)-第八章：大数据">
+<meta property="og:url" content="http://www.zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+#第八章 大数据？了不起！
+在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我">
+<meta property="og:updated_time" content="2014-09-08T02:40:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据科学(8)-第八章：大数据">
+<meta name="twitter:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+#第八章 大数据？了不起！
+在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我">
+
+    
+    <link rel="alternative" href="/atom.xml" title="中继点" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="中继点" title="中继点"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="中继点">中继点</a></h1>
+				<h2 class="blog-motto">大数据，R，研发管理，移动互联，Lean Startup</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.zjdian.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/08/2014-9-8-data-science-chp8-big-data/" title="数据科学(8)-第八章：大数据" itemprop="url">数据科学(8)-第八章：大数据</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="中继点" target="_blank" itemprop="author">中继点</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-08T02:29:56.000Z" itemprop="datePublished"> 發表於 2014 Sep 8</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>本文为<strong>Introduction to Data Science</strong>一书的翻译，由网友义务完成，了解参加翻译的网友，请点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/task.md" target="_blank" rel="external">这里</a>，如果要加入我们请加入qq群171546473,了解翻译规则点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/index.md" target="_blank" rel="external">这里</a></p>
+<p>#第八章 大数据？了不起！</p>
+<p>在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可以有更多的思考。</p>
+<p>市场观察（一个华尔街期刊）最近发表了一篇文章标题为“谷歌IT和商务专业人士指出大数据等于大回报”，副标题“根据新的全球调查，70%的组织正在考虑、计划或者运行大数据项目”。相似的技术新闻在这几年屡见不鲜。如此大量这样的文章让人不由得认为“大数据”是一种给这个世界掀起信息和技术浪潮的革命。但这是真的的？“大数据”真的改变了一切吗？</p>
+<p>商业分析师Doug Laney指出三个特征让大数据跟以往的技术革命不同：海量，速度、多样性。海量指的是庞大的数据量。速度则是数据的快速生成和更新。最后，多样性指的是会包含多种不同类型的数据。这三个特性经常指代大数据的“3V”模型。但是，即使在计算机时代的破晓，我们就已经拥有多样的数据，有的数据产生非常快，而且经过时间的推移，这些产生的数据能装满大量的存储器（试想，从18世纪开始，美国国会图书馆每年产生的多种的大量的数据）。所以，光凭某人说他们面临海量的、高速的、多样性的数据问题，是不足以证明大数据是一个崭新的事物。</p>
+<p>有这样的说法，和几年前相比，许多进行中的改变让今天的数据问题有了质的不同。让我们列下几个准确的例子： </p>
+<ol>
+<li>传感器（比如条形码阅读器）价格的下降和最近几年是它价格下降并且更容易收集更多数据的技术</li>
+<li>相似的，存储器价格的下降使不管质量和使用地保存大量无关紧要的数据变得现实了。</li>
+<li>许多人对隐私的态度不再像以前那样严格，他们似乎已经适应了使用Facebook和其他会透露许多个人信息的平台。</li>
+<li>研究者已经在机器学习算法中取得了重大进步，它是构建许多数据挖掘的基础。</li>
+<li>当一个数据集达到一定规模（几千行），传统的统计显著性检验已经没有意义了，因为即使最小最微不足道的结果（或者效应量，按照统计学家的说法）也是统计上显著的</li>
+</ol>
+<p>出了以上这几点，我们能然有许多需要做出的改变：  </p>
+<p>A.垃圾进，垃圾出：数据的用处非常依赖它是如何收集的。数据收集后，它的质量非常依赖我们如何对它做预处理：数据清理和数据筛选。<br>B.大等于怪异：如果你寻找异常现象——违反规则的罕见事件——那么数据量越大越好。低频率事件经常不会出现直到数据收集持续很长一段时间，或者包含一个足够大的样例组来专门记录一个奇特案例。<br>C.连接增加可能：单个数据集不管提供什么变量都有内在的限制。但是如果这些数据能连接到别的数据，新的分析途径也许会突然出现。虽然不能保证，但是你连接越多的数据，你就越有可能有新的发现。   </p>
+<p>以上两个列表的观点都是老生常谈毫无争议的。但是他们进一步解释了大数据可能会有多重要的问题。历史上已经有许多成功应用传统统计检验适当规（比如1000行或更少）模数据集的统计规律。每个人都喜欢的基础统计，学生t检验，是检验两组数据中心趋势异同的工具。如果数据包含某种规律，一组数据显著不同于另一组数据，一个t检验会告诉我们同样的结果。</p>
+<p>大数据没办法用这样的检验帮助我们。我们甚至不需要一千条数据来做传统统计比较，而且上百万上千万的数据并不会让我们的工作更简单（它只会占用更多的电脑内存和磁盘）。想想我们前一张读到的：我们可以开始用基本的统计推断处理有51条记录的数据。实际上，大部分经常使用的统计技术，比如学生t检验，是专门设计处理小样本的。</p>
+<p>另一方面，如果我们是在草堆里找一根针，尽量在最大的草堆里找就讲得通了。因为大的草堆更有可能包含至少一根针。随着机器学习近几年的进步，我们开始意识到好的工具、大量数据和有趣的问题确实能为我们提供新的更深刻的见解。  </p>
+<p>让我们结合这个这样的乐观主义和三个非常重要的注意事项。第一条是当这个数据越复杂，就越难确定数据是否“干净”和适合我们的要求。一个脏数据集在某方面比没有数据还糟，因为我们也许会花很多时间精力在上面而得不到任何结果。更严重的是我们花时间精力最后只能得到错误的结果！很多分析师认为清理数据——让数据适合分析，清楚异常数据，组织适合的数据结构——事实上是数据分析过程中最耗时间精力的。</p>
+<p>第二条注意事项是稀少和异常事件或模式一直伴随这他们不可预测的本质。甚至面对我们能想象的最好的数据和大量变量，我们几乎一直都会有准确性的问题。数据挖掘工具也许能给我们呈现数据的模式，我们甚至可以在新数据中重现这种模式，但是我们永远不敢保证我们已经对这种模式理解到能分离，控制或明白它的原因。预测飓风的路径就是一个很好的例子：尽管气象仪器，预测和数字捣弄已经有了几十年的发展，气象学家在预测飓风是否会登陆或风速会多大都面对非常大的困难。工作中的复杂性和不可预测性使得任务异常艰难。</p>
+<p>第三条注意事项是有关连接数据集的。上文的C条目提出连接能提供格外的价值。但是每一条到新数据集的连接也增加了数据的复杂性，同时也增加了出现脏数据和假结果的可能性。而且，虽然很多公司都越来越不在乎这一点，我们连接越多个人的数据（如消费者，病人，投票者等），我们就越可能造成隐私泄露的灾难。即使你不在乎隐私问题，但是你不得不承认安全和隐私丑闻会给公司带来巨大的金钱和名誉损失。现在有价值和可接受的数据革新领域也许就是犯罪和欺诈数据。越多数据集的连接就越容易暴露那些人的恶行。</p>
+<p>总的来说，我们可以认为丰富的大量的数据结合适合的分析工具在有保障的环境下可以为商业部门、教育部门、政府部门和其他领域带来益处。但是，数据科学家关注的不应该是取得尽可能多的可用数据，而是根据目的使用对的数据和对的规模。拥有大量不适当的数据并不会有任何好处。就好像，简单快速取得的数据并不能保证与要研究的问题相关。虽然说多样性是生活的调味品，但是过于复杂经常会损害可靠性和可信性：我们连接的数据集越复杂，我们越可能在使用和保存它们的时候出现意外问题。</p>
+<p>##数据科学的工具</p>
+<p>经过前面几章，我们对于上千数据分析师使用的分析工具——数据分析和数据可视化的开源软件R——已经有了一个快速的了解。尽管R功能十分强大，但是数据分析师根据研究的不同领域仍然使用了上百种其他分析工具。</p>
+<p>出了R之外，一个非常流行和强大的工具是SAS（读“sass”），它是一个一个有专利的统计系统。SAS包含了强大的编程语言，覆盖了许多数据类型，功能和语言特点。跟R相比，学习SAS可以说难（或简单，根据你的预期），但是许多大企业使用SAS，因为不像R，SAS提供了大量的技术和产品服务。当然，这样的服务价格不便宜，所以大部分SAS使用者都是有能力购买许可证书和售后支持的大企业。</p>
+<p>另一个在统计领域的工具是SPSS，一个许多研究者使用的工具包（全名是统计产品与服务解决方案）。对许多分析师来说，SPSS比SAS更容易上手，但是没有那么灵活和强大。</p>
+<p>R、SPSS、SAS作为统计工具包，但数据分析师在某些方面仍然使用了其他一般编程语言做数据分析。一个令人激动的发展中的语言有一个奇怪的名字“Processing”。Processing是一个专门用来做数据可视化的编程语言。像R一样，Processing是一个开源项目，它免费提供在<a href="http://processing.org/" target="_blank" rel="external">http://processing.org/</a>。而且跟R一样，processing是一个跨平台语言，它可以在Mac、Windows、Linux上完美运行。有许多书提供processing的学习（不幸的是还没有开源书），许多网站为初学者提供了大量实例。在R之外，processing也许是数据科学家工具箱中最重要的工具之一。</p>
+<p>##本章练习</p>
+<p>查看各种与“Data.gov”相关的网站，尽可能找到最大或者最复杂的数据集。试思考（或写下来）一种或多种这些数据可能在分析中被误用的情况。下载一个你感兴趣的数据集，将它载入R中看你能做点什么。</p>
+<p>下面是一个格外挑战，打开下面这个网页：<br><a href="heep://teamwpc.co.uk/products/wps" target="_blank" rel="external">heep://teamwpc.co.uk/products/wps</a><br>下载试用版的“World Programming System”（WPS）。WPS能读取SAS代码，你能很方便的找到你要的代码用来读取Data.gov数据集。</p>
+<p>##参考资料</p>
+<p><a href="http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf" target="_blank" rel="external">http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf</a><br><a href="http://en.wikipedia.org/wiki/Big_data" target="_blank" rel="external">http://en.wikipedia.org/wiki/Big_data</a><br><a href="http://en.wikipedia.org/wiki/Data.gov" target="_blank" rel="external">http://en.wikipedia.org/wiki/Data.gov</a><br><a href="http://www.marketwatch.com/story/big-data-equals-big-busines
+s-opportunity-say-global-it-and-business-professionals-2012-05-14" target="_blank" rel="external">http://www.marketwatch.com/story/big-data-equals-big-busines<br>s-opportunity-say-global-it-and-business-professionals-2012-05-14</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据科学/">数据科学</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Introduction-to-data-science/">Introduction to data science</a><a href="/tags/数据科学/">数据科学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/" data-title="数据科学(8)-第八章：大数据 | 中继点" data-tsina="1543589403" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/08/2014-9-data-science-chp9-Rstudio/" title="数据科学(9)-第九章：Rstudio">
+  <strong>上一篇：</strong><br/>
+  <span>
+  数据科学(9)-第九章：Rstudio</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/22/2014-8-22-naive-bayes/"  title="机器学习与R(10)-朴素贝叶斯">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习与R(10)-朴素贝叶斯
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/09/08/2014-9-8-data-science-chp8-big-data/" data-title="数据科学(8)-第八章：大数据" data-url="http://www.zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/数据科学/" title="数据科学">数据科学<sup>38</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂记/" title="杂记">杂记<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>19</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/行业观察/" title="行业观察">行业观察<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/软件技术/" title="软件技术">软件技术<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/数据科学/" title="数据科学">数据科学<sup>33</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>26</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/经济学/" title="经济学">经济学<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/凯恩斯/" title="凯恩斯">凯恩斯<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件定价/" title="软件定价">软件定价<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Introduction-to-data-science/" title="Introduction to data science">Introduction to data science<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习与R/" title="机器学习与R">机器学习与R<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/data-science/" title="data science">data science<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/可视化/" title="可视化">可视化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/企业成长/" title="企业成长">企业成长<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/创业/" title="创业">创业<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/培训/" title="培训">培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R培训/" title="R培训">R培训<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TED/" title="TED">TED<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据分析/" title="数据分析">数据分析<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/软件项目管理/" title="软件项目管理">软件项目管理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1543589403&verifier=996dff3a&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> life long leaner <br/>
+			关注大数据,R,移动互联,研发管理,lean startup,lifelong learning</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1543589403" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="中继点">中继点</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zjdian"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37263323-2', 'auto');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
