@@ -1,4 +1,5 @@
 # johnstart.github.com
-personal web
+个人博客
 
-[build-info](https://travis-ci.org/userName/repoName.svg)
+
+![build-info](https://travis-ci.org/jiangblog/jiangblog.github.com.svg)](https://travis-ci.org/jiangblog/jiangblog.github.com)
