@@ -255,7 +255,7 @@ highlight_theme: night bright
 
 # MathJax Support
 mathjax:
-  enable: false
+  enable: true
   per_page: false
   cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
@@ -290,12 +290,12 @@ duoshuo_shortname: zjdian
 ##  type: button
 
 # Share
-#jiathis:
+jiathis: true
 # Warning: JiaThis does not support https.
 #add_this_id:
 
 # Share
-#duoshuo_share: true
+duoshuo_share: true
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
@@ -475,5 +475,12 @@ css: css
 js: js
 images: images
 
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 # Theme version
 version: 5.1.0
+
+
