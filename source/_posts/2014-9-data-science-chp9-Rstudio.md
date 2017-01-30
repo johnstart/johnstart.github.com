@@ -1,5 +1,6 @@
 title:  数据科学(9)-第九章：Rstudio
 date: 2014-09-08 10:34:44
+modified: 2014-09-08 10:34:44
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
@@ -7,9 +8,9 @@ tags: [数据科学,Introduction to data science]
 本文为**Introduction to Data Science**一书的翻译，由网友义务完成，了解参加翻译的网友，请点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/task.md)，如果要加入我们请加入qq群171546473,了解翻译规则点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/index.md)
 
 
-#第九章 开始R-Studio
+# 第九章 开始R-Studio
 
-![](/img/datascience/9-head.jpg)
+![](/images/datascience/9-head.jpg)
 
 **作为一个拥有活跃的用户社区的开源软件，R之所以能不断创新发展离不开社区志愿者无私贡献。其中一个非常重要的创新就能完美支持R语言副本的R-Studio框架。本章从R-Studio的安装开始，然后再详细介绍了“包”——扩展R的关键。**
 
@@ -27,7 +28,7 @@ Joseph J. Allaire 作为一个连续创业家和软件工程师，开发了一�
 
 安装好R-Studio后，你就可以直接运行它来进行本章后面的内容。本书不会像其他学习材料一样把R-Studio界面上的每个部分都介绍一遍，而是在使用到一个特性的时候就将其突出显示出来。当你运行R-Studio时，你将会看到三到四个子窗口。点击“File”菜单下的“New”项，并在“New”的子菜单中选择“R Script”，这样你就能看到类似如下的界面：
 
-![](/img/datascience/9-1.jpg)
+![](/images/datascience/9-1.jpg)
 
 
 ```r
@@ -107,7 +108,7 @@ MyMode(tinyData)
 
 下面的表中列出了uniqueValues中的元素以及其对应的个数。
 
-![](/img/datascience/9-2.jpg)
+![](/images/datascience/9-2.jpg)
 
 首行显示“index”的标号行仅仅是出于说明的目的。这些索引数字用来定位列表中对应的元素的。比如，uniqueValues列表中下标为4的位置值为4，其对应的uniqueCounts的值为2。这样一来，如果我们要寻找出现次数最多的数字，我们只需在最后一行中找到最大的数的下标，然后在uniqueValues列表中找到该下标对应的值即可。在R语言中，我们只需一行代码就可以实现前面描述的过程：
 
@@ -231,7 +232,7 @@ MyMode(tinyData)
 
 最后一点需要注意的也是我们接下来要讨论的关键主题。为了创建这个MyMode函数，我们做了非常多的工作，但是仍然不能保证其对于所有可能遇到的输入参数都能完美运行。也行别人已经解决了我们遇到的问题，这样我们就可以直接将别人写的“包（package）”添加到R编译器中，来拓展R的函数。事实上，对于统计模式，现有的一个包几乎可以完成你能想到的所有工作。这个包叫“modees”，是“mode-estimator”的一个不太好的缩写。查看R-studio的右下角窗口，上面有很多标签，其中一个标签是“Package”，点击这个标签你就能看到所有已经安装的包的列表，选中包前面的勾选框就可以在你的R程序中使用这个包了。“modeest”包应该不在这个列表中，因此你需要点击“Install”按钮来安装包。点击“Install”后，会弹出一个如下图的界面：
 
-![](/img/datascience/9-3.jpg)
+![](/images/datascience/9-3.jpg)
 
 在“Packages”编辑框中输入想安装的包的名字就可以开始安装这个包了。或许你记不清包的完整的名称，你只需输入前几个字母，R-studio就会自动列出所有匹配的包，从列表中选择你需要的即可。安装过程中可能会弹出“Install Dependencies”的勾选框，如果弹出来了，选上即可。这是因为在有些情况下，安装R的包需要依赖其他包，R-studio会自动按照正确的顺序将所有必需的包都安装上。点击“Install”后，你会发现R控制台（左下角窗口）中运行了一些命令。通常情况下，这个安装过程不会出现问题，你也看不到任何警告信息。安装完成后，再次查看右下角的窗口（注意选择“Packages”标签），你就会发现modeest包已经在列表中了。然后选中旁边的勾选框，这会自动调用library()函数，然后你就可以使用modeest这个包了。
 

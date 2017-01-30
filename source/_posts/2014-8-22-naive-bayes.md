@@ -1,5 +1,7 @@
+---
 title: 机器学习与R(10)-朴素贝叶斯
 date: 2014-08-22 19:49:24
+modified: 2014-08-22 19:49:24
 category: 数据科学
 tags: [数据科学,机器学习,R,机器学习与R]
 ---
@@ -28,7 +30,7 @@ tags: [数据科学,机器学习,R,机器学习与R]
 
 朴素贝叶斯用来进行文本分类通常存在一个问题，如果训练的数据中某个词没有出现过，那么该词的概率就变成了0，从而如公式所示，整个计算的垃圾邮件概率就变成了0，这显然不合理，于是就有了拉普拉斯估计的应用，我们给它预估一个值这样就可以避免问题的出现了。
 
-![垃圾邮件计算示例](/img/rmachine/bayes-laplace.png)
+![垃圾邮件计算示例](/images/rmachine/bayes-laplace.png)
 
 
 ## 数字特征的处理
@@ -258,7 +260,7 @@ require(wordcloud)
 wordcloud(sms_corpus_train, min.freq = 40, random.order = FALSE)
 ```
 
-![](/img/rmachine/rmachine-10-8.png) 
+![](/images/rmachine/rmachine-10-8.png) 
 
 
 这里的`min.freq`是词出现的最小频率，通常我们用语料库的10%来开始(训练语料库有4182个文档)。上面那个词云只是给出了一个总体印象，对我们的分析没有太大帮助，所有我们考虑分布看看垃圾邮件与正常邮件的区别
@@ -271,13 +273,13 @@ ham <- subset(sms_raw_train, type == "ham")
 wordcloud(spam$text, max.words = 40, scale = c(3, 0.5))
 ```
 
-![](/img/rmachine/rmachine-10-91.png) 
+![](/images/rmachine/rmachine-10-91.png) 
 
 ```r
 wordcloud(ham$text, max.words = 40, scale = c(3, 0.5))
 ```
 
-![](/img/rmachine/rmachine-10-92.png) 
+![](/images/rmachine/rmachine-10-92.png) 
 
 
 很显然可以看出垃圾邮件里面`free,now,prize,text claim`比较多。

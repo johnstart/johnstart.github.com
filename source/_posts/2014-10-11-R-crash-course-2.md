@@ -1,5 +1,6 @@
 title: R Your Ready? 100分钟R入门教程(下)
 date: 2014-10-11 22:28:30
+modified: 2014-10-11 22:28:30
 category: 数据科学
 tags: [数据科学,R,R培训]
 ---
@@ -305,25 +306,25 @@ names(earnings)
 hist(earnings$earn)
 ```
 
-![](/img/project/training/crashcourse/basic_plots1.png) 
+![](/images/project/training/crashcourse/basic_plots1.png) 
 
 ```r
 plot(earnings$earn ~ earnings$height)
 ```
 
-![](/img/project/training/crashcourse/basic_plots2.png) 
+![](/images/project/training/crashcourse/basic_plots2.png) 
 
 ```r
 boxplot(earnings$earn ~ earnings$height)
 ```
 
-![](/img/project/training/crashcourse/basic_plots3.png) 
+![](/images/project/training/crashcourse/basic_plots3.png) 
 
 ```r
 boxplot(earnings$earn ~ earnings$sex)
 ```
 
-![](/img/project/training/crashcourse/basic_plots4.png) 
+![](/images/project/training/crashcourse/basic_plots4.png) 
 
 
 # 赐予我力量吧-`packages`
@@ -771,13 +772,13 @@ histNormal = function(N) {
 histNormal(1000)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-741.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-741.png) 
 
 ```r
 max = histNormal(1000)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-742.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-742.png) 
 
 ```r
 max
@@ -841,13 +842,13 @@ newFunction(2.6, modifier=1.3, threshold=3)
 hist(sapply(rnorm(10000), newFunction), breaks=60, freq=FALSE)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-781.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-781.png) 
 
 ```r
 hist(sapply(rnorm(10000), newFunction, modifier=1), breaks=60, freq=FALSE)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-782.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-782.png) 
 
 ## `...` 
 
@@ -870,13 +871,13 @@ histNormalWrapper = function(N, ...) {
 histNormalWrapper(1000)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-791.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-791.png) 
 
 ```r
 histNormalWrapper(1000, breaks=50)
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-792.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-792.png) 
 
 # table
 
@@ -1111,13 +1112,13 @@ prop.table( caith, 1 ) * 100
 mosaicplot( caith, shade=TRUE )     
 ```
 
-![nk-83](/img/project/training/crashcourse/unnamed-chunk-831.png) 
+![nk-83](/images/project/training/crashcourse/unnamed-chunk-831.png) 
 
 ```r
 barplot( caith, beside=TRUE, legend=TRUE )     # not shown
 ```
 
-![nk-83](/img/project/training/crashcourse/unnamed-chunk-832.png) 
+![nk-83](/images/project/training/crashcourse/unnamed-chunk-832.png) 
 
 ##  Multiway tables
 

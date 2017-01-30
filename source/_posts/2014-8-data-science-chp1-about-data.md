@@ -1,8 +1,10 @@
 title: 数据科学(1)-关于数据
 date: 2014-08-16 20:29:11
+modified: 2014-08-16 20:29:11
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
+
 本文为**Introduction to Data Science**一书的翻译，由网友义务完成，了解参加翻译的网友，请点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/task.md)，如果要加入我们请加入qq群171546473,了解翻译规则点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/index.md)
 
 第一章 关于数据

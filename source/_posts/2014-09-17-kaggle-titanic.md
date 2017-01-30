@@ -1,5 +1,6 @@
 title: Kaggle上的泰坦尼克生还数据分析
 date: 2014-09-17 11:28:30
+modified: 2014-09-17 11:28:30
 category: 数据科学
 tags: [数据科学,R,Kaggle]
 ---
@@ -118,7 +119,7 @@ missmap(train.raw, main="Titanic缺失数据图",
         col=c("yellow", "black"), legend=FALSE)
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-3.png) 
+![](/images/kaggle/titanic/unnamed-chunk-3.png) 
 
 这里看出Cabin，Age有较多缺失数据，而Embark只有两个缺失数据。
 
@@ -132,7 +133,7 @@ barplot(table(train.raw$Survived),names.arg=c("死亡","生还"),
         main="生还 vs 死亡")
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-4.png) 
+![](/images/kaggle/titanic/unnamed-chunk-4.png) 
 
 ## 不同舱位等级的影响
 
@@ -145,7 +146,7 @@ barplot(survive.rate.class,names.arg=c("一等","二等","三等"),
         args.legend=list(x="topleft"))
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-5.png) 
+![](/images/kaggle/titanic/unnamed-chunk-5.png) 
 
 ```r
 round((survive.rate.class[2,]/colSums(survive.rate.class))*100,2)
@@ -169,7 +170,7 @@ barplot(survive.rate.sex,names.arg=c("女","男"),
         args.legend=list(x="topleft"))
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-6.png) 
+![](/images/kaggle/titanic/unnamed-chunk-6.png) 
 
 ```r
 round((survive.rate.sex[2,]/colSums(survive.rate.sex))*100,2)
@@ -196,7 +197,7 @@ barplot(survive.rate.age,
         args.legend=list(x="topleft"))
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-71.png) 
+![](/images/kaggle/titanic/unnamed-chunk-71.png) 
 
 ```r
 round((survive.rate.age[2,]/colSums(survive.rate.age))*100,2)
@@ -218,7 +219,7 @@ barplot(survive.rate.age,
         args.legend=list(x="topleft"))
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-72.png) 
+![](/images/kaggle/titanic/unnamed-chunk-72.png) 
 
 ```r
 round((survive.rate.age[2,]/colSums(survive.rate.age))*100,2)
@@ -242,7 +243,7 @@ mosaicplot(train.raw$Pclass ~ train.raw$Survived,
            color=TRUE, xlab="舱位", ylab="生还")
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-81.png) 
+![](/images/kaggle/titanic/unnamed-chunk-81.png) 
 
 ```r
 mosaicplot(train.raw$Sex ~ train.raw$Survived,
@@ -250,7 +251,7 @@ mosaicplot(train.raw$Sex ~ train.raw$Survived,
            color=TRUE, xlab="性别", ylab="生还")
 ```
 
-![](/img/kaggle/titanic/unnamed-chunk-82.png) 
+![](/images/kaggle/titanic/unnamed-chunk-82.png) 
 
 ## 相关性分析
 
@@ -295,7 +296,7 @@ corrgram(train.corrgram[,corrgram.vars], lower.panel=panel.ellipse,
          upper.panel=panel.pie,text.panel=panel.txt, main="泰坦尼克生还率相关性分析")
 ```
 
-![0](/img/kaggle/titanic/unnamed-chunk-10.png) 
+![0](/images/kaggle/titanic/unnamed-chunk-10.png) 
 
 # 初次建模
 
@@ -441,7 +442,7 @@ plot(perf, main = "ROC curve",col = "blue", lwd = 2)
 abline(a = 0, b = 1, lwd = 2, lty = 2)
 ```
 
-![4](/img/kaggle/titanic/unnamed-chunk-14.png) 
+![4](/images/kaggle/titanic/unnamed-chunk-14.png) 
 
 
 ## 预测

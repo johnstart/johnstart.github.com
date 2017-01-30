@@ -1,6 +1,7 @@
 ---
 title: R语言可视化-所有R包词云
 date: 2014-10-24 19:45:37
+modified: 2014-10-24 19:45:37
 category: 数据科学
 tags: [数据科学,data science,可视化,R]
 ---
@@ -72,4 +73,4 @@ tags: [数据科学,data science,可视化,R]
     dev.off()
 ```
 
-![包的词云](/img/project/packagecloud/packages_wordcloud.png)
+![包的词云](/images/project/packagecloud/packages_wordcloud.png)

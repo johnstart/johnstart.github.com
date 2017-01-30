@@ -1,6 +1,7 @@
 title: apply,sappy,
 category: 数据科学
 date: 2014-08-03 10:13:38
+modified: 2014-08-03 10:13:38
 tags: [R,每日一R函数]
 ---
 

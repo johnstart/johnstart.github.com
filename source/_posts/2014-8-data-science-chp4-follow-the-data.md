@@ -1,5 +1,6 @@
 title: 数据科学(4)-跟着数据走
 date: 2014-08-16 20:39:34
+modifed: 2014-08-16 20:39:34
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---

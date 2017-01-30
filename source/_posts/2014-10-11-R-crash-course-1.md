@@ -1,5 +1,6 @@
 title: R Your Ready? 100分钟R入门教程(上)
 date: 2014-10-11 22:28:30
+modified: 2014-10-11 22:28:30
 category: 数据科学
 tags: [数据科学,R,R培训]
 ---
@@ -246,7 +247,7 @@ stem( my.data )
 hist( the.data )
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-11.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-11.png) 
 
 ```r
 the.data
@@ -263,7 +264,7 @@ R的直方图缺省是以包含右侧为界，所以这里1，2是归入1～2
 hist( the.data, right=F ) 
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-12.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-12.png) 
 
 这个更清楚：
 
@@ -273,7 +274,7 @@ bins = seq( .5, 7.5, 1 )
 hist( the.data, breaks=bins )
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-13.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-13.png) 
 
 
 ## Categorical (nominal) 数据.
@@ -315,13 +316,13 @@ hair.color
 barplot( table( hair.color ))  #一个函数的输出是另一个函数的输入
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-141.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-141.png) 
 
 ```r
 barplot( table( hair.color ), col=c( "black","yellow","brown","red" ))
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-142.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-142.png) 
 
 这里用到了一个函数的输出是另一个函数的输入
 
@@ -331,7 +332,7 @@ temp.table = table( hair.color )
 barplot( temp.table )
 ```
 
-![](/img/project/training/crashcourse/unnamed-chunk-15.png) 
+![](/images/project/training/crashcourse/unnamed-chunk-15.png) 
 
 ```r
 rm( temp.table)

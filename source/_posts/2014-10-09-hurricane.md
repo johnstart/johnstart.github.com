@@ -1,5 +1,6 @@
 title: 2010~2014 飓风可视化尝试
 date: 2014-10-09 22:35:37
+modified: 2014-10-09 22:35:37
 category: 数据科学
 tags: [数据科学,data science,可视化,R]
 ---
@@ -197,7 +198,7 @@ hurricane.map = ggplot(hurricane.after.2010,
 hurricane.map
 ```
 
-![飓风2010～2014](/img/project/hurricane/hurricane.png)
+![飓风2010～2014](/images/project/hurricane/hurricane.png)
 
 按月绘制
 
@@ -223,4 +224,4 @@ hurricane.map.month = ggplot(hurricane.after.2010,
 
 hurricane.map.month
 ```
-![飓风2010～2014 月度趋势图](/img/project/hurricane/hurricane-month.png)
+![飓风2010～2014 月度趋势图](/images/project/hurricane/hurricane-month.png)

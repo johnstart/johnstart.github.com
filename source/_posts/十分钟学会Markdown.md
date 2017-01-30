@@ -1,5 +1,6 @@
 title: 十分钟学会Markdown
 date: 2013-08-22 19:31:01
+modified: 2013-08-22 19:31:01
 category: 软件技术
 tags: [markdown]
 ---

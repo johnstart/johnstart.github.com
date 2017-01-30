@@ -1,14 +1,16 @@
+---
 title: 数据科学(2)-识别数据问题
 date: 2014-08-16 20:32:58
+modified: 2014-08-16 20:32:58
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
 
 本文为**Introduction to Data Science**一书的翻译，由网友义务完成，了解参加翻译的网友，请点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/task.md)，如果要加入我们请加入qq群171546473,了解翻译规则点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/index.md)
 
-#2.第二章 识别数据问题
+# 2.第二章 识别数据问题
 
-![](/img/datascience/2-header.jpg)
+![](/images/datascience/2-header.jpg)
 
 **数据科学与其他领域诸如数学或统计学完全不同。数据科学是一种实用的活动，数据科学家提供需求，并且帮助数据使用者解决问题。在解决一个问题之前，首先需要明确该问题，而这个过程却并不总是看起来那么明显。在这一章中，我们将要讨论如何识别数据问题。**
 

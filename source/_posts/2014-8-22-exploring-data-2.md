@@ -1,5 +1,7 @@
+---
 title: 机器学习与R(7)-数据探索-2
 date: 2014-08-22 19:31:01
+modified: 2014-08-22 19:31:01
 category: 数据科学
 tags: [数据科学,机器学习,R,机器学习与R]
 ---
@@ -14,13 +16,13 @@ boxplot是用图形表示Q1,Q3,median,min,max的方法
 boxplot(contribution$Class.Year,main="Boxplot for Class Year",ylab="Class Year")
 ```
 
-![](/img/rmachine/rmachine-7-21.png) 
+![](/images/rmachine/rmachine-7-21.png) 
 
 ```r
 boxplot(contribution$FY00Giving,main="Boxplot for donation in FY00",ylab="donation $")
 ```
 
-![](/img/rmachine/rmachine-7-22.png) 
+![](/images/rmachine/rmachine-7-22.png) 
 
 通过图形，很容易我们可以看出给学校捐款的学生大多是85年前毕业的，而大部分人没有捐款，少数人在贡献。
 
@@ -33,19 +35,19 @@ histogram是另一种描述数据分布的方式
 hist(contribution$Class.Year)
 ```
 
-![](/img/rmachine/rmachine-7-31.png) 
+![](/images/rmachine/rmachine-7-31.png) 
 
 ```r
 hist(contribution$FY00Giving)
 ```
 
-![](/img/rmachine/rmachine-7-32.png) 
+![](/images/rmachine/rmachine-7-32.png) 
 
 ```r
 hist(subset(contribution,FY00Giving>0&FY00Giving<500)$FY00Giving)
 ```
 
-![](/img/rmachine/rmachine-7-33.png) 
+![](/images/rmachine/rmachine-7-33.png) 
 
 从`Class.Year`我们看出数据集中1997毕业的最多，而FY00Giving大部分为0，进一步还看出大部分人捐款都在100以下。同时我们还了解到了数据的偏度(skew)。
 
@@ -151,5 +153,5 @@ data(trees)
 plot(trees$Height,trees$Volume)
 ```
 
-![](/img/rmachine/rmachine-7-7.png) 
+![](/images/rmachine/rmachine-7-7.png) 
 

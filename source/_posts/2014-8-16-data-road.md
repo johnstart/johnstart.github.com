@@ -2,6 +2,7 @@
 layout: post
 title: 数据之路
 date: 2014-08-16 15:22:50
+modified: 2014-08-16 15:22:50
 category: 数据科学
 tags: [数据科学,data science]
 ---

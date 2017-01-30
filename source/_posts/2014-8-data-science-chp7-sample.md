@@ -1,5 +1,6 @@
 title: 数据科学(7)-第七章：罐子中的样本
 date: 2014-08-17 11:13:03
+modified: 2014-08-17 11:13:03
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
@@ -11,7 +12,7 @@ tags: [数据科学,Introduction to data science]
 
 ----
 <center>
-![header](/img/datascience/jar.jpg)
+![header](/images/datascience/jar.jpg)
 </center>
 ----
 
@@ -122,7 +123,7 @@ hist(replicate(4000, mean(sample(USstatePops$V1, size = 16, replace = TRUE)),
     simplify = TRUE), main = "Frequency of 4000 sample mean", xlab = "Sample Mean")
 ```
 
-![plot of chunk unnamed-chunk-7](/img/datascience/unnamed-chunk-7.png) 
+![plot of chunk unnamed-chunk-7](/images/datascience/unnamed-chunk-7.png) 
 
 
 

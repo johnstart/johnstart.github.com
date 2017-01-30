@@ -1,5 +1,6 @@
 title: 限时免费R语言数据分析与可视化课程
 date: 2015-10-10 15:18:43
+modified: 2015-10-10 15:18:43
 category: 数据科学
 tags: [R, 数据分析,可视化]
 ---
@@ -46,10 +47,10 @@ tags: [R, 数据分析,可视化]
 **要获得免费的该课程优惠券（89元抵扣），只需要微博分享以下两门课程并@中继点以及3位好友即可。**完成分享后，微博私信@中继点，索要优惠券****
 
 [R机器学习实践课程](http://study.163.com/course/introduction/854064.htm#/courseDetail)
-![R机器学习实践](/img/datascience/machine-learning-share.png "R机器学习实践")
+![R机器学习实践](/images/datascience/machine-learning-share.png "R机器学习实践")
 
 [R语言量化交易入门](http://study.163.com/course/introduction/1172009.htm#/courseDetail)
-![R语言量化交易入门](/img/datascience/quant-share.png "R语言量化交易入门")
+![R语言量化交易入门](/images/datascience/quant-share.png "R语言量化交易入门")
 
 
 

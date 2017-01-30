@@ -1,5 +1,6 @@
 title: 数据科学(8)-第八章：大数据
 date: 2014-09-08 10:29:56
+modified: 2014-09-08 10:29:56
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
@@ -7,7 +8,7 @@ tags: [数据科学,Introduction to data science]
 本文为**Introduction to Data Science**一书的翻译，由网友义务完成，了解参加翻译的网友，请点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/task.md)，如果要加入我们请加入qq群171546473,了解翻译规则点击[这里](https://github.com/johnstart/data-science/blob/gh-pages/index.md)
 
 
-#第八章 大数据？了不起！
+# 第八章 大数据？了不起！
 
 在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可以有更多的思考。
 
@@ -44,7 +45,7 @@ C.连接增加可能：单个数据集不管提供什么变量都有内在的限
 
 总的来说，我们可以认为丰富的大量的数据结合适合的分析工具在有保障的环境下可以为商业部门、教育部门、政府部门和其他领域带来益处。但是，数据科学家关注的不应该是取得尽可能多的可用数据，而是根据目的使用对的数据和对的规模。拥有大量不适当的数据并不会有任何好处。就好像，简单快速取得的数据并不能保证与要研究的问题相关。虽然说多样性是生活的调味品，但是过于复杂经常会损害可靠性和可信性：我们连接的数据集越复杂，我们越可能在使用和保存它们的时候出现意外问题。
 
-##数据科学的工具
+## 数据科学的工具
 
 经过前面几章，我们对于上千数据分析师使用的分析工具——数据分析和数据可视化的开源软件R——已经有了一个快速的了解。尽管R功能十分强大，但是数据分析师根据研究的不同领域仍然使用了上百种其他分析工具。
 
@@ -54,7 +55,7 @@ C.连接增加可能：单个数据集不管提供什么变量都有内在的限
 
 R、SPSS、SAS作为统计工具包，但数据分析师在某些方面仍然使用了其他一般编程语言做数据分析。一个令人激动的发展中的语言有一个奇怪的名字“Processing”。Processing是一个专门用来做数据可视化的编程语言。像R一样，Processing是一个开源项目，它免费提供在[http://processing.org/](http://processing.org/)。而且跟R一样，processing是一个跨平台语言，它可以在Mac、Windows、Linux上完美运行。有许多书提供processing的学习（不幸的是还没有开源书），许多网站为初学者提供了大量实例。在R之外，processing也许是数据科学家工具箱中最重要的工具之一。
 
-##本章练习
+## 本章练习
 
 查看各种与“Data.gov”相关的网站，尽可能找到最大或者最复杂的数据集。试思考（或写下来）一种或多种这些数据可能在分析中被误用的情况。下载一个你感兴趣的数据集，将它载入R中看你能做点什么。
 
@@ -63,7 +64,7 @@ R、SPSS、SAS作为统计工具包，但数据分析师在某些方面仍然使
 下载试用版的“World Programming System”（WPS）。WPS能读取SAS代码，你能很方便的找到你要的代码用来读取Data.gov数据集。
 
 
-##参考资料
+## 参考资料
 
 [http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf](http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf)  
 [http://en.wikipedia.org/wiki/Big_data](http://en.wikipedia.org/wiki/Big_data)   

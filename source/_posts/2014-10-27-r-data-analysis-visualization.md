@@ -1,6 +1,7 @@
 ---
 title: R数据分析与可视化基础视频课程上线
 date: 2014-12-31 19:45:37
+modified: 2014-12-31 19:45:37
 category: 数据科学
 tags: [数据科学,data science,R,培训]
 ---

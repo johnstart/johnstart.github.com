@@ -1,6 +1,7 @@
 ---
 title: about
 date: 2017-01-29 20:48:27
+comments: false
 ---
 
 # 我的经历

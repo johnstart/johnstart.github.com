@@ -1,5 +1,6 @@
 title: 数据科学(5)-行与列-2
 date: 2014-08-17 11:06:44
+modified: 2014-08-17 11:06:44
 category: 数据科学
 tags: [数据科学,Introduction to data science]
 ---
