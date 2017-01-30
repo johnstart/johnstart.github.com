@@ -27,11 +27,11 @@ after_success:
   - git init
   - git add --all .
   - git commit -m "Travis CI Auto Builder"
-  - git push --quiet --force https://$DEPLOY_REPO@github.com/johnstart/johnstart.github.io.git master
+  - git push --quiet --force https://$DEPLOY_REPO@github.com/johnstart/johnstart.github.com.git master
 
 branches:
   only:
     - blog
 cache:
   directories:
-- node_modules
+   - node_modules
