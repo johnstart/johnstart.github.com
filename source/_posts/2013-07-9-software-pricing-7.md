@@ -1,15 +1,9 @@
 ---
-layout: post
-title: "软件定价(7)-定价陷阱"
+title: 软件定价(7)-定价陷阱
+date: 2014-03-05 09:15:32 +0800
 modified: 2014-03-05 09:15:32 +0800
 category: 软件定价
 tags: [软件定价]
-image:
-  feature: 
-  credit: 
-  creditlink: 
-comments: 
-share: 
 ---
 
 -----

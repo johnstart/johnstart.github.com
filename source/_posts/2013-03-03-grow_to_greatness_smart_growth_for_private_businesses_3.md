@@ -1,15 +1,11 @@
 ---
-layout: post
-title: "企业成长课程笔记（3）"
-modified: 2014-03-05 09:15:32 +0800
-category: 笔记
-tags: [企业成长,创业]
-image:
-  feature: 
-  credit: 
-  creditlink: 
-comments: 
-share: 
+title: 企业成长课程笔记（3）
+date: 2014-03-05 09:15:32 +0800
+categories:
+- 笔记
+tags:
+- 企业成长
+- 创业
 ---
 
 CEO Quotes

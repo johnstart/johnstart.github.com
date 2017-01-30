@@ -1,15 +1,8 @@
 ---
-layout: post
-title: "软件定价(1)-前言"
-modified: 2014-03-05 09:15:32 +0800
-category: 软件定价
+title: 软件定价(1)-前言
+date: 2014-03-05 09:15:32 +0800
+categories: 软件定价
 tags: [软件定价]
-image:
-  feature: 
-  credit: 
-  creditlink: 
-comments: 
-share: 
 ---
 
 -----

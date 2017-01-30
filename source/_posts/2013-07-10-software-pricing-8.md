@@ -1,15 +1,9 @@
 ---
-layout: post
-title: "软件定价(8)-定价陷阱之转换成本"
+title: 软件定价(8)-定价陷阱之转换成本
+date: 2014-03-05 09:15:32 +0800
 modified: 2014-03-05 09:15:32 +0800
-category: 软件定价
-tags: 软件定价
-image:
-  feature: 
-  credit: 
-  creditlink: 
-comments: 
-share: 
+categories: 软件定价
+tags: [软件定价]
 ---
 
 -----
@@ -21,7 +15,7 @@ share:
 
 ##**转换成本**
 
-![转换成本](/img/swpricing/chp3/1.png)
+![转换成本](/images/swpricing/chp3/1.png)
 
 如果你试图说服人们从竞争对手的产品转换到你的产品，那么你需要确定客户面临的转换成本。
 

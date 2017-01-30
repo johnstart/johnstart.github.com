@@ -1,15 +1,9 @@
 ---
-layout: post
-title: "软件定价(9)-定价进阶"
+title: 软件定价(9)-定价进阶
+date: 2014-03-05 09:15:32 +0800
 modified: 2014-03-05 09:15:32 +0800
-category: 软件定价
+categories: 软件定价
 tags: [软件定价]
-image:
-  feature: 
-  credit: 
-  creditlink: 
-comments: 
-share: 
 ---
 
 -----
@@ -23,7 +17,7 @@ share:
 
 到目前为止，我们只考虑了销售单个产品。如果有几个产品要销售或者是要销售同一产品的多个版本呢？
 
-![定价进阶](/img/swpricing/chp4/1.png)
+![定价进阶](/images/swpricing/chp4/1.png)
 
 ##**版本**
 
