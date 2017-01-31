@@ -2,4 +2,4 @@
 个人博客
 
 
-![build-info](https://travis-ci.org/jiangblog/jiangblog.github.com.svg)](https://travis-ci.org/jiangblog/jiangblog.github.com)
+![build-info](https://travis-ci.org/johnstart/johnstart.github.com.svg)](https://travis-ci.org/johnstart/johnstart.github.com)
