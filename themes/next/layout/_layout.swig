@@ -12,7 +12,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
-
+  
   {% include '_scripts/third-party/analytics.swig' %}
 
   {% set container_class = "container one-collumn " %}
@@ -62,13 +62,7 @@
   {% include scheme_script %}
 
   {% block script_extra %}
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-7010531772392304",
-      enable_page_level_ads: true
-      });
-  </script>
+
   {% endblock %}
 
   {% include '_scripts/boostrap.swig' %}
