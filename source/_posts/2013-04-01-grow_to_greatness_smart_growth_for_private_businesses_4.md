@@ -1,5 +1,6 @@
 ---
 title: 企业成长课程笔记（4）
+date: 2014-03-05 09:15:32 +0800
 modified: 2014-03-05 09:15:32 +0800
 categories:
 - 笔记
@@ -8,7 +9,7 @@ tags:
 - 创业
 ---
 
-**成长的四种方式**
+## **成长的四种方式**
 
 前面已经学习到*成长的烦恼*：
 
@@ -35,9 +36,7 @@ Growth有不同的意义，但是Growth的方式却只有4种：
 3. 规模控制（Scaling）：卖更多东西给现有客户或者卖给更多客户
 4. 战略收购(strategic acquisition): 买别人的产品/服务/客户或者别人开发新产品/服务的能力
 
-**成长的四种方式**
-
-**改进（Improvements）**
+## **改进（Improvements）**
 
 持续改进实乃伟大企业之魂。你可以：
 
@@ -54,7 +53,7 @@ Growth有不同的意义，但是Growth的方式却只有4种：
 
 那么究竟如何来实现这些提高呢？很重要的一点就是小规模试验新东西，然后学习，学习=金钱。实际这也是Lean Startup的概念 Idea->build）->product->(measure)->data->(learn)。这里两个循环一个是IPD，一个是BML。即想法，产品与数据，构建，度量，学习两个循环
 
-**创新（Innovations）**
+## **创新（Innovations）**
 
 这里的创新不一定是要发明什么前所未有的东西，而是：
 
@@ -65,7 +64,7 @@ Growth有不同的意义，但是Growth的方式却只有4种：
 + 同客户一起创新（customer co-creation）
 + lean-small,cheap,fast experiments that test new ideas and ways of doing
 
-**规模扩张（Scaling）**
+## **规模扩张（Scaling）**
 
 规模扩张是高速成长的加速计，但它需要你之前做好了planning, priorization,process,pace。
 
@@ -82,6 +81,6 @@ Growth有不同的意义，但是Growth的方式却只有4种：
 + 可以捆绑产品或者服务吗？
 + 定价方式？
 
-**战略收购**
+## **战略收购**
 
 战略收购需要的完全是不同的技能：尽职调查，估价，收购整合技能等。通常这也是高风险的。那么我们可以买到什么呢？地区上的扩张，客户，新产品/服务，能力？只有当你已经用完了前面规模扩张的所有可能后，仍想扩张时你才会考虑到战略收购。
