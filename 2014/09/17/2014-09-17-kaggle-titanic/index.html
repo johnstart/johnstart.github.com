@@ -1,0 +1,1093 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,R,Kaggle," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="数据准备先根据数据的codebook来给每列命名，同时预先设定类型
+123456789101112131415161718setwd(&quot;d:/course/kaggle/titanic/&quot;)train.col.types &amp;lt;- c(&apos;integer&apos;, # PassengerId  &apos;factor&apos;, # Survived  &apos;factor&apos;, # Pclass  &apos;character&apos;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle上的泰坦尼克生还数据分析">
+<meta property="og:url" content="http://zjdian.com/2014/09/17/2014-09-17-kaggle-titanic/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="数据准备先根据数据的codebook来给每列命名，同时预先设定类型
+123456789101112131415161718setwd(&quot;d:/course/kaggle/titanic/&quot;)train.col.types &amp;lt;- c(&apos;integer&apos;, # PassengerId  &apos;factor&apos;, # Survived  &apos;factor&apos;, # Pclass  &apos;character&apos;,">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-3.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-4.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-5.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-6.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-71.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-72.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-81.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-82.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-10.png">
+<meta property="og:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-14.png">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kaggle上的泰坦尼克生还数据分析">
+<meta name="twitter:description" content="数据准备先根据数据的codebook来给每列命名，同时预先设定类型
+123456789101112131415161718setwd(&quot;d:/course/kaggle/titanic/&quot;)train.col.types &amp;lt;- c(&apos;integer&apos;, # PassengerId  &apos;factor&apos;, # Survived  &apos;factor&apos;, # Pclass  &apos;character&apos;,">
+<meta name="twitter:image" content="http://zjdian.com/images/kaggle/titanic/unnamed-chunk-3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/09/17/2014-09-17-kaggle-titanic/"/>
+
+
+
+
+
+
+  <title> Kaggle上的泰坦尼克生还数据分析 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/09/17/2014-09-17-kaggle-titanic/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Kaggle上的泰坦尼克生还数据分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-17T03:28:30+00:00">
+                2014-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/09/17/2014-09-17-kaggle-titanic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/17/2014-09-17-kaggle-titanic/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h1><p>先根据数据的codebook来给每列命名，同时预先设定类型</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"d:/course/kaggle/titanic/"</span>)</div><div class="line">train.col.types &lt;- c(<span class="string">'integer'</span>, <span class="comment"># PassengerId</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Survived</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Pclass</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Name</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Sex</span></div><div class="line">  <span class="string">'numeric'</span>, <span class="comment"># Age</span></div><div class="line">  <span class="string">'integer'</span>, <span class="comment"># SibSp</span></div><div class="line">  <span class="string">'integer'</span>, <span class="comment"># Parch</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Ticket</span></div><div class="line">  <span class="string">'numeric'</span>, <span class="comment"># Fare</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Cabin</span></div><div class="line">  <span class="string">'factor'</span> <span class="comment"># Embarked</span></div><div class="line">)</div><div class="line">test.col.types=train.col.types[-<span class="number">2</span>]</div><div class="line">train.raw=read.csv(<span class="string">"./train.csv"</span>,colClasses=train.col.types,na.strings=c(<span class="string">"NA"</span>,<span class="string">""</span>))</div><div class="line">test.raw=read.csv(<span class="string">"./test.csv"</span>,colClasses=test.col.types,na.strings=c(<span class="string">"NA"</span>,<span class="string">""</span>))</div><div class="line">dim(train.raw)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 891  12</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dim(test.raw)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 418  11</div></pre></td></tr></table></figure>
+<p>这里预先设定了每列的class，之后读入数据。train数据集为891行12列大小矩阵，测试数据集418行，11列（没有了是否生还的列）</p>
+<h1 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">summary(train.raw)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">##   PassengerId  Survived Pclass      Name               Sex     </div><div class="line">##  Min.   :  1   0:549    1:216   Length:891         female:314  </div><div class="line">##  1st Qu.:224   1:342    2:184   Class :character   male  :577  </div><div class="line">##  Median :446            3:491   Mode  :character               </div><div class="line">##  Mean   :446                                                   </div><div class="line">##  3rd Qu.:668                                                   </div><div class="line">##  Max.   :891                                                   </div><div class="line">##                                                                </div><div class="line">##       Age            SibSp           Parch          Ticket         </div><div class="line">##  Min.   : 0.42   Min.   :0.000   Min.   :0.000   Length:891        </div><div class="line">##  1st Qu.:20.12   1st Qu.:0.000   1st Qu.:0.000   Class :character  </div><div class="line">##  Median :28.00   Median :0.000   Median :0.000   Mode  :character  </div><div class="line">##  Mean   :29.70   Mean   :0.523   Mean   :0.382                     </div><div class="line">##  3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.000                     </div><div class="line">##  Max.   :80.00   Max.   :8.000   Max.   :6.000                     </div><div class="line">##  NA&apos;s   :177                                                       </div><div class="line">##       Fare          Cabin           Embarked  </div><div class="line">##  Min.   :  0.0   Length:891         C   :168  </div><div class="line">##  1st Qu.:  7.9   Class :character   Q   : 77  </div><div class="line">##  Median : 14.5   Mode  :character   S   :644  </div><div class="line">##  Mean   : 32.2                      NA&apos;s:  2  </div><div class="line">##  3rd Qu.: 31.0                                </div><div class="line">##  Max.   :512.3                                </div><div class="line">##</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">summary(test.raw)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">##   PassengerId   Pclass      Name               Sex           Age       </div><div class="line">##  Min.   : 892   1:107   Length:418         female:152   Min.   : 0.17  </div><div class="line">##  1st Qu.: 996   2: 93   Class :character   male  :266   1st Qu.:21.00  </div><div class="line">##  Median :1100   3:218   Mode  :character                Median :27.00  </div><div class="line">##  Mean   :1100                                           Mean   :30.27  </div><div class="line">##  3rd Qu.:1205                                           3rd Qu.:39.00  </div><div class="line">##  Max.   :1309                                           Max.   :76.00  </div><div class="line">##                                                         NA&apos;s   :86     </div><div class="line">##      SibSp           Parch          Ticket               Fare      </div><div class="line">##  Min.   :0.000   Min.   :0.000   Length:418         Min.   :  0.0  </div><div class="line">##  1st Qu.:0.000   1st Qu.:0.000   Class :character   1st Qu.:  7.9  </div><div class="line">##  Median :0.000   Median :0.000   Mode  :character   Median : 14.5  </div><div class="line">##  Mean   :0.447   Mean   :0.392                      Mean   : 35.6  </div><div class="line">##  3rd Qu.:1.000   3rd Qu.:0.000                      3rd Qu.: 31.5  </div><div class="line">##  Max.   :8.000   Max.   :9.000                      Max.   :512.3  </div><div class="line">##                                                     NA&apos;s   :1      </div><div class="line">##     Cabin           Embarked</div><div class="line">##  Length:418         C:102   </div><div class="line">##  Class :character   Q: 46   </div><div class="line">##  Mode  :character   S:270   </div><div class="line">##                             </div><div class="line">##                             </div><div class="line">##                             </div><div class="line">##</div></pre></td></tr></table></figure>
+<p>这里看出Age有177个缺失，占比比较大，而对于character变量Cabin，Name等没有相关信息，一个简单的查看缺失数据的方法就是采用missamp()函数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(Amelia)</div><div class="line">missmap(train.raw, main=<span class="string">"Titanic缺失数据图"</span>,</div><div class="line">        col=c(<span class="string">"yellow"</span>, <span class="string">"black"</span>), legend=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-3.png" alt=""> </p>
+<p>这里看出Cabin，Age有较多缺失数据，而Embark只有两个缺失数据。</p>
+<p>接下来先简单分析一下数据，比如生还与死亡的比例，不同等级(Pclass)对生还有无影响，我们知道老人，妇女，小孩会优先所以看看性别，年龄是否有影响，此外票的价钱有关吗（fare）？当然可能还有其它的变量，这里我们就不一一列举…</p>
+<h2 id="生还与死亡对比"><a href="#生还与死亡对比" class="headerlink" title="生还与死亡对比"></a>生还与死亡对比</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">barplot(table(train.raw$Survived),names.arg=c(<span class="string">"死亡"</span>,<span class="string">"生还"</span>),</div><div class="line">        main=<span class="string">"生还 vs 死亡"</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-4.png" alt=""> </p>
+<h2 id="不同舱位等级的影响"><a href="#不同舱位等级的影响" class="headerlink" title="不同舱位等级的影响"></a>不同舱位等级的影响</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">survive.rate.class=table(train.raw$Survived,train.raw$Pclass)</div><div class="line">barplot(survive.rate.class,names.arg=c(<span class="string">"一等"</span>,<span class="string">"二等"</span>,<span class="string">"三等"</span>),</div><div class="line">        main=<span class="string">"不同舱位生还 vs 死亡"</span>,</div><div class="line">        legend.text=c(<span class="string">"死亡"</span>,<span class="string">"生还"</span>),</div><div class="line">        args.legend=list(x=<span class="string">"topleft"</span>))</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-5.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">round((survive.rate.class[<span class="number">2</span>,]/colSums(survive.rate.class))*<span class="number">100</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##     1     2     3 </div><div class="line">## 62.96 47.28 24.24</div></pre></td></tr></table></figure>
+<p>看起来一等舱，二等舱显然比三等舱要高。如果按照比例来看各舱位生还的比例依次为：62.96%,47.28,24.24%。除了舱位等级好的在越上面，跑得快，下面的先被淹外，估计这个也和当时发生事故的时间在睡觉有关系。</p>
+<h2 id="不同性别的生还率对比"><a href="#不同性别的生还率对比" class="headerlink" title="不同性别的生还率对比"></a>不同性别的生还率对比</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">survive.rate.sex=table(train.raw$Survived,train.raw$Sex)</div><div class="line">barplot(survive.rate.sex,names.arg=c(<span class="string">"女"</span>,<span class="string">"男"</span>),</div><div class="line">        main=<span class="string">"不同性别生还 vs 死亡"</span>,</div><div class="line">        legend.text=c(<span class="string">"死亡"</span>,<span class="string">"生还"</span>),</div><div class="line">        args.legend=list(x=<span class="string">"topleft"</span>))</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-6.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">round((survive.rate.sex[<span class="number">2</span>,]/colSums(survive.rate.sex))*<span class="number">100</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## female   male </div><div class="line">##  74.20  18.89</div></pre></td></tr></table></figure>
+<p>看来在生与死的选择时男人们还是发扬了高风亮节！女性生还率达到了74.2%，男性只有18.89%</p>
+<h2 id="不同年龄的生还率"><a href="#不同年龄的生还率" class="headerlink" title="不同年龄的生还率"></a>不同年龄的生还率</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">age.breaker=c(<span class="number">0</span>,<span class="number">18</span>,<span class="number">50</span>,<span class="number">100</span>)</div><div class="line">age.cut= cut(train.raw$Age,breaks=age.breaker,,labels=c(<span class="string">"小孩"</span>,<span class="string">"成年人"</span>,<span class="string">"老人"</span>))</div><div class="line">train.raw$age.cut=age.cut</div><div class="line">survive.rate.age=table(train.raw$Survived,train.raw$age.cut)</div><div class="line">barplot(survive.rate.age,</div><div class="line">        main=<span class="string">"不同年龄生还 vs 死亡"</span>,</div><div class="line">        legend.text=c(<span class="string">"死亡"</span>,<span class="string">"生还"</span>),</div><div class="line">        args.legend=list(x=<span class="string">"topleft"</span>))</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-71.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">round((survive.rate.age[<span class="number">2</span>,]/colSums(survive.rate.age))*<span class="number">100</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##   小孩 成年人   老人 </div><div class="line">##  50.36  38.75  34.38</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">age.breaker=c(<span class="number">0</span>,<span class="number">15</span>,<span class="number">55</span>,<span class="number">100</span>)</div><div class="line">age.cut= cut(train.raw$Age,breaks=age.breaker,,labels=c(<span class="string">"小孩"</span>,<span class="string">"成年人"</span>,<span class="string">"老人"</span>))</div><div class="line">train.raw$age.cut=age.cut</div><div class="line">survive.rate.age=table(train.raw$Survived,train.raw$age.cut)</div><div class="line">barplot(survive.rate.age,</div><div class="line">        main=<span class="string">"不同年龄生还 vs 死亡"</span>,</div><div class="line">        legend.text=c(<span class="string">"死亡"</span>,<span class="string">"生还"</span>),</div><div class="line">        args.legend=list(x=<span class="string">"topleft"</span>))</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-72.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">round((survive.rate.age[<span class="number">2</span>,]/colSums(survive.rate.age))*<span class="number">100</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##   小孩 成年人   老人 </div><div class="line">##  59.04  38.75  30.00</div></pre></td></tr></table></figure>
+<p>这里分别用15和18来作为小孩的判断标准，50，55分别作为老人判断标准。可以看出小孩的生还率分别为59.04%与50.36%，生还率最高。而老人的生还率却比成年人低，也许是年龄大了的影响？</p>
+<h2 id="马赛克图"><a href="#马赛克图" class="headerlink" title="马赛克图"></a>马赛克图</h2><p>还有一种更好的方法就是利用mosaicplot图</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mosaicplot(train.raw$Pclass ~ train.raw$Survived,</div><div class="line">           main=<span class="string">"不同舱位等级生还 vs 死亡 "</span>, shade=<span class="literal">FALSE</span>,</div><div class="line">           color=<span class="literal">TRUE</span>, xlab=<span class="string">"舱位"</span>, ylab=<span class="string">"生还"</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-81.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mosaicplot(train.raw$Sex ~ train.raw$Survived,</div><div class="line">           main=<span class="string">"不同性别生还 vs 死亡 "</span>, shade=<span class="literal">FALSE</span>,</div><div class="line">           color=<span class="literal">TRUE</span>, xlab=<span class="string">"性别"</span>, ylab=<span class="string">"生还"</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-82.png" alt=""> </p>
+<h2 id="相关性分析"><a href="#相关性分析" class="headerlink" title="相关性分析"></a>相关性分析</h2><p>前面大致可以得出性别，年龄，舱位对生还率有很大影响，那么其他的票价，上船的港口，在那个cabin等等变量对生还率有影响吗？这里用相关性分析来观察一下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">train.corrgram = train.raw</div><div class="line"><span class="comment"># 相关性分析要求全部为数字</span></div><div class="line">train.corrgram$Survived &lt;- as.numeric(train.corrgram$Survived)</div><div class="line">train.corrgram$Pclass &lt;- as.numeric(train.corrgram$Pclass)</div><div class="line">train.corrgram$Embarked &lt;- as.numeric(train.corrgram$Embarked)</div><div class="line">train.corrgram$Sex &lt;- as.numeric(train.corrgram$Sex)</div><div class="line">train.corrgram[which(is.na(train.corrgram$Embarked)),]$Embarked=<span class="number">3</span></div><div class="line">cor(train.corrgram[,corrgram.vars])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Error: object &apos;corrgram.vars&apos; not found</div></pre></td></tr></table></figure>
+<p>这里大致可以看出除了Pclass,Sex,Age以为，Fare还和生还率有关，而Embarked似乎也有一定关系（虽然理论上来讲登船地点应该与这个无关？）而Age由于有大量缺失值这里相关性为NA,下一步的目标似乎应该是在于如何处理这些缺失的数据上面。</p>
+<p>图形分析也许更简单快捷，直接使用<code>corrgram</code>来分析。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(corrgram)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## Loading required package: corrgram</div><div class="line">## Loading required package: seriation</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 字符变量这里不考虑</span></div><div class="line">corrgram.vars = c(<span class="string">"Survived"</span>, <span class="string">"Pclass"</span>, <span class="string">"Sex"</span>, <span class="string">"Age"</span>,</div><div class="line">                   <span class="string">"SibSp"</span>, <span class="string">"Parch"</span>, <span class="string">"Fare"</span>, <span class="string">"Embarked"</span>)</div><div class="line">corrgram(train.corrgram[,corrgram.vars], lower.panel=panel.ellipse, </div><div class="line">         upper.panel=panel.pie,text.panel=panel.txt, main=<span class="string">"泰坦尼克生还率相关性分析"</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-10.png" alt="0"> </p>
+<h1 id="初次建模"><a href="#初次建模" class="headerlink" title="初次建模"></a>初次建模</h1><p>有了前面的探索性分析，大致我们对数据有了一定了解，考虑先建立一个模型来进行一次初步预测。显然我们需要处理的问题是一个分类为题，首先想到的方法有逻辑回归，决策树，classification rule，更高级的可以考虑采用boost，随机森林。这里我们先考虑从简单的逻辑回归开始。</p>
+<h2 id="构建训练集与测试集"><a href="#构建训练集与测试集" class="headerlink" title="构建训练集与测试集"></a>构建训练集与测试集</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(caret)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">## Loading required package: caret</div><div class="line">## Loading required package: lattice</div><div class="line">## </div><div class="line">## Attaching package: &apos;lattice&apos;</div><div class="line">## </div><div class="line">## The following object is masked from &apos;package:seriation&apos;:</div><div class="line">## </div><div class="line">##     panel.lines</div><div class="line">## </div><div class="line">## Loading required package: ggplot2</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">201409</span>)</div><div class="line">inTrain = createDataPartition(train.raw$Survived,</div><div class="line">                                     p = <span class="number">0.8</span>, list = <span class="literal">FALSE</span>)</div><div class="line">training = train.raw[inTrain, ]</div><div class="line">test = train.raw[-inTrain, ]</div></pre></td></tr></table></figure>
+<h2 id="第一个模型"><a href="#第一个模型" class="headerlink" title="第一个模型"></a>第一个模型</h2><p>互联网时代来临之前，人们的收入通常和年龄相关，因此对缺失数据较多的年龄我们先根据不同等级来填充一个估计值。这里直接使用median。</p>
+<p>另外这里还计算了3等舱的价格的median，因为我们发现测试集里面有一个记录的Fare值缺失。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">first.class.age=median(training[training$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">second.class.age=median(training[training$Pclass==<span class="string">"2"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">third.class.age=median(training[training$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">training[is.na(training$Age)&amp;training$Pclass==<span class="string">"1"</span>,]$Age=first.class.age</div><div class="line">training[is.na(training$Age)&amp;training$Pclass==<span class="string">"2"</span>,]$Age=second.class.age</div><div class="line">training[is.na(training$Age)&amp;training$Pclass==<span class="string">"3"</span>,]$Age=third.class.age</div><div class="line">third.class.fare=median(training[training$Pclass==<span class="string">"3"</span>,]$Fare,na.rm=<span class="literal">T</span>)</div><div class="line">model.logit.1 &lt;- train(Survived ~ Sex + Pclass + Age + Embarked + Fare,</div><div class="line">                     data = training, method=<span class="string">"glm"</span>)</div><div class="line"></div><div class="line">model.logit.1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">## Generalized Linear Model </div><div class="line">## </div><div class="line">## 714 samples</div><div class="line">##  12 predictors</div><div class="line">##   2 classes: &apos;0&apos;, &apos;1&apos; </div><div class="line">## </div><div class="line">## No pre-processing</div><div class="line">## Resampling: Bootstrapped (25 reps) </div><div class="line">## </div><div class="line">## Summary of sample sizes: 712, 712, 712, 712, 712, 712, ... </div><div class="line">## </div><div class="line">## Resampling results</div><div class="line">## </div><div class="line">##   Accuracy  Kappa  Accuracy SD  Kappa SD</div><div class="line">##   0.8       0.6    0.02         0.05    </div><div class="line">## </div><div class="line">##</div></pre></td></tr></table></figure>
+<p>模型accuracy为0.8,kappa 为0.6，采用了bootstrap 采样方式。作为我们的第一个模型看起来还不错</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">first.class.age=median(test[test$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">second.class.age=median(test[test$Pclass==<span class="string">"2"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">third.class.age=median(test[test$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">test[is.na(test$Age)&amp;test$Pclass==<span class="string">"1"</span>,]$Age=first.class.age</div><div class="line">test[is.na(test$Age)&amp;test$Pclass==<span class="string">"2"</span>,]$Age=second.class.age</div><div class="line">test[is.na(test$Age)&amp;test$Pclass==<span class="string">"3"</span>,]$Age=third.class.age</div><div class="line"></div><div class="line">predict.model.1=predict(model.logit.1,test)</div><div class="line">table(test$Survived,predict.model.1)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">##    predict.model.1</div><div class="line">##      0  1</div><div class="line">##   0 91 18</div><div class="line">##   1 22 46</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sensitivity(test$Survived,predict.model.1)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0.8053</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">specificity(test$Survived,predict.model.1)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0.7188</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#require(gmodels)</span></div><div class="line"><span class="comment">#CrossTable(test$Survived,predict.model.1)</span></div></pre></td></tr></table></figure>
+<p>相对我们自己构建的测试集sensitivity,specificity分别为0.8,0.71也还行。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(ROCR)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">## Loading required package: ROCR</div><div class="line">## Loading required package: gplots</div><div class="line">## KernSmooth 2.23 loaded</div><div class="line">## Copyright M. P. Wand 1997-2009</div><div class="line">## </div><div class="line">## Attaching package: &apos;gplots&apos;</div><div class="line">## </div><div class="line">## The following object is masked from &apos;package:stats&apos;:</div><div class="line">## </div><div class="line">##     lowess</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">predictions.model.1=prediction(c(predict.model.1),labels=test$Survived)</div><div class="line">perf = performance(predictions.model.1, measure = <span class="string">"tpr"</span>, x.measure = <span class="string">"fpr"</span>)</div><div class="line">plot(perf, main = <span class="string">"ROC curve"</span>,col = <span class="string">"blue"</span>, lwd = <span class="number">2</span>)</div><div class="line">abline(a = <span class="number">0</span>, b = <span class="number">1</span>, lwd = <span class="number">2</span>, lty = <span class="number">2</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/kaggle/titanic/unnamed-chunk-14.png" alt="4"> </p>
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">first.class.age=median(test.raw[test.raw$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">second.class.age=median(test.raw[test.raw$Pclass==<span class="string">"2"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">third.class.age=median(test.raw[test.raw$Pclass==<span class="string">"1"</span>,]$Age,na.rm=<span class="literal">T</span>)</div><div class="line">test.raw[is.na(test.raw$Age)&amp;test.raw$Pclass==<span class="string">"1"</span>,]$Age=first.class.age</div><div class="line">test.raw[is.na(test.raw$Age)&amp;test.raw$Pclass==<span class="string">"2"</span>,]$Age=second.class.age</div><div class="line">test.raw[is.na(test.raw$Age)&amp;test.raw$Pclass==<span class="string">"3"</span>,]$Age=third.class.age</div><div class="line">test.raw[<span class="number">153</span>,]$Fare=third.class.fare</div><div class="line">predict.final.model.1=predict(model.logit.1,newdata=test.raw)</div><div class="line">predictions=data.frame(PassengerId=test.raw$PassengerId, Survived=predict.final.model.1)</div><div class="line">write.csv(predictions,file=<span class="string">"Titanic_predictions_1.csv"</span>, row.names=<span class="literal">FALSE</span>, quote=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p>提交到Kaggle上，模型accuracy显示为0.77左右，排在了2000名左右的位置，显然这不是一个好的结果。不过到此为止我们还有很多事情没有做：</p>
+<ul>
+<li>有4个特征没有使用分别是sibsp,parch,Cabin,names。<ul>
+<li>也许家人的数目会影响生还率，比如需要照顾家人或者上救生船的时候会让别的家庭成员上等等</li>
+<li>Cabin这个变量虽然有很多缺失但是理论上应该也是一个关键特征，因为不同舱位对逃生影响很大</li>
+<li>names看似没有用但是似乎它们都满足了 xx Title, xx xx这样一种模式，而西方人的title可以反映年龄。因此可能我们需要利用names来构建一个新变量Title</li>
+</ul>
+</li>
+<li>对Age的插值之前我们采用了直接取不同等级舱位年龄median的方式完成，这是否是最佳，可否有更好方法？比如可以考虑根据姓名的Title来判断</li>
+<li>前面的模型参数我们没有进行任何的优化，也许优化参数可以取得更好结果？</li>
+<li>除了逻辑回归，我们还可以采用决策树，随机森林，boosting方法，是否这些模型会带来更好结果？</li>
+</ul>
+<p>这些就是下一步我们可以考虑的地方了。</p>
+<h1 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h1><p>先重新读入一次数据：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">train.col.types &lt;- c(<span class="string">'integer'</span>, <span class="comment"># PassengerId</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Survived</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Pclass</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Name</span></div><div class="line">  <span class="string">'factor'</span>, <span class="comment"># Sex</span></div><div class="line">  <span class="string">'numeric'</span>, <span class="comment"># Age</span></div><div class="line">  <span class="string">'integer'</span>, <span class="comment"># SibSp</span></div><div class="line">  <span class="string">'integer'</span>, <span class="comment"># Parch</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Ticket</span></div><div class="line">  <span class="string">'numeric'</span>, <span class="comment"># Fare</span></div><div class="line">  <span class="string">'character'</span>, <span class="comment"># Cabin</span></div><div class="line">  <span class="string">'factor'</span> <span class="comment"># Embarked</span></div><div class="line">)</div><div class="line">test.col.types=train.col.types[-<span class="number">2</span>]</div><div class="line">train.raw=read.csv(<span class="string">"./train.csv"</span>,colClasses=train.col.types,na.strings=c(<span class="string">"NA"</span>,<span class="string">""</span>))</div><div class="line">test.raw=read.csv(<span class="string">"./test.csv"</span>,colClasses=test.col.types,na.strings=c(<span class="string">"NA"</span>,<span class="string">""</span>))</div></pre></td></tr></table></figure>
+<h2 id="数据整理与清洗"><a href="#数据整理与清洗" class="headerlink" title="数据整理与清洗"></a>数据整理与清洗</h2><p>首先考虑前面提到的Names中的title.西方人的命名都有一定规则，首先关于Title：</p>
+<ul>
+<li>Mr. 更个年龄的先生</li>
+<li>Miss. 未婚女士（不过女权解放的现代，好像也有已婚的用？）</li>
+<li>Mrs. (已婚女士)</li>
+<li>Master. (男孩，早期使用，现在应该不用了。不过泰坦尼克灾难发生时适用)</li>
+<li>Rev., Col. Sir. Dr.  etc… 等大多与职业相关，应该都是男士</li>
+</ul>
+<p>而对西方的名字，比如：</p>
+<p>Baclini, Mrs. Solomon (Latifa Qurban)</p>
+<ul>
+<li>Mrs. 已婚</li>
+<li>Solomon ：丈夫的名字,比如Jane Smith与John Smith结婚后，她就是Mrs. John Smith.</li>
+<li>Latifa : 他自己的名字</li>
+<li>Qurban ：”maiden” ，结婚前的姓</li>
+<li>Baclini:她丈夫的姓，也就是他丈夫Solomon的姓.</li>
+</ul>
+<p>有了这些基础那么我们可以想法把中间的那个Title给取出来：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#这里格式是xx, Title . xx xx</span></div><div class="line">getTitle = <span class="keyword">function</span>(data) &#123;</div><div class="line">  title.start = regexpr(<span class="string">"\\,[A-Z ]&#123;1,20&#125;\\."</span>, data$Name, <span class="literal">TRUE</span>)</div><div class="line">  title.end = title.start+attr(title.start, <span class="string">"match.length"</span>)-<span class="number">1</span></div><div class="line">  data$Title = substr(data$Name, title.start+<span class="number">2</span>, title.end-<span class="number">1</span>)</div><div class="line">  <span class="keyword">return</span> (data$Title)</div><div class="line">&#125;</div><div class="line">train.raw$Title=getTitle(train.raw)</div><div class="line"><span class="keyword">require</span>(dplyr)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## Loading required package: dplyr</div><div class="line">## </div><div class="line">## Attaching package: &apos;dplyr&apos;</div><div class="line">## </div><div class="line">## The following objects are masked from &apos;package:stats&apos;:</div><div class="line">## </div><div class="line">##     filter, lag</div><div class="line">## </div><div class="line">## The following objects are masked from &apos;package:base&apos;:</div><div class="line">## </div><div class="line">##     intersect, setdiff, setequal, union</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">head(train.raw %&gt;% group_by(Title) %&gt;% summarise(count=n())%&gt;%arrange(desc(count)))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">## Source: local data frame [6 x 2]</div><div class="line">## </div><div class="line">##    Title count</div><div class="line">## 1     Mr   517</div><div class="line">## 2   Miss   182</div><div class="line">## 3    Mrs   125</div><div class="line">## 4 Master    40</div><div class="line">## 5     Dr     7</div><div class="line">## 6    Rev     6</div></pre></td></tr></table></figure>
+<p>主要的称呼为Mr,Miss,Mrs,Master，剩余的类型都比较少，可以归入professional一类。因此我们增加一列Title，分为Mr,Miss,Mrs,Master,Professional 5种类型。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">title.filter=c(<span class="string">"Mr"</span>,<span class="string">"Mrs"</span>,<span class="string">"Miss"</span>,<span class="string">"Master"</span>,<span class="string">"Professional"</span>)</div><div class="line">recodeTitle = <span class="keyword">function</span>(data,title.filter) &#123;</div><div class="line">  <span class="keyword">if</span>(!(data %<span class="keyword">in</span>% title.filter))</div><div class="line">    data = <span class="string">"Professional"</span></div><div class="line">  <span class="keyword">return</span> (data)</div><div class="line">&#125;</div><div class="line">train.raw$Title=sapply(train.raw$Title,recodeTitle,title.filter)</div></pre></td></tr></table></figure>
+<p>简单利用median来对年龄进行插值,Embarked的NA直接使用“S”,fare根据class的median来计算</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">imputeAge = <span class="keyword">function</span>(Age,Title,title.filter) &#123;</div><div class="line">  <span class="keyword">for</span>(v <span class="keyword">in</span> title.filter) &#123;</div><div class="line">    Age[is.na(Age)]=median(Age[Title==v],na.rm=<span class="literal">T</span>)    </div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(Age)</div><div class="line">&#125;</div><div class="line"></div><div class="line">title.filter=c(<span class="string">"Mr"</span>,<span class="string">"Mrs"</span>,<span class="string">"Miss"</span>,<span class="string">"Master"</span>,<span class="string">"Professional"</span>)</div><div class="line">train.raw$Age=imputeAge(train.raw$Age,train.raw$Title,title.filter)</div><div class="line"></div><div class="line">imputeEmbarked=<span class="keyword">function</span>(Embarked) &#123;</div><div class="line">  Embarked[is.na(Embarked)]=<span class="string">"S"</span></div><div class="line">  <span class="keyword">return</span>(Embarked)</div><div class="line">&#125;</div><div class="line">train.raw$Embarked=imputeEmbarked(train.raw$Embarked)</div><div class="line"></div><div class="line">imputeFare = <span class="keyword">function</span>(fare,pclass,pclass.filter) &#123;</div><div class="line">  <span class="keyword">for</span>(v <span class="keyword">in</span> pclass.filter) &#123;</div><div class="line">    fare[is.na(fare)]=median(fare[pclass==v],na.rm=<span class="literal">T</span>)    </div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(fare)</div><div class="line">&#125;</div><div class="line"></div><div class="line">pclass.filter=c(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">train.raw$fare=imputeFare(train.raw$Fare,train.raw$Pclass,pclass.filter)</div></pre></td></tr></table></figure>
+<h2 id="第二个模型"><a href="#第二个模型" class="headerlink" title="第二个模型"></a>第二个模型</h2><p>现在使用了新的计算确实年龄的方法，同时加上SibSp以及Parch变量建立一个新模型</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(caret)</div><div class="line">set.seed(<span class="number">201409</span>)</div><div class="line">inTrain = createDataPartition(train.raw$Survived,</div><div class="line">                                     p = <span class="number">0.8</span>, list = <span class="literal">FALSE</span>)</div><div class="line">training = train.raw[inTrain, ]</div><div class="line">test = train.raw[-inTrain, ]</div><div class="line">model.logit.2 &lt;- train(Survived ~ Sex + Pclass + Age + Embarked + Fare+Title+SibSp+Parch,data = training, method=<span class="string">"glm"</span>)</div><div class="line">model.logit.2</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">## Generalized Linear Model </div><div class="line">## </div><div class="line">## 714 samples</div><div class="line">##  13 predictors</div><div class="line">##   2 classes: &apos;0&apos;, &apos;1&apos; </div><div class="line">## </div><div class="line">## No pre-processing</div><div class="line">## Resampling: Bootstrapped (25 reps) </div><div class="line">## </div><div class="line">## Summary of sample sizes: 714, 714, 714, 714, 714, 714, ... </div><div class="line">## </div><div class="line">## Resampling results</div><div class="line">## </div><div class="line">##   Accuracy  Kappa  Accuracy SD  Kappa SD</div><div class="line">##   0.8       0.6    0.02         0.05    </div><div class="line">## </div><div class="line">##</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">predict.model.2=predict(model.logit.2,test)</div><div class="line">table(test$Survived,predict.model.2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">##    predict.model.2</div><div class="line">##      0  1</div><div class="line">##   0 93 16</div><div class="line">##   1 17 51</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sensitivity(test$Survived,predict.model.2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0.8455</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">specificity(test$Survived,predict.model.2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0.7612</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">predict(model.logit.2,test)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">##   [1] 0 1 1 0 1 0 0 0 0 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0 1 0 1 0 1 0 0</div><div class="line">##  [36] 1 0 0 0 1 1 0 1 0 0 1 0 0 0 0 0 0 1 0 0 1 0 0 1 1 0 1 0 1 1 1 0 1 1 0</div><div class="line">##  [71] 0 1 0 1 0 1 1 1 0 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 0 1</div><div class="line">## [106] 1 0 0 1 1 0 0 0 0 0 0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0</div><div class="line">## [141] 1 0 0 1 0 1 1 0 1 1 0 0 0 1 0 0 1 1 1 0 1 0 1 1 0 0 1 0 0 1 0 1 1 1 0</div><div class="line">## [176] 0 0</div><div class="line">## Levels: 0 1</div></pre></td></tr></table></figure>
+<p>训练集accuracy达到0.82，对于测试集sensitivity,specificity都达到了有提高</p>
+<h2 id="预测-1"><a href="#预测-1" class="headerlink" title="预测"></a>预测</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">title.filter=c(<span class="string">"Mr"</span>,<span class="string">"Mrs"</span>,<span class="string">"Miss"</span>,<span class="string">"Master"</span>,<span class="string">"Professional"</span>)</div><div class="line">test.raw$Title=getTitle(test.raw)</div><div class="line">test.raw$Title=sapply(test.raw$Title,recodeTitle,title.filter)</div><div class="line">test.raw$Age=imputeAge(test.raw$Age,test.raw$Title,title.filter)</div><div class="line">test.raw$Embarked=imputeEmbarked(test.raw$Embarked)</div><div class="line">test.raw$Fare=imputeFare(test.raw$Fare,test.raw$Pclass,pclass.filter)</div><div class="line">predict.final.model.2=predict(model.logit.2,newdata=test.raw)</div><div class="line">predictions=data.frame(PassengerId=test.raw$PassengerId, Survived=predict.final.model.2)</div><div class="line">write.csv(predictions,file=<span class="string">"Titanic_predictions_2.csv"</span>, row.names=<span class="literal">FALSE</span>, quote=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p>提交到kaggle，新的排名一下提高的了800多位，一下子比之前提高了1600多位。回到之前我们提到的可能优化方向：</p>
+<ul>
+<li>有4个特征没有使用分别是sibsp,parch,Cabin,names。<ul>
+<li>也许家人的数目会影响生还率，比如需要照顾家人或者上救生船的时候会让别的家庭成员上等等</li>
+<li>Cabin这个变量虽然有很多缺失但是理论上应该也是一个关键特征，因为不同舱位对逃生影响很大</li>
+<li>names看似没有用但是似乎它们都满足了 xx Title, xx xx这样一种模式，而西方人的title可以反映年龄。因此可能我们需要利用names来构建一个新变量Title</li>
+</ul>
+</li>
+<li>对Age的插值之前我们采用了直接取不同等级舱位年龄median的方式完成，这是否是最佳，可否有更好方法？比如可以考虑根据姓名的Title来判断</li>
+<li>前面的模型参数我们没有进行任何的优化，也许优化参数可以取得更好结果？</li>
+<li>除了逻辑回归，我们还可以采用决策树，随机森林，boosting方法，是否这些模型会带来更好结果？</li>
+</ul>
+<p>现在还可以做的有:</p>
+<ul>
+<li>Cabin这个变量虽然有很多缺失但是理论上应该也是一个关键特征，因为不同舱位对逃生影响很大</li>
+<li>前面的模型参数我们没有进行任何的优化，也许优化参数可以取得更好结果？</li>
+<li>除了逻辑回归，我们还可以采用决策树，随机森林，boosting方法，是否这些模型会带来更好结果？</li>
+</ul>
+<p>此外前面的代码中的插值函数显然可以重构成一个通用函数就不用每个特征写一个函数了，不过今天先到这里下一步的优化我们就下次再写了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/Kaggle/" rel="tag"># Kaggle</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/08/2014-9-data-science-chp9-Rstudio/" rel="next" title="数据科学(9)-第九章：Rstudio">
+                <i class="fa fa-chevron-left"></i> 数据科学(9)-第九章：Rstudio
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/" rel="prev" title="R语言数据挖掘与机器学习实战培训">
+                R语言数据挖掘与机器学习实战培训 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/09/17/2014-09-17-kaggle-titanic/"
+           data-title="Kaggle上的泰坦尼克生还数据分析" data-url="http://zjdian.com/2014/09/17/2014-09-17-kaggle-titanic/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据准备"><span class="nav-number">1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据探索"><span class="nav-number">2.</span> <span class="nav-text">数据探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生还与死亡对比"><span class="nav-number">2.1.</span> <span class="nav-text">生还与死亡对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同舱位等级的影响"><span class="nav-number">2.2.</span> <span class="nav-text">不同舱位等级的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同性别的生还率对比"><span class="nav-number">2.3.</span> <span class="nav-text">不同性别的生还率对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同年龄的生还率"><span class="nav-number">2.4.</span> <span class="nav-text">不同年龄的生还率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马赛克图"><span class="nav-number">2.5.</span> <span class="nav-text">马赛克图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关性分析"><span class="nav-number">2.6.</span> <span class="nav-text">相关性分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初次建模"><span class="nav-number">3.</span> <span class="nav-text">初次建模</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建训练集与测试集"><span class="nav-number">3.1.</span> <span class="nav-text">构建训练集与测试集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个模型"><span class="nav-number">3.2.</span> <span class="nav-text">第一个模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测"><span class="nav-number">3.3.</span> <span class="nav-text">预测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型优化"><span class="nav-number">4.</span> <span class="nav-text">模型优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据整理与清洗"><span class="nav-number">4.1.</span> <span class="nav-text">数据整理与清洗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二个模型"><span class="nav-number">4.2.</span> <span class="nav-text">第二个模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测-1"><span class="nav-number">4.3.</span> <span class="nav-text">预测</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

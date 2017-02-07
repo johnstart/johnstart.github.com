@@ -1,0 +1,1230 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,R,R培训," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Read in data工作环境相关123456ls()                 # 列出已创建变量remove( object.name )           # 删除变量dir()                           getwd() setwd(&quot;d:/project/datascience/rtraining/&quot;)
+read.tableread.table是R里面常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R Your Ready? 100分钟R入门教程(下)">
+<meta property="og:url" content="http://zjdian.com/2014/10/11/2014-10-11-R-crash-course-2/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="Read in data工作环境相关123456ls()                 # 列出已创建变量remove( object.name )           # 删除变量dir()                           getwd() setwd(&quot;d:/project/datascience/rtraining/&quot;)
+read.tableread.table是R里面常">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/basic_plots1.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/basic_plots2.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/basic_plots3.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/basic_plots4.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-741.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-742.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-781.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-782.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-791.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-792.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-831.png">
+<meta property="og:image" content="http://zjdian.com/images/project/training/crashcourse/unnamed-chunk-832.png">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R Your Ready? 100分钟R入门教程(下)">
+<meta name="twitter:description" content="Read in data工作环境相关123456ls()                 # 列出已创建变量remove( object.name )           # 删除变量dir()                           getwd() setwd(&quot;d:/project/datascience/rtraining/&quot;)
+read.tableread.table是R里面常">
+<meta name="twitter:image" content="http://zjdian.com/images/project/training/crashcourse/basic_plots1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/10/11/2014-10-11-R-crash-course-2/"/>
+
+
+
+
+
+
+  <title> R Your Ready? 100分钟R入门教程(下) | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/10/11/2014-10-11-R-crash-course-2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                R Your Ready? 100分钟R入门教程(下)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-11T14:28:30+00:00">
+                2014-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/11/2014-10-11-R-crash-course-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/11/2014-10-11-R-crash-course-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Read-in-data"><a href="#Read-in-data" class="headerlink" title="Read in data"></a>Read in data</h1><h2 id="工作环境相关"><a href="#工作环境相关" class="headerlink" title="工作环境相关"></a>工作环境相关</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ls()                 <span class="comment"># 列出已创建变量</span></div><div class="line">remove( object.name )           <span class="comment"># 删除变量</span></div><div class="line"></div><div class="line">dir()                           </div><div class="line">getwd() </div><div class="line">setwd(<span class="string">"d:/project/datascience/rtraining/"</span>)</div></pre></td></tr></table></figure>
+<h2 id="read-table"><a href="#read-table" class="headerlink" title="read.table"></a>read.table</h2><p>read.table是R里面常用的读取ASCII文件数据的方式，通过制定参数sep,header可以对读入方式进行更细致的控制。</p>
+<p><code>?read.table</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"d:/project/datascience/rtraining/"</span>)</div><div class="line">test.txt &lt;- read.table(<span class="string">"./data/test.txt"</span>, header=<span class="literal">T</span>)</div><div class="line">print(test.txt)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##    make   model mpg weight price</div><div class="line">## 1   AMC Concord  22   2930  4099</div><div class="line">## 2   AMC   Pacer  17   3350  4749</div><div class="line">## 3   AMC  Spirit  22   2640  3799</div><div class="line">## 4 Buick Century  20   3250  4816</div><div class="line">## 5 Buick Electra  15   4080  7827</div></pre></td></tr></table></figure>
+<h2 id="read-csv"><a href="#read-csv" class="headerlink" title="read.csv"></a>read.csv</h2><p>read.csv是read.table的特列，专门针对csv文件格式</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test.csv &lt;- read.csv(<span class="string">"./data/test.csv"</span>, header=<span class="literal">T</span>)</div><div class="line">test.csv</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##    make   model mpg weight price</div><div class="line">## 1   amc concord  22   2930  4099</div><div class="line">## 2   amc   oacer  17   3350  4749</div><div class="line">## 3   amc  spirit  22   2640  3799</div><div class="line">## 4 buick century  20   3250  4816</div><div class="line">## 5 buick electra  15   4080  7827</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test.csv1 &lt;- read.table(<span class="string">"./data/test.csv"</span>, header=<span class="literal">T</span>, sep=<span class="string">","</span>)</div><div class="line">test.csv1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##    make   model mpg weight price</div><div class="line">## 1   amc concord  22   2930  4099</div><div class="line">## 2   amc   oacer  17   3350  4749</div><div class="line">## 3   amc  spirit  22   2640  3799</div><div class="line">## 4 buick century  20   3250  4816</div><div class="line">## 5 buick electra  15   4080  7827</div></pre></td></tr></table></figure>
+<h2 id="read-table读入其它格式文件"><a href="#read-table读入其它格式文件" class="headerlink" title="read.table读入其它格式文件"></a>read.table读入其它格式文件</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test.semi = read.table(<span class="string">"./data/testsemicolon.txt"</span>, header=<span class="literal">T</span>, sep=<span class="string">";"</span>)</div><div class="line">test.semi</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##    make   model mpg weight price</div><div class="line">## 1   AMC Concord  22   2930  4099</div><div class="line">## 2   AMC   Pacer  17   3350  4749</div><div class="line">## 3   AMC  Spirit  22   2640  3799</div><div class="line">## 4 Buick Century  20   3250  4816</div><div class="line">## 5 Buick Electra  15   4080  7827</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test.z = read.table(<span class="string">"./data/testz.txt"</span>, header=<span class="literal">T</span>, sep=<span class="string">"z"</span>)</div><div class="line">test.z</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##    make   model mpg weight price</div><div class="line">## 1   AMC Concord  22   2930  4099</div><div class="line">## 2   AMC   Pacer  17   3350  4749</div><div class="line">## 3   AMC  Spirit  22   2640  3799</div><div class="line">## 4 Buick Century  20   3250  4816</div><div class="line">## 5 Buick Electra  15   4080  7827</div></pre></td></tr></table></figure>
+<h2 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h2><p>scan是极为灵活的输入数据方式，可以读入几乎任何类型数据，数字，字符…。同时通过scan你可以直接从控制台输入。缺省条件下scan的参数what接收数字，制定what=””接受字符。不过需要注意与read.table不同，scan返回的是向量。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x=scan()</div><div class="line">x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## numeric(0)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">name.x=scan(,what=<span class="string">""</span>)</div><div class="line">name.x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## character(0)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x = scan(<span class="string">"./data/scan.txt"</span>, what=list(age=<span class="number">0</span>, name=<span class="string">""</span>))</div><div class="line">x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## $age</div><div class="line">## [1] 12 24 35 20</div><div class="line">## </div><div class="line">## $name</div><div class="line">## [1] &quot;bobby&quot;   &quot;kate&quot;    &quot;david&quot;   &quot;michael&quot;</div></pre></td></tr></table></figure>
+<h2 id="read-fwf"><a href="#read-fwf" class="headerlink" title="read.fwf"></a>read.fwf</h2><p>read.fwf读入固定宽度格式保存的文件。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">names = scan(<span class="string">"./data/names.txt"</span>, what=character() )</div><div class="line">names</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] &quot;model&quot;  &quot;make&quot;   &quot;mph&quot;    &quot;weight&quot; &quot;price&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test.fixed = read.fwf(<span class="string">"./data/testfixed.txt"</span>, </div><div class="line">                      col.names=names, width = c(<span class="number">5</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">4</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Warning: incomplete final line found on &apos;./data/testfixed.txt&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 有一个警告出来是什么原因呢？猜猜</span></div><div class="line">test.fixed</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##   model    make mph weight price</div><div class="line">## 1 AMC   Concord  22   2930  4099</div><div class="line">## 2 AMC   Pacer    17   3350  4749</div><div class="line">## 3 AMC   Spirit   22   2640  3799</div><div class="line">## 4 Buick Century  20   3250  4816</div><div class="line">## 5 Buick Electra  15   4080  7827</div></pre></td></tr></table></figure>
+<h2 id="内部数据"><a href="#内部数据" class="headerlink" title="内部数据"></a>内部数据</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data( USArrests )</div></pre></td></tr></table></figure>
+<h2 id="读取远程数据"><a href="#读取远程数据" class="headerlink" title="读取远程数据"></a>读取远程数据</h2><p>前面的read系列函数也支持读取远程数据</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pew_data = read.csv(<span class="string">"http://bit.ly/11I3iuU"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Warning: cannot open: HTTP status was &apos;0 (nil)&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Error: cannot open the connection</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pew_data = read.csv(<span class="string">"http://www.pewinternet.org/files/old-media/Files/Data%20Sets/2013/Omnibus_Jan_2013_csv.csv"</span>)</div><div class="line">head(pew_data)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">##   psraid sample state cregion usr pial1a pial1b pial1c pial1d pial1e pial2</div><div class="line">## 1 100002      1    18       2   S      2      2      2      2      2    NA</div><div class="line">## 2 100005      1    18       2   U      1      2      1      1      2     2</div><div class="line">## 3 100008      1    39       2   R      1      2      2      2      1     2</div><div class="line">## 4 100010      1    24       3   S      1      2      2      1      2     1</div><div class="line">## 5 100012      1    42       1   S      1      2      2      2      2     2</div><div class="line">## 6 100014      1    36       1   S      2      2      2      2      2    NA</div><div class="line">##   pial3a pial3b pial3c pial4 employ par sex age educ2 hisp race inc weight</div><div class="line">## 1     NA     NA     NA    NA      3   2   1  62     4    2    1   2  1.463</div><div class="line">## 2      2      2      2    NA      3   2   2  85     8    2    2   1  1.122</div><div class="line">## 3      2      2      2    NA      1   1   1  41     3    2    1   4  2.268</div><div class="line">## 4      2      2      2    NA      3   2   1  19     3    2    1   7  2.415</div><div class="line">## 5      2      2      2    NA      3   2   2  84     2    2    2   2  1.683</div><div class="line">## 6     NA     NA     NA    NA      3   2   2  84     4    2    1   7  1.976</div><div class="line">##   standwt</div><div class="line">## 1  0.4879</div><div class="line">## 2  0.3741</div><div class="line">## 3  0.7563</div><div class="line">## 4  0.8051</div><div class="line">## 5  0.5611</div><div class="line">## 6  0.6587</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#http://www.pewinternet.org/files/old-media/Files/Data%20Sets/2013/Omnibus_Jan_2013_csv.csv</span></div></pre></td></tr></table></figure>
+<h2 id="其它格式数据"><a href="#其它格式数据" class="headerlink" title="其它格式数据"></a>其它格式数据</h2><p>与老外通话肯定得讲外语了，所以我们需要<code>foreign</code>包</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(foreign)</div><div class="line">help(package=foreign)</div></pre></td></tr></table></figure>
+<p>data.restore   Read an S3 Binary File<br>lookup.xport   Lookup Information on a SAS XPORT Format Library<br>read.dbf       Read a DBF File<br>read.dta       Read Stata binary files<br>read.epiinfo   Read Epi Info data files<br>read.mtp       Read a Minitab Portable Worksheet<br>read.octave    Read Octave Text Data Files<br>read.spss      Read an SPSS data file<br>read.ssd       Obtain a Data Frame from a SAS Permanent Dataset, via read.xport<br>read.systat    Obtain a Data Frame from a Systat File<br>read.xport     Read a SAS XPORT Format Library<br>write.dbf      Write a DBF File<br>write.dta      Write Files in Stata Binary Format<br>write.foreign  Write text files and code to read them  </p>
+<h2 id="访问数据库"><a href="#访问数据库" class="headerlink" title="访问数据库"></a>访问数据库</h2><p><a href="http://cran.r-project.org/web/packages/RPostgreSQL/index.html" target="_blank" rel="external">RPostgreSQL</a><br><a href="http://cran.r-project.org/web/packages/RMySQL/index.html" target="_blank" rel="external">RMySQL</a><br><a href="http://cran.r-project.org/web/packages/RMongo/index.html" target="_blank" rel="external">RMongo</a><br><a href="http://cran.r-project.org/web/packages/RSQLite/index.html" target="_blank" rel="external">RSQLite</a><br><a href="http://cran.r-project.org/web/packages/RODBC/index.html" target="_blank" rel="external">RODBC</a>  </p>
+<p>最后重点推出</p>
+<p><a href="http://cran.r-project.org/web/packages/RODBC/index.html" target="_blank" rel="external">sqldf</a></p>
+<h2 id="数据保存与加载"><a href="#数据保存与加载" class="headerlink" title="数据保存与加载"></a>数据保存与加载</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">save( the.data, file=<span class="string">"thedata.rda"</span> )</div><div class="line">load( file = <span class="string">"thedata.rda"</span> )    <span class="comment"># rda == R Data</span></div><div class="line">write.table( USArrests, file = <span class="string">"arrests.txt"</span>, sep = <span class="string">","</span> )</div></pre></td></tr></table></figure>
+<h1 id="R的绘图功能"><a href="#R的绘图功能" class="headerlink" title="R的绘图功能"></a>R的绘图功能</h1><p>R 中的绘图系统:</p>
+<ul>
+<li><em>base</em> graphics</li>
+<li><em>lattice</em> graphics</li>
+<li><em>ggplot2</em> </li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">earnings = read.table(<span class="string">"./data/heights.csv"</span>,sep=<span class="string">" "</span>)</div><div class="line">names(earnings)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## [1] &quot;earn&quot;    &quot;height1&quot; &quot;height2&quot; &quot;sex&quot;     &quot;race&quot;    &quot;hisp&quot;    &quot;ed&quot;     </div><div class="line">## [8] &quot;yearbn&quot;  &quot;height&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hist(earnings$earn)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/basic_plots1.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(earnings$earn ~ earnings$height)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/basic_plots2.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">boxplot(earnings$earn ~ earnings$height)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/basic_plots3.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">boxplot(earnings$earn ~ earnings$sex)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/basic_plots4.png" alt=""> </p>
+<h1 id="赐予我力量吧-packages"><a href="#赐予我力量吧-packages" class="headerlink" title="赐予我力量吧-packages"></a>赐予我力量吧-<code>packages</code></h1><ul>
+<li><code>packages</code> 是R的动力源泉</li>
+<li><blockquote>
+<p>5,000 packages ，提供各种功能</p>
+</blockquote>
+</li>
+<li>一些例子<ul>
+<li><code>ggplot2</code> package</li>
+<li>高级回归包<code>lme4</code></li>
+<li>3d 图形 <code>scatterplot3d</code> package</li>
+<li>GIS 分析与地图 <code>sp</code></li>
+<li>文本挖掘 <code>tm</code></li>
+<li>预测建模 <code>caret</code></li>
+<li>与 Python, Java,  C , C++的接口</li>
+<li>服务器版本: <code>Rserve</code></li>
+<li>甚至扫雷都有- <code>fun</code> package</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何获取"><a href="#如何获取" class="headerlink" title="如何获取"></a>如何获取</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">install.packages(<span class="string">'foo'</span>) <span class="comment"># Name must be in quotes</span></div><div class="line">install.packages(c(<span class="string">'foo'</span>,<span class="string">'foo1'</span>,<span class="string">'foo2'</span>))</div><div class="line">install.packages(file_name_and_path, repos = <span class="literal">NULL</span>, type=<span class="string">"source"</span>)</div><div class="line"><span class="comment"># Packages 更新</span></div><div class="line">update.packages() <span class="comment"># update all</span></div><div class="line">installed.packages()</div><div class="line">remove.packages()</div><div class="line">available.packages()</div><div class="line">old.packages()</div><div class="line"><span class="keyword">require</span>(<span class="string">"ggplot2"</span>)</div><div class="line"><span class="keyword">library</span>()</div></pre></td></tr></table></figure>
+<h2 id="查找-Packages"><a href="#查找-Packages" class="headerlink" title="查找 Packages"></a>查找 Packages</h2><ul>
+<li><a href="http://www.cran.r-project.org/web/packages/" target="_blank" rel="external">packages on CRAN</a>. </li>
+<li><a href="http://www.cran.r-project.org/web/views/" target="_blank" rel="external">CRAN Task Views</a>.</li>
+<li>非官方网站 <a href="http://r-forge.r-project.org/" target="_blank" rel="external">RForge</a> , <a href="http://www.github.com" target="_blank" rel="external">GitHub</a></li>
+</ul>
+<h2 id="利用某包完成某功能"><a href="#利用某包完成某功能" class="headerlink" title="利用某包完成某功能"></a>利用某包完成某功能</h2><ul>
+<li>放狗google<ul>
+<li>Google “doing X in R package”</li>
+<li>或者CRAN taskviews</li>
+</ul>
+</li>
+<li><a href="http://cran.r-project.org/web/views/" target="_blank" rel="external">CRAN taskviews</a> </li>
+</ul>
+<h2 id="一些常用包"><a href="#一些常用包" class="headerlink" title="一些常用包"></a>一些常用包</h2><p><code>plyr</code> <code>ggplot2</code> <code>caret</code> <code>rattle</code> <code>lme4</code> <code>reshape2</code> <code>knitr</code> <code>dplyr</code></p>
+<ul>
+<li>包里面包含了函数，代码，数据</li>
+<li><code>help(package=&quot;ggplot2&quot;)</code></li>
+<li><code>vignettes</code> </li>
+</ul>
+<h2 id="使用包"><a href="#使用包" class="headerlink" title="使用包"></a>使用包</h2><ol>
+<li>安装</li>
+<li>加载</li>
+</ol>
+<p>RStudio, <code>Packages-&gt;Install Packages</code>.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">install.packages(<span class="string">'fields'</span>)</div><div class="line"><span class="comment">#指定目录</span></div><div class="line">install.packages(<span class="string">'fields'</span>, lib = <span class="string">'~/R'</span>)</div></pre></td></tr></table></figure>
+<p>##</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(help=<span class="string">"ggplot2"</span>)</div><div class="line">help(package=<span class="string">"ggplot2"</span>)</div></pre></td></tr></table></figure>
+<h1 id="R编程"><a href="#R编程" class="headerlink" title="R编程"></a>R编程</h1><h2 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a><code>if</code>-<code>else</code></h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">val = rnorm(<span class="number">1</span>)</div><div class="line">val</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0.6169</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (val &lt; <span class="number">0</span>) &#123;</div><div class="line">  <span class="string">"val is negative!"</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  <span class="string">"val is positive"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] &quot;val is positive&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x=rnorm(<span class="number">1</span>)</div><div class="line">y = <span class="keyword">if</span> ( x &lt; <span class="number">0</span> ) -<span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span> </div><div class="line">y</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] -1</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] -0.681</div></pre></td></tr></table></figure>
+<h2 id="嵌套if-else"><a href="#嵌套if-else" class="headerlink" title="嵌套if-else"></a>嵌套if-else</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># multiline if - else statement </span></div><div class="line"><span class="keyword">if</span> ( x &lt; <span class="number">0</span> ) &#123; </div><div class="line">    x = x+<span class="number">1</span></div><div class="line">    print(<span class="string">"Add one"</span>) </div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( x == <span class="number">0</span> ) &#123;</div><div class="line">    print(<span class="string">"Zero"</span>)</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    print(<span class="string">"Positive value"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] &quot;Add one&quot;</div></pre></td></tr></table></figure>
+<h2 id="ifelse"><a href="#ifelse" class="headerlink" title="ifelse"></a>ifelse</h2><p>ifelse(test_condition, true_value, false_value)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">y = ifelse ( x &lt; <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span> )</div><div class="line">y</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 0</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># nested ifelse statement </span></div><div class="line">y = ifelse ( x &lt; <span class="number">0</span>, -<span class="number">1</span>, ifelse (x &gt; <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>) )</div><div class="line"></div><div class="line"><span class="comment"># ifelse statement on a vector</span></div><div class="line">digits = <span class="number">0</span> : <span class="number">9</span></div><div class="line">(odd = ifelse( digits %% <span class="number">2</span> &gt; <span class="number">0</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span> ))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</div></pre></td></tr></table></figure>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>定义一个向量，包含的10个数，数值在-10～10间均匀分布<br>  <code>x= as.integer( runif( 10, -10, 10 ))</code></p>
+<p>利用ifelse 来求x的绝对值。（通常用abs()可以解决）</p>
+<p>##</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x= as.integer( runif( <span class="number">10</span>, -<span class="number">10</span>, <span class="number">10</span> ))</div><div class="line">ifelse(x&lt;<span class="number">0</span>,-x,x)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1] 0 6 7 2 4 7 9 4 6 9</div></pre></td></tr></table></figure>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><ul>
+<li>重复执行</li>
+<li>避免使用循环</li>
+</ul>
+<p><code>for,repeat,while</code></p>
+<h2 id="for"><a href="#for" class="headerlink" title="for"></a><code>for</code></h2><p>抽象表达：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (variable <span class="keyword">in</span> sequence) &#123;</div><div class="line">  statement</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="for-1"><a href="#for-1" class="headerlink" title="for"></a><code>for</code></h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">myseq = seq(<span class="number">5</span>,<span class="number">20</span>,by=<span class="number">5</span>)</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> myseq) &#123;</div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">## [1] 5</div><div class="line">## [1] 10</div><div class="line">## [1] 15</div><div class="line">## [1] 20</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> seq(<span class="number">2</span>,<span class="number">8</span>, by=<span class="number">2</span>)) &#123;</div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">## [1] 2</div><div class="line">## [1] 4</div><div class="line">## [1] 6</div><div class="line">## [1] 8</div></pre></td></tr></table></figure>
+<h2 id="while"><a href="#while" class="headerlink" title="while"></a><code>while</code></h2><p>抽象表达：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (condition) &#123;</div><div class="line">  statements</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="while实现"><a href="#while实现" class="headerlink" title="while实现"></a><code>while</code>实现</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">i = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> (i &lt; <span class="number">10</span>) &#123;</div><div class="line">  i = i + <span class="number">1</span></div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">## [1] 1</div><div class="line">## [1] 2</div><div class="line">## [1] 3</div><div class="line">## [1] 4</div><div class="line">## [1] 5</div><div class="line">## [1] 6</div><div class="line">## [1] 7</div><div class="line">## [1] 8</div><div class="line">## [1] 9</div><div class="line">## [1] 10</div></pre></td></tr></table></figure>
+<p>注意不要出现无限循环！</p>
+<h2 id="Fibonacci"><a href="#Fibonacci" class="headerlink" title="Fibonacci"></a>Fibonacci</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">myseq[<span class="number">1</span>] = <span class="number">0</span></div><div class="line">myseq[<span class="number">2</span>] = <span class="number">1</span></div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> seq(<span class="number">3</span>,<span class="number">12</span>)) &#123;</div><div class="line">  myseq[i] = myseq[i-<span class="number">2</span>] + myseq[i-<span class="number">1</span>]</div><div class="line">&#125;</div><div class="line">myseq</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1]  0  1  1  2  3  5  8 13 21 34 55 89</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">myseq[<span class="number">1</span>] = <span class="number">0</span></div><div class="line">myseq[<span class="number">2</span>] = <span class="number">1</span></div><div class="line">i = <span class="number">2</span></div><div class="line">currentVal = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> (currentVal &lt; <span class="number">500</span>) &#123;</div><div class="line">  myseq[i+<span class="number">1</span>] = currentVal</div><div class="line">  currentVal = myseq[i] + myseq[i+<span class="number">1</span>]</div><div class="line">  i = i+<span class="number">1</span></div><div class="line">&#125;</div><div class="line">myseq</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1]   0   1   1   2   3   5   8  13  21  34  55  89 144 233 377</div></pre></td></tr></table></figure>
+<h2 id="next-与-break"><a href="#next-与-break" class="headerlink" title="next 与 break"></a><code>next</code> 与 <code>break</code></h2><p><code>next</code> 跳过当前的循环语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> seq(<span class="number">1</span>,<span class="number">10</span>)) &#123;</div><div class="line">  <span class="keyword">if</span> (i == <span class="number">5</span>) &#123;</div><div class="line">    <span class="keyword">next</span></div><div class="line">  &#125;</div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">## [1] 1</div><div class="line">## [1] 2</div><div class="line">## [1] 3</div><div class="line">## [1] 4</div><div class="line">## [1] 6</div><div class="line">## [1] 7</div><div class="line">## [1] 8</div><div class="line">## [1] 9</div><div class="line">## [1] 10</div></pre></td></tr></table></figure>
+<p><code>break</code> 直接跳出循环：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">val = <span class="number">0</span></div><div class="line">i = <span class="number">0</span></div><div class="line"><span class="keyword">while</span>(<span class="literal">TRUE</span>) &#123;</div><div class="line">  i = i + <span class="number">1</span></div><div class="line">  val = val + rnorm(<span class="number">1</span>)</div><div class="line">  <span class="keyword">if</span> (abs(val) &gt; <span class="number">3</span>) &#123;</div><div class="line">    <span class="keyword">break</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">val</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] -3.359</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">i</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 4</div></pre></td></tr></table></figure>
+<h2 id="循环通常不是最佳方案"><a href="#循环通常不是最佳方案" class="headerlink" title="循环通常不是最佳方案"></a>循环通常不是最佳方案</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vals = rnorm(<span class="number">100</span>)</div><div class="line">maxVal = vals[<span class="number">1</span>]</div><div class="line"><span class="keyword">for</span> (val <span class="keyword">in</span> vals) &#123;</div><div class="line">  <span class="keyword">if</span> (val &gt; maxVal) &#123;</div><div class="line">    maxVal = val</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">maxVal</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 3.047</div></pre></td></tr></table></figure>
+<p>使用内部函数：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max(vals)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 3.047</div></pre></td></tr></table></figure>
+<p>向量化运算而不是循环:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">myseq = seq(<span class="number">2</span>,<span class="number">20</span>, by =<span class="number">2</span>)</div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> seq(<span class="number">1</span>,<span class="number">10</span>)) &#123;</div><div class="line">  myseq[i] = myseq[i] + <span class="number">2</span></div><div class="line">&#125;</div><div class="line">myseq</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1]  4  6  8 10 12 14 16 18 20 22</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">seq(<span class="number">2</span>,<span class="number">20</span>, by =<span class="number">2</span>)+<span class="number">2</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1]  4  6  8 10 12 14 16 18 20 22</div></pre></td></tr></table></figure>
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply(), sapply(), tapply(), lapply()</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数: <strong>arguments</strong> 输入，<strong>return</strong> 输出</p>
+<p>为什么要函数：</p>
+<ol>
+<li>重用</li>
+<li>清晰</li>
+</ol>
+<h2 id="invisible-return"><a href="#invisible-return" class="headerlink" title="invisible return"></a>invisible return</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">histNormal = <span class="keyword">function</span>(N) &#123;</div><div class="line">  vals = rnorm(N)</div><div class="line">  hist(vals)</div><div class="line">  invisible(max(vals))</div><div class="line">&#125;</div><div class="line"></div><div class="line">histNormal(<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-741.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max = histNormal(<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-742.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 2.989</div></pre></td></tr></table></figure>
+<h2 id="多参数以及缺省值User-defined-functions-V-multiple-arguments-default-values"><a href="#多参数以及缺省值User-defined-functions-V-multiple-arguments-default-values" class="headerlink" title="多参数以及缺省值User-defined functions V: multiple arguments, default values"></a>多参数以及缺省值User-defined functions V: multiple arguments, default values</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">newFunction = <span class="keyword">function</span>(num, threshold=<span class="number">0</span>, modifier=<span class="number">2</span>) &#123;</div><div class="line">  <span class="keyword">if</span> (num &lt; threshold) &#123;</div><div class="line">    <span class="keyword">return</span>(num / modifier)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span>(num * modifier)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">newFunction(<span class="number">2.6</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 5.2</div></pre></td></tr></table></figure>
+<p>R缺省从左到有匹配参数:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newFunction(<span class="number">2.6</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 1.3</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newFunction(<span class="number">2.6</span>, <span class="number">3</span>, <span class="number">1.3</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 2</div></pre></td></tr></table></figure>
+<p>当然你可以明确指定</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newFunction(<span class="number">2.6</span>, modifier=<span class="number">1.3</span>, threshold=<span class="number">3</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 2</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hist(sapply(rnorm(<span class="number">10000</span>), newFunction), breaks=<span class="number">60</span>, freq=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-781.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hist(sapply(rnorm(<span class="number">10000</span>), newFunction, modifier=<span class="number">1</span>), breaks=<span class="number">60</span>, freq=<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-782.png" alt=""> </p>
+<h2 id=""><a href="#" class="headerlink" title="..."></a><code>...</code></h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">args(hist)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## function (x, ...) </div><div class="line">## NULL</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">histNormalWrapper = <span class="keyword">function</span>(N, <span class="keyword">...</span>) &#123;</div><div class="line">  vals = rnorm(N)</div><div class="line">  hist(vals, <span class="keyword">...</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">histNormalWrapper(<span class="number">1000</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-791.png" alt=""> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">histNormalWrapper(<span class="number">1000</span>, breaks=<span class="number">50</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-792.png" alt=""> </p>
+<h1 id="table"><a href="#table" class="headerlink" title="table"></a>table</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">data( UCBAdmissions )</div><div class="line">ls()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">##  [1] &quot;bins&quot;              &quot;colors&quot;            &quot;currentVal&quot;       </div><div class="line">##  [4] &quot;digits&quot;            &quot;earnings&quot;          &quot;f&quot;                </div><div class="line">##  [7] &quot;freqs&quot;             &quot;hair.color&quot;        &quot;histNormal&quot;       </div><div class="line">## [10] &quot;histNormalWrapper&quot; &quot;i&quot;                 &quot;max&quot;              </div><div class="line">## [13] &quot;maxVal&quot;            &quot;my.data&quot;           &quot;myfac&quot;            </div><div class="line">## [16] &quot;myfac_o&quot;           &quot;mylist1&quot;           &quot;mylist2&quot;          </div><div class="line">## [19] &quot;mylist3&quot;           &quot;myseq&quot;             &quot;name.x&quot;           </div><div class="line">## [22] &quot;names&quot;             &quot;newFunction&quot;       &quot;odd&quot;              </div><div class="line">## [25] &quot;pew_data&quot;          &quot;q&quot;                 &quot;SO&quot;               </div><div class="line">## [28] &quot;test.csv&quot;          &quot;test.csv1&quot;         &quot;test.fixed&quot;       </div><div class="line">## [31] &quot;test.semi&quot;         &quot;test.txt&quot;          &quot;test.z&quot;           </div><div class="line">## [34] &quot;the.data&quot;          &quot;theDF&quot;             &quot;UCBAdmissions&quot;    </div><div class="line">## [37] &quot;USArrests&quot;         &quot;val&quot;               &quot;vals&quot;             </div><div class="line">## [40] &quot;x&quot;                 &quot;X&quot;                 &quot;y&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UCBAdmissions</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">## , , Dept = A</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted  512     89</div><div class="line">##   Rejected  313     19</div><div class="line">## </div><div class="line">## , , Dept = B</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted  353     17</div><div class="line">##   Rejected  207      8</div><div class="line">## </div><div class="line">## , , Dept = C</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted  120    202</div><div class="line">##   Rejected  205    391</div><div class="line">## </div><div class="line">## , , Dept = D</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted  138    131</div><div class="line">##   Rejected  279    244</div><div class="line">## </div><div class="line">## , , Dept = E</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted   53     94</div><div class="line">##   Rejected  138    299</div><div class="line">## </div><div class="line">## , , Dept = F</div><div class="line">## </div><div class="line">##           Gender</div><div class="line">## Admit      Male Female</div><div class="line">##   Admitted   22     24</div><div class="line">##   Rejected  351    317</div></pre></td></tr></table></figure>
+<p>一个三维数组，伯克利6个不同系的男女录取情况。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftable( UCBAdmissions )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##                 Dept   A   B   C   D   E   F</div><div class="line">## Admit    Gender                             </div><div class="line">## Admitted Male        512 353 120 138  53  22</div><div class="line">##          Female       89  17 202 131  94  24</div><div class="line">## Rejected Male        313 207 205 279 138 351</div><div class="line">##          Female       19   8 391 244 299 317</div></pre></td></tr></table></figure>
+<p>转换成data frame</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">UCB = as.data.frame( UCBAdmissions )</div><div class="line">UCB</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">##       Admit Gender Dept Freq</div><div class="line">## 1  Admitted   Male    A  512</div><div class="line">## 2  Rejected   Male    A  313</div><div class="line">## 3  Admitted Female    A   89</div><div class="line">## 4  Rejected Female    A   19</div><div class="line">## 5  Admitted   Male    B  353</div><div class="line">## 6  Rejected   Male    B  207</div><div class="line">## 7  Admitted Female    B   17</div><div class="line">## 8  Rejected Female    B    8</div><div class="line">## 9  Admitted   Male    C  120</div><div class="line">## 10 Rejected   Male    C  205</div><div class="line">## 11 Admitted Female    C  202</div><div class="line">## 12 Rejected Female    C  391</div><div class="line">## 13 Admitted   Male    D  138</div><div class="line">## 14 Rejected   Male    D  279</div><div class="line">## 15 Admitted Female    D  131</div><div class="line">## 16 Rejected Female    D  244</div><div class="line">## 17 Admitted   Male    E   53</div><div class="line">## 18 Rejected   Male    E  138</div><div class="line">## 19 Admitted Female    E   94</div><div class="line">## 20 Rejected Female    E  299</div><div class="line">## 21 Admitted   Male    F   22</div><div class="line">## 22 Rejected   Male    F  351</div><div class="line">## 23 Admitted Female    F   24</div><div class="line">## 24 Rejected Female    F  317</div></pre></td></tr></table></figure>
+<h2 id="2-way-tables"><a href="#2-way-tables" class="headerlink" title="2-way tables"></a>2-way tables</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>( MASS )</div><div class="line">data( caith )</div><div class="line">mode(caith)  <span class="comment">#似乎是个list</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] &quot;list&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">caith = as.matrix( caith )      <span class="comment"># 变成一个矩阵</span></div><div class="line"></div><div class="line"><span class="comment"># 加个row,colname</span></div><div class="line">dimnames(caith) = list(</div><div class="line">        Eyes = c( <span class="string">"blue"</span>, <span class="string">"light"</span>, <span class="string">"medium"</span>, <span class="string">"dark"</span> ),</div><div class="line">        Hair = c( <span class="string">"fair"</span>, <span class="string">"red"</span>, <span class="string">"medium"</span>, <span class="string">"dark"</span>, <span class="string">"black"</span> ))</div><div class="line">caith</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##         Hair</div><div class="line">## Eyes     fair red medium dark black</div><div class="line">##   blue    326  38    241  110     3</div><div class="line">##   light   688 116    584  188     4</div><div class="line">##   medium  343  84    909  412    26</div><div class="line">##   dark     98  48    403  681    85</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># addmargin</span></div><div class="line">addmargins( caith )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">##         Hair</div><div class="line">## Eyes     fair red medium dark black  Sum</div><div class="line">##   blue    326  38    241  110     3  718</div><div class="line">##   light   688 116    584  188     4 1580</div><div class="line">##   medium  343  84    909  412    26 1774</div><div class="line">##   dark     98  48    403  681    85 1315</div><div class="line">##   Sum    1455 286   2137 1391   118 5387</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">margin.table( caith )           <span class="comment"># 全部汇总</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## [1] 5387</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">margin.table( caith, <span class="number">1</span> )        <span class="comment"># the row marginal sums (index 1)</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## Eyes</div><div class="line">##   blue  light medium   dark </div><div class="line">##    718   1580   1774   1315</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">margin.table( caith, <span class="number">2</span> )        <span class="comment"># column marginal sums (index 2)</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## Hair</div><div class="line">##   fair    red medium   dark  black </div><div class="line">##   1455    286   2137   1391    118</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#比例，行用1，列用2</span></div><div class="line">prop.table( caith, <span class="number">1</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##         Hair</div><div class="line">## Eyes        fair     red medium   dark    black</div><div class="line">##   blue   0.45404 0.05292 0.3357 0.1532 0.004178</div><div class="line">##   light  0.43544 0.07342 0.3696 0.1190 0.002532</div><div class="line">##   medium 0.19335 0.04735 0.5124 0.2322 0.014656</div><div class="line">##   dark   0.07452 0.03650 0.3065 0.5179 0.064639</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">prop.table( caith, <span class="number">1</span> ) * <span class="number">100</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##         Hair</div><div class="line">## Eyes       fair   red medium  dark  black</div><div class="line">##   blue   45.404 5.292  33.57 15.32 0.4178</div><div class="line">##   light  43.544 7.342  36.96 11.90 0.2532</div><div class="line">##   medium 19.335 4.735  51.24 23.22 1.4656</div><div class="line">##   dark    7.452 3.650  30.65 51.79 6.4639</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#可视化</span></div><div class="line">mosaicplot( caith, shade=<span class="literal">TRUE</span> )</div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-831.png" alt="nk-83"> </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">barplot( caith, beside=<span class="literal">TRUE</span>, legend=<span class="literal">TRUE</span> )     <span class="comment"># not shown</span></div></pre></td></tr></table></figure>
+<p><img src="/images/project/training/crashcourse/unnamed-chunk-832.png" alt="nk-83"> </p>
+<h2 id="Multiway-tables"><a href="#Multiway-tables" class="headerlink" title="Multiway tables"></a>Multiway tables</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HairEyeColor                              <span class="comment">#contingency table</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">## , , Sex = Male</div><div class="line">## </div><div class="line">##        Eye</div><div class="line">## Hair    Brown Blue Hazel Green</div><div class="line">##   Black    32   11    10     3</div><div class="line">##   Brown    53   50    25    15</div><div class="line">##   Red      10   10     7     7</div><div class="line">##   Blond     3   30     5     8</div><div class="line">## </div><div class="line">## , , Sex = Female</div><div class="line">## </div><div class="line">##        Eye</div><div class="line">## Hair    Brown Blue Hazel Green</div><div class="line">##   Black    36    9     5     2</div><div class="line">##   Brown    66   34    29    14</div><div class="line">##   Red      16    7     7     7</div><div class="line">##   Blond     4   64     5     8</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">as.data.frame( HairEyeColor )             <span class="comment"># dataframe</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">##     Hair   Eye    Sex Freq</div><div class="line">## 1  Black Brown   Male   32</div><div class="line">## 2  Brown Brown   Male   53</div><div class="line">## 3    Red Brown   Male   10</div><div class="line">## 4  Blond Brown   Male    3</div><div class="line">## 5  Black  Blue   Male   11</div><div class="line">## 6  Brown  Blue   Male   50</div><div class="line">## 7    Red  Blue   Male   10</div><div class="line">## 8  Blond  Blue   Male   30</div><div class="line">## 9  Black Hazel   Male   10</div><div class="line">## 10 Brown Hazel   Male   25</div><div class="line">## 11   Red Hazel   Male    7</div><div class="line">## 12 Blond Hazel   Male    5</div><div class="line">## 13 Black Green   Male    3</div><div class="line">## 14 Brown Green   Male   15</div><div class="line">## 15   Red Green   Male    7</div><div class="line">## 16 Blond Green   Male    8</div><div class="line">## 17 Black Brown Female   36</div><div class="line">## 18 Brown Brown Female   66</div><div class="line">## 19   Red Brown Female   16</div><div class="line">## 20 Blond Brown Female    4</div><div class="line">## 21 Black  Blue Female    9</div><div class="line">## 22 Brown  Blue Female   34</div><div class="line">## 23   Red  Blue Female    7</div><div class="line">## 24 Blond  Blue Female   64</div><div class="line">## 25 Black Hazel Female    5</div><div class="line">## 26 Brown Hazel Female   29</div><div class="line">## 27   Red Hazel Female    7</div><div class="line">## 28 Blond Hazel Female    5</div><div class="line">## 29 Black Green Female    2</div><div class="line">## 30 Brown Green Female   14</div><div class="line">## 31   Red Green Female    7</div><div class="line">## 32 Blond Green Female    8</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftable( HairEyeColor )                    <span class="comment"># flat contingency table</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">##             Sex Male Female</div><div class="line">## Hair  Eye                  </div><div class="line">## Black Brown       32     36</div><div class="line">##       Blue        11      9</div><div class="line">##       Hazel       10      5</div><div class="line">##       Green        3      2</div><div class="line">## Brown Brown       53     66</div><div class="line">##       Blue        50     34</div><div class="line">##       Hazel       25     29</div><div class="line">##       Green       15     14</div><div class="line">## Red   Brown       10     16</div><div class="line">##       Blue        10      7</div><div class="line">##       Hazel        7      7</div><div class="line">##       Green        7      7</div><div class="line">## Blond Brown        3      4</div><div class="line">##       Blue        30     64</div><div class="line">##       Hazel        5      5</div><div class="line">##       Green        8      8</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ftable( HairEyeColor, col.vars=<span class="string">"Hair"</span> )   <span class="comment"># 换一个不同列变量</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">##              Hair Black Brown Red Blond</div><div class="line">## Eye   Sex                              </div><div class="line">## Brown Male           32    53  10     3</div><div class="line">##       Female         36    66  16     4</div><div class="line">## Blue  Male           11    50  10    30</div><div class="line">##       Female          9    34   7    64</div><div class="line">## Hazel Male           10    25   7     5</div><div class="line">##       Female          5    29   7     5</div><div class="line">## Green Male            3    15   7     8</div><div class="line">##       Female          2    14   7     8</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">summary( HairEyeColor )                   <span class="comment"># this works only for 3-way and up</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## Number of cases in table: 592 </div><div class="line">## Number of factors: 3 </div><div class="line">## Test for independence of all factors:</div><div class="line">## 	Chisq = 165, df = 24, p-value = 5e-23</div><div class="line">## 	Chi-squared approximation may be incorrect</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hec = as.data.frame( HairEyeColor )</div><div class="line">head( hec )                                <span class="comment"># first six rows</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">##    Hair   Eye  Sex Freq</div><div class="line">## 1 Black Brown Male   32</div><div class="line">## 2 Brown Brown Male   53</div><div class="line">## 3   Red Brown Male   10</div><div class="line">## 4 Blond Brown Male    3</div><div class="line">## 5 Black  Blue Male   11</div><div class="line">## 6 Brown  Blue Male   50</div></pre></td></tr></table></figure>
+<p>Hair-行，Eye-列，统计频数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xtabs( Freq ~ Hair + Eye, data=hec )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##        Eye</div><div class="line">## Hair    Brown Blue Hazel Green</div><div class="line">##   Black    68   20    15     5</div><div class="line">##   Brown   119   84    54    29</div><div class="line">##   Red      26   17    14    14</div><div class="line">##   Blond     7   94    10    16</div></pre></td></tr></table></figure>
+<p>只去”Male”</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xtabs( Freq ~ Hair + Eye, data=hec, subset=Sex==<span class="string">"Male"</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##        Eye</div><div class="line">## Hair    Brown Blue Hazel Green</div><div class="line">##   Black    32   11    10     3</div><div class="line">##   Brown    53   50    25    15</div><div class="line">##   Red      10   10     7     7</div><div class="line">##   Blond     3   30     5     8</div></pre></td></tr></table></figure>
+<p>更多列的统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ti = as.data.frame( Titanic )</div><div class="line">head( ti )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">##   Class    Sex   Age Survived Freq</div><div class="line">## 1   1st   Male Child       No    0</div><div class="line">## 2   2nd   Male Child       No    0</div><div class="line">## 3   3rd   Male Child       No   35</div><div class="line">## 4  Crew   Male Child       No    0</div><div class="line">## 5   1st Female Child       No    0</div><div class="line">## 6   2nd Female Child       No    0</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xtabs( Freq ~ Class + Age + Sex, data=ti )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">## , , Sex = Male</div><div class="line">## </div><div class="line">##       Age</div><div class="line">## Class  Child Adult</div><div class="line">##   1st      5   175</div><div class="line">##   2nd     11   168</div><div class="line">##   3rd     48   462</div><div class="line">##   Crew     0   862</div><div class="line">## </div><div class="line">## , , Sex = Female</div><div class="line">## </div><div class="line">##       Age</div><div class="line">## Class  Child Adult</div><div class="line">##   1st      1   144</div><div class="line">##   2nd     13    93</div><div class="line">##   3rd     31   165</div><div class="line">##   Crew     0    23</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">HEC.Male = xtabs( Freq ~ Hair + Eye, data=hec, subset=Sex==<span class="string">"Male"</span> )</div><div class="line"></div><div class="line">prop.table( HEC.Male, <span class="number">1</span> ) * <span class="number">100</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##        Eye</div><div class="line">## Hair     Brown   Blue  Hazel  Green</div><div class="line">##   Black 57.143 19.643 17.857  5.357</div><div class="line">##   Brown 37.063 34.965 17.483 10.490</div><div class="line">##   Red   29.412 29.412 20.588 20.588</div><div class="line">##   Blond  6.522 65.217 10.870 17.391</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">results=chisq.test( HEC.Male )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Warning: Chi-squared approximation may be incorrect</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">results</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	Pearson&apos;s Chi-squared test</div><div class="line">## </div><div class="line">## data:  HEC.Male</div><div class="line">## X-squared = 41.28, df = 9, p-value = 4.447e-06</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">results$expected</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##        Eye</div><div class="line">## Hair    Brown  Blue  Hazel  Green</div><div class="line">##   Black 19.67 20.27  9.434  6.624</div><div class="line">##   Brown 50.23 51.77 24.090 16.914</div><div class="line">##   Red   11.94 12.31  5.728  4.022</div><div class="line">##   Blond 16.16 16.65  7.749  5.441</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">results$residuals</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##        Eye</div><div class="line">## Hair      Brown    Blue   Hazel   Green</div><div class="line">##   Black  2.7800 -2.0594  0.1844 -1.4080</div><div class="line">##   Brown  0.3909 -0.2456  0.1855 -0.4654</div><div class="line">##   Red   -0.5621 -0.6579  0.5317  1.4853</div><div class="line">##   Blond -3.2733  3.2709 -0.9876  1.0971</div></pre></td></tr></table></figure>
+<h1 id="R之统计假设"><a href="#R之统计假设" class="headerlink" title="R之统计假设"></a>R之统计假设</h1><h1 id="Single-sample-t-test"><a href="#Single-sample-t-test" class="headerlink" title="Single sample t-test."></a>Single sample t-test.</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">the.data</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1] 7 7 7 5 5 4 4 4 4 4 4 4 3 3 3 3 3 2 1</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 双尾</span></div><div class="line">t.test( the.data, mu=<span class="number">5</span> )        <span class="comment"># H0 says mu=5, two-tailed</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	One Sample t-test</div><div class="line">## </div><div class="line">## data:  the.data</div><div class="line">## t = -2.557, df = 18, p-value = 0.01981</div><div class="line">## alternative hypothesis: true mean is not equal to 5</div><div class="line">## 95 percent confidence interval:</div><div class="line">##  3.274 4.831</div><div class="line">## sample estimates:</div><div class="line">## mean of x </div><div class="line">##     4.053</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 单侧 greater    </span></div><div class="line">t.test( the.data, mu=<span class="number">5</span>, alternative=<span class="string">"greater"</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	One Sample t-test</div><div class="line">## </div><div class="line">## data:  the.data</div><div class="line">## t = -2.557, df = 18, p-value = 0.9901</div><div class="line">## alternative hypothesis: true mean is greater than 5</div><div class="line">## 95 percent confidence interval:</div><div class="line">##  3.41  Inf</div><div class="line">## sample estimates:</div><div class="line">## mean of x </div><div class="line">##     4.053</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># less</span></div><div class="line">t.test( the.data, mu=<span class="number">5</span>, alternative=<span class="string">"less"</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	One Sample t-test</div><div class="line">## </div><div class="line">## data:  the.data</div><div class="line">## t = -2.557, df = 18, p-value = 0.009904</div><div class="line">## alternative hypothesis: true mean is less than 5</div><div class="line">## 95 percent confidence interval:</div><div class="line">##   -Inf 4.695</div><div class="line">## sample estimates:</div><div class="line">## mean of x </div><div class="line">##     4.053</div></pre></td></tr></table></figure>
+<h2 id="独立-t-test"><a href="#独立-t-test" class="headerlink" title="独立 t-test."></a>独立 t-test.</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x1 = c( <span class="number">18</span>, <span class="number">25</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">23</span> )</div><div class="line">x2 = c( <span class="number">20</span>, <span class="number">30</span>, <span class="number">22</span>, <span class="number">25</span>, <span class="number">28</span>, <span class="number">30</span> )</div><div class="line"></div><div class="line"><span class="comment">#pooled varianc</span></div><div class="line">t.test( x1, x2, var.equal=<span class="literal">TRUE</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	Two Sample t-test</div><div class="line">## </div><div class="line">## data:  x1 and x2</div><div class="line">## t = -2.24, df = 9, p-value = 0.05188</div><div class="line">## alternative hypothesis: true difference in means is not equal to 0</div><div class="line">## 95 percent confidence interval:</div><div class="line">##  -10.51953   0.05287</div><div class="line">## sample estimates:</div><div class="line">## mean of x mean of y </div><div class="line">##     20.60     25.83</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># unpooled variance(缺省)</span></div><div class="line"></div><div class="line">t.test( x1, x2 )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	Welch Two Sample t-test</div><div class="line">## </div><div class="line">## data:  x1 and x2</div><div class="line">## t = -2.29, df = 8.995, p-value = 0.04776</div><div class="line">## alternative hypothesis: true difference in means is not equal to 0</div><div class="line">## 95 percent confidence interval:</div><div class="line">##  -10.40273  -0.06393</div><div class="line">## sample estimates:</div><div class="line">## mean of x mean of y </div><div class="line">##     20.60     25.83</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># one-tailed (R 里面是 group 1 - group 2)</span></div><div class="line"></div><div class="line">t.test( x1, x2, var.equal=<span class="literal">T</span>, alternative=<span class="string">"less"</span> )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	Two Sample t-test</div><div class="line">## </div><div class="line">## data:  x1 and x2</div><div class="line">## t = -2.24, df = 9, p-value = 0.02594</div><div class="line">## alternative hypothesis: true difference in means is less than 0</div><div class="line">## 95 percent confidence interval:</div><div class="line">##     -Inf -0.9497</div><div class="line">## sample estimates:</div><div class="line">## mean of x mean of y </div><div class="line">##     20.60     25.83</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 实际场景</span></div><div class="line"></div><div class="line">all.scores = c( x1, x2 )             <span class="comment"># combines x1 and x2 into one vector</span></div><div class="line">all.scores</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1] 18 25 17 20 23 20 30 22 25 28 30</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">grp = c( <span class="string">"x1"</span>, <span class="string">"x2"</span> )                <span class="comment"># the group names</span></div><div class="line">n = c( <span class="number">5</span>, <span class="number">6</span> )                        <span class="comment"># the groups sizes</span></div><div class="line">groups = rep( grp, n )               <span class="comment"># create the labels</span></div><div class="line">groups</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##  [1] &quot;x1&quot; &quot;x1&quot; &quot;x1&quot; &quot;x1&quot; &quot;x1&quot; &quot;x2&quot; &quot;x2&quot; &quot;x2&quot; &quot;x2&quot; &quot;x2&quot; &quot;x2&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">t.test( all.scores ~ groups )</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">## </div><div class="line">## 	Welch Two Sample t-test</div><div class="line">## </div><div class="line">## data:  all.scores by groups</div><div class="line">## t = -2.29, df = 8.995, p-value = 0.04776</div><div class="line">## alternative hypothesis: true difference in means is not equal to 0</div><div class="line">## 95 percent confidence interval:</div><div class="line">##  -10.40273  -0.06393</div><div class="line">## sample estimates:</div><div class="line">## mean in group x1 mean in group x2 </div><div class="line">##            20.60            25.83</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/R培训/" rel="tag"># R培训</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/10/09/2014-10-09-hurricane/" rel="next" title="2010~2014 飓风可视化尝试">
+                <i class="fa fa-chevron-left"></i> 2010~2014 飓风可视化尝试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/11/2014-10-11-R-crash-course-1/" rel="prev" title="R Your Ready? 100分钟R入门教程(上)">
+                R Your Ready? 100分钟R入门教程(上) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/11/2014-10-11-R-crash-course-2/"
+           data-title="R Your Ready? 100分钟R入门教程(下)" data-url="http://zjdian.com/2014/10/11/2014-10-11-R-crash-course-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Read-in-data"><span class="nav-number">1.</span> <span class="nav-text">Read in data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作环境相关"><span class="nav-number">1.1.</span> <span class="nav-text">工作环境相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-table"><span class="nav-number">1.2.</span> <span class="nav-text">read.table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-csv"><span class="nav-number">1.3.</span> <span class="nav-text">read.csv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-table读入其它格式文件"><span class="nav-number">1.4.</span> <span class="nav-text">read.table读入其它格式文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scan"><span class="nav-number">1.5.</span> <span class="nav-text">scan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-fwf"><span class="nav-number">1.6.</span> <span class="nav-text">read.fwf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部数据"><span class="nav-number">1.7.</span> <span class="nav-text">内部数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取远程数据"><span class="nav-number">1.8.</span> <span class="nav-text">读取远程数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它格式数据"><span class="nav-number">1.9.</span> <span class="nav-text">其它格式数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问数据库"><span class="nav-number">1.10.</span> <span class="nav-text">访问数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据保存与加载"><span class="nav-number">1.11.</span> <span class="nav-text">数据保存与加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#R的绘图功能"><span class="nav-number">2.</span> <span class="nav-text">R的绘图功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#赐予我力量吧-packages"><span class="nav-number">3.</span> <span class="nav-text">赐予我力量吧-packages</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何获取"><span class="nav-number">3.1.</span> <span class="nav-text">如何获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找-Packages"><span class="nav-number">3.2.</span> <span class="nav-text">查找 Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用某包完成某功能"><span class="nav-number">3.3.</span> <span class="nav-text">利用某包完成某功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用包"><span class="nav-number">3.4.</span> <span class="nav-text">一些常用包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用包"><span class="nav-number">3.5.</span> <span class="nav-text">使用包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#R编程"><span class="nav-number">4.</span> <span class="nav-text">R编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-else"><span class="nav-number">4.1.</span> <span class="nav-text">if-else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套if-else"><span class="nav-number">4.2.</span> <span class="nav-text">嵌套if-else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ifelse"><span class="nav-number">4.3.</span> <span class="nav-text">ifelse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">4.4.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">4.5.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for"><span class="nav-number">4.6.</span> <span class="nav-text">for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-1"><span class="nav-number">4.7.</span> <span class="nav-text">for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while"><span class="nav-number">4.8.</span> <span class="nav-text">while</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while实现"><span class="nav-number">4.9.</span> <span class="nav-text">while实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fibonacci"><span class="nav-number">4.10.</span> <span class="nav-text">Fibonacci</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next-与-break"><span class="nav-number">4.11.</span> <span class="nav-text">next 与 break</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环通常不是最佳方案"><span class="nav-number">4.12.</span> <span class="nav-text">循环通常不是最佳方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply"><span class="nav-number">4.13.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">4.14.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#invisible-return"><span class="nav-number">4.15.</span> <span class="nav-text">invisible return</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多参数以及缺省值User-defined-functions-V-multiple-arguments-default-values"><span class="nav-number">4.16.</span> <span class="nav-text">多参数以及缺省值User-defined functions V: multiple arguments, default values</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">4.17.</span> <span class="nav-text">...</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#table"><span class="nav-number">5.</span> <span class="nav-text">table</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-way-tables"><span class="nav-number">5.1.</span> <span class="nav-text">2-way tables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiway-tables"><span class="nav-number">5.2.</span> <span class="nav-text">Multiway tables</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#R之统计假设"><span class="nav-number">6.</span> <span class="nav-text">R之统计假设</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Single-sample-t-test"><span class="nav-number">7.</span> <span class="nav-text">Single sample t-test.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#独立-t-test"><span class="nav-number">7.1.</span> <span class="nav-text">独立 t-test.</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

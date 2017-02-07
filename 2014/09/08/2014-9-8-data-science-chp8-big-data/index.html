@@ -1,0 +1,964 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,Introduction to data science," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第八章 大数据？了不起！在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据科学(8)-第八章：大数据">
+<meta property="og:url" content="http://zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第八章 大数据？了不起！在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.199Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据科学(8)-第八章：大数据">
+<meta name="twitter:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第八章 大数据？了不起！在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/"/>
+
+
+
+
+
+
+  <title> 数据科学(8)-第八章：大数据 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据科学(8)-第八章：大数据
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-08T02:29:56+00:00">
+                2014-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/09/08/2014-9-8-data-science-chp8-big-data/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/08/2014-9-8-data-science-chp8-big-data/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文为<strong>Introduction to Data Science</strong>一书的翻译，由网友义务完成，了解参加翻译的网友，请点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/task.md" target="_blank" rel="external">这里</a>，如果要加入我们请加入qq群171546473,了解翻译规则点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/index.md" target="_blank" rel="external">这里</a></p>
+<h1 id="第八章-大数据？了不起！"><a href="#第八章-大数据？了不起！" class="headerlink" title="第八章 大数据？了不起！"></a>第八章 大数据？了不起！</h1><p>在2012年，许多科技媒体的头条关注了大数据。是什么让数据变大，为什么“大”重要？在这一章，我们讨论这些问题后面的争议。掌握了前一章的知识后，对于数据的规模如何影响我们的数据工作，我们可以有更多的思考。</p>
+<p>市场观察（一个华尔街期刊）最近发表了一篇文章标题为“谷歌IT和商务专业人士指出大数据等于大回报”，副标题“根据新的全球调查，70%的组织正在考虑、计划或者运行大数据项目”。相似的技术新闻在这几年屡见不鲜。如此大量这样的文章让人不由得认为“大数据”是一种给这个世界掀起信息和技术浪潮的革命。但这是真的的？“大数据”真的改变了一切吗？</p>
+<p>商业分析师Doug Laney指出三个特征让大数据跟以往的技术革命不同：海量，速度、多样性。海量指的是庞大的数据量。速度则是数据的快速生成和更新。最后，多样性指的是会包含多种不同类型的数据。这三个特性经常指代大数据的“3V”模型。但是，即使在计算机时代的破晓，我们就已经拥有多样的数据，有的数据产生非常快，而且经过时间的推移，这些产生的数据能装满大量的存储器（试想，从18世纪开始，美国国会图书馆每年产生的多种的大量的数据）。所以，光凭某人说他们面临海量的、高速的、多样性的数据问题，是不足以证明大数据是一个崭新的事物。</p>
+<p>有这样的说法，和几年前相比，许多进行中的改变让今天的数据问题有了质的不同。让我们列下几个准确的例子： </p>
+<ol>
+<li>传感器（比如条形码阅读器）价格的下降和最近几年是它价格下降并且更容易收集更多数据的技术</li>
+<li>相似的，存储器价格的下降使不管质量和使用地保存大量无关紧要的数据变得现实了。</li>
+<li>许多人对隐私的态度不再像以前那样严格，他们似乎已经适应了使用Facebook和其他会透露许多个人信息的平台。</li>
+<li>研究者已经在机器学习算法中取得了重大进步，它是构建许多数据挖掘的基础。</li>
+<li>当一个数据集达到一定规模（几千行），传统的统计显著性检验已经没有意义了，因为即使最小最微不足道的结果（或者效应量，按照统计学家的说法）也是统计上显著的</li>
+</ol>
+<p>出了以上这几点，我们能然有许多需要做出的改变：  </p>
+<p>A.垃圾进，垃圾出：数据的用处非常依赖它是如何收集的。数据收集后，它的质量非常依赖我们如何对它做预处理：数据清理和数据筛选。<br>B.大等于怪异：如果你寻找异常现象——违反规则的罕见事件——那么数据量越大越好。低频率事件经常不会出现直到数据收集持续很长一段时间，或者包含一个足够大的样例组来专门记录一个奇特案例。<br>C.连接增加可能：单个数据集不管提供什么变量都有内在的限制。但是如果这些数据能连接到别的数据，新的分析途径也许会突然出现。虽然不能保证，但是你连接越多的数据，你就越有可能有新的发现。   </p>
+<p>以上两个列表的观点都是老生常谈毫无争议的。但是他们进一步解释了大数据可能会有多重要的问题。历史上已经有许多成功应用传统统计检验适当规（比如1000行或更少）模数据集的统计规律。每个人都喜欢的基础统计，学生t检验，是检验两组数据中心趋势异同的工具。如果数据包含某种规律，一组数据显著不同于另一组数据，一个t检验会告诉我们同样的结果。</p>
+<p>大数据没办法用这样的检验帮助我们。我们甚至不需要一千条数据来做传统统计比较，而且上百万上千万的数据并不会让我们的工作更简单（它只会占用更多的电脑内存和磁盘）。想想我们前一张读到的：我们可以开始用基本的统计推断处理有51条记录的数据。实际上，大部分经常使用的统计技术，比如学生t检验，是专门设计处理小样本的。</p>
+<p>另一方面，如果我们是在草堆里找一根针，尽量在最大的草堆里找就讲得通了。因为大的草堆更有可能包含至少一根针。随着机器学习近几年的进步，我们开始意识到好的工具、大量数据和有趣的问题确实能为我们提供新的更深刻的见解。  </p>
+<p>让我们结合这个这样的乐观主义和三个非常重要的注意事项。第一条是当这个数据越复杂，就越难确定数据是否“干净”和适合我们的要求。一个脏数据集在某方面比没有数据还糟，因为我们也许会花很多时间精力在上面而得不到任何结果。更严重的是我们花时间精力最后只能得到错误的结果！很多分析师认为清理数据——让数据适合分析，清楚异常数据，组织适合的数据结构——事实上是数据分析过程中最耗时间精力的。</p>
+<p>第二条注意事项是稀少和异常事件或模式一直伴随这他们不可预测的本质。甚至面对我们能想象的最好的数据和大量变量，我们几乎一直都会有准确性的问题。数据挖掘工具也许能给我们呈现数据的模式，我们甚至可以在新数据中重现这种模式，但是我们永远不敢保证我们已经对这种模式理解到能分离，控制或明白它的原因。预测飓风的路径就是一个很好的例子：尽管气象仪器，预测和数字捣弄已经有了几十年的发展，气象学家在预测飓风是否会登陆或风速会多大都面对非常大的困难。工作中的复杂性和不可预测性使得任务异常艰难。</p>
+<p>第三条注意事项是有关连接数据集的。上文的C条目提出连接能提供格外的价值。但是每一条到新数据集的连接也增加了数据的复杂性，同时也增加了出现脏数据和假结果的可能性。而且，虽然很多公司都越来越不在乎这一点，我们连接越多个人的数据（如消费者，病人，投票者等），我们就越可能造成隐私泄露的灾难。即使你不在乎隐私问题，但是你不得不承认安全和隐私丑闻会给公司带来巨大的金钱和名誉损失。现在有价值和可接受的数据革新领域也许就是犯罪和欺诈数据。越多数据集的连接就越容易暴露那些人的恶行。</p>
+<p>总的来说，我们可以认为丰富的大量的数据结合适合的分析工具在有保障的环境下可以为商业部门、教育部门、政府部门和其他领域带来益处。但是，数据科学家关注的不应该是取得尽可能多的可用数据，而是根据目的使用对的数据和对的规模。拥有大量不适当的数据并不会有任何好处。就好像，简单快速取得的数据并不能保证与要研究的问题相关。虽然说多样性是生活的调味品，但是过于复杂经常会损害可靠性和可信性：我们连接的数据集越复杂，我们越可能在使用和保存它们的时候出现意外问题。</p>
+<h2 id="数据科学的工具"><a href="#数据科学的工具" class="headerlink" title="数据科学的工具"></a>数据科学的工具</h2><p>经过前面几章，我们对于上千数据分析师使用的分析工具——数据分析和数据可视化的开源软件R——已经有了一个快速的了解。尽管R功能十分强大，但是数据分析师根据研究的不同领域仍然使用了上百种其他分析工具。</p>
+<p>出了R之外，一个非常流行和强大的工具是SAS（读“sass”），它是一个一个有专利的统计系统。SAS包含了强大的编程语言，覆盖了许多数据类型，功能和语言特点。跟R相比，学习SAS可以说难（或简单，根据你的预期），但是许多大企业使用SAS，因为不像R，SAS提供了大量的技术和产品服务。当然，这样的服务价格不便宜，所以大部分SAS使用者都是有能力购买许可证书和售后支持的大企业。</p>
+<p>另一个在统计领域的工具是SPSS，一个许多研究者使用的工具包（全名是统计产品与服务解决方案）。对许多分析师来说，SPSS比SAS更容易上手，但是没有那么灵活和强大。</p>
+<p>R、SPSS、SAS作为统计工具包，但数据分析师在某些方面仍然使用了其他一般编程语言做数据分析。一个令人激动的发展中的语言有一个奇怪的名字“Processing”。Processing是一个专门用来做数据可视化的编程语言。像R一样，Processing是一个开源项目，它免费提供在<a href="http://processing.org/" target="_blank" rel="external">http://processing.org/</a>。而且跟R一样，processing是一个跨平台语言，它可以在Mac、Windows、Linux上完美运行。有许多书提供processing的学习（不幸的是还没有开源书），许多网站为初学者提供了大量实例。在R之外，processing也许是数据科学家工具箱中最重要的工具之一。</p>
+<h2 id="本章练习"><a href="#本章练习" class="headerlink" title="本章练习"></a>本章练习</h2><p>查看各种与“Data.gov”相关的网站，尽可能找到最大或者最复杂的数据集。试思考（或写下来）一种或多种这些数据可能在分析中被误用的情况。下载一个你感兴趣的数据集，将它载入R中看你能做点什么。</p>
+<p>下面是一个格外挑战，打开下面这个网页：<br><a href="heep://teamwpc.co.uk/products/wps" target="_blank" rel="external">heep://teamwpc.co.uk/products/wps</a><br>下载试用版的“World Programming System”（WPS）。WPS能读取SAS代码，你能很方便的找到你要的代码用来读取Data.gov数据集。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf" target="_blank" rel="external">http://aqua.nasa.gov/doc/pubs/Wx_Forecasting.pdf</a><br><a href="http://en.wikipedia.org/wiki/Big_data" target="_blank" rel="external">http://en.wikipedia.org/wiki/Big_data</a><br><a href="http://en.wikipedia.org/wiki/Data.gov" target="_blank" rel="external">http://en.wikipedia.org/wiki/Data.gov</a><br><a href="http://www.marketwatch.com/story/big-data-equals-big-busines
+s-opportunity-say-global-it-and-business-professionals-2012-05-14" target="_blank" rel="external">http://www.marketwatch.com/story/big-data-equals-big-busines<br>s-opportunity-say-global-it-and-business-professionals-2012-05-14</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/Introduction-to-data-science/" rel="tag"># Introduction to data science</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/08/22/2014-8-22-naive-bayes/" rel="next" title="机器学习与R(10)-朴素贝叶斯">
+                <i class="fa fa-chevron-left"></i> 机器学习与R(10)-朴素贝叶斯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/09/08/2014-9-data-science-chp9-Rstudio/" rel="prev" title="数据科学(9)-第九章：Rstudio">
+                数据科学(9)-第九章：Rstudio <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/09/08/2014-9-8-data-science-chp8-big-data/"
+           data-title="数据科学(8)-第八章：大数据" data-url="http://zjdian.com/2014/09/08/2014-9-8-data-science-chp8-big-data/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章-大数据？了不起！"><span class="nav-number">1.</span> <span class="nav-text">第八章 大数据？了不起！</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据科学的工具"><span class="nav-number">1.1.</span> <span class="nav-text">数据科学的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本章练习"><span class="nav-number">1.2.</span> <span class="nav-text">本章练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

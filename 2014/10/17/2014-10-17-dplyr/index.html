@@ -1,0 +1,1076 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,R,R培训," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文参考dplyr文档以及网上资料完成。
+会apply,aggregate,也会plyr，为啥还要学dplyr?## 
+
+简单易学，通俗易懂，包教包会
+速度与简洁的平衡：秒杀data frames操作以及plyr
+“链”式操作，写出清晰代码
+
+## 
+1234567891011121314151617181920require(plyr)require(dplyr)setwd(&amp;quot;d:/p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dplyr使用总结">
+<meta property="og:url" content="http://zjdian.com/2014/10/17/2014-10-17-dplyr/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="本文参考dplyr文档以及网上资料完成。
+会apply,aggregate,也会plyr，为啥还要学dplyr?## 
+
+简单易学，通俗易懂，包教包会
+速度与简洁的平衡：秒杀data frames操作以及plyr
+“链”式操作，写出清晰代码
+
+## 
+1234567891011121314151617181920require(plyr)require(dplyr)setwd(&amp;quot;d:/p">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dplyr使用总结">
+<meta name="twitter:description" content="本文参考dplyr文档以及网上资料完成。
+会apply,aggregate,也会plyr，为啥还要学dplyr?## 
+
+简单易学，通俗易懂，包教包会
+速度与简洁的平衡：秒杀data frames操作以及plyr
+“链”式操作，写出清晰代码
+
+## 
+1234567891011121314151617181920require(plyr)require(dplyr)setwd(&amp;quot;d:/p">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/10/17/2014-10-17-dplyr/"/>
+
+
+
+
+
+
+  <title> dplyr使用总结 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/10/17/2014-10-17-dplyr/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                dplyr使用总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-17T13:38:30+00:00">
+                2014-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/17/2014-10-17-dplyr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/17/2014-10-17-dplyr/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文参考dplyr文档以及网上资料完成。</p>
+<h1 id="会apply-aggregate-也会plyr，为啥还要学dplyr"><a href="#会apply-aggregate-也会plyr，为啥还要学dplyr" class="headerlink" title="会apply,aggregate,也会plyr，为啥还要学dplyr?"></a>会apply,aggregate,也会plyr，为啥还要学dplyr?</h1><p>## </p>
+<ul>
+<li>简单易学，通俗易懂，包教包会</li>
+<li>速度与简洁的平衡：秒杀data frames操作以及plyr</li>
+<li>“链”式操作，写出清晰代码</li>
+</ul>
+<p>## </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">require(plyr)</div><div class="line">require(dplyr)</div><div class="line">setwd(&quot;d:/project/datascience/rtraining/&quot;)</div><div class="line">set.seed(2014)</div><div class="line">nobs = 1e+06</div><div class="line">df = data.frame(group = as.factor(</div><div class="line">  sample(1:1e+05, nobs, replace = TRUE)), </div><div class="line">  variable = rpois(nobs, 100))</div><div class="line">print(object.size(df), units = &quot;MB&quot;)</div><div class="line">str(df)</div><div class="line"></div><div class="line"># 计算每组的均值</div><div class="line">#plyr</div><div class="line">system.time(grpmean&lt;-</div><div class="line">              ddply(df, .(group), </div><div class="line">                    summarize, grpmean = mean(variable)))  #26.79s</div><div class="line"># dplyr</div><div class="line">system.time(grpmean2&lt;-df %&gt;% </div><div class="line">              group_by(group) %&gt;%</div><div class="line">              summarize(grpmean = mean(variable))) # 0.27s</div></pre></td></tr></table></figure>
+<h1 id="dplyr基本功能"><a href="#dplyr基本功能" class="headerlink" title="dplyr基本功能"></a>dplyr基本功能</h1><p>## </p>
+<ul>
+<li>5个词: filter, select, arrange, mutate, summarise (+group_by)</li>
+<li>通吃数据库中数据以及data tables</li>
+<li>支持各种数据表的join: inner join, left join, semi-join, anti-join </li>
+<li>Window 函数用来计算排名，offsets…</li>
+<li>对比plyr更快，更简洁，更强 (也许还有些plyr的功能没有移植过来?)</li>
+</ul>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>先安装或者查看dplyr的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">packageVersion(&quot;dplyr&quot;)</div><div class="line">packinfo = installed.packages (fields = c (&quot;Package&quot;, &quot;Version&quot;))</div><div class="line">packinfo[&quot;dplyr&quot;,c(&quot;Package&quot;, &quot;Version&quot;)]</div><div class="line">install.packages(&quot;dplyr&quot;)</div></pre></td></tr></table></figure>
+<h2 id="好戏马上开演了"><a href="#好戏马上开演了" class="headerlink" title="好戏马上开演了"></a>好戏马上开演了</h2><p>加载包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">library(dplyr)</div><div class="line">library(hflights)</div><div class="line">#explore data</div><div class="line">data(hflights)</div><div class="line">head(hflights,3)</div></pre></td></tr></table></figure>
+<p>hflights 是2011年从休斯敦机场起飞的航班</p>
+<h2 id="创建本地数据框"><a href="#创建本地数据框" class="headerlink" title="创建本地数据框"></a>创建本地数据框</h2><p>tbl_df 创建一个”local data frame”，相当于一个wrapper。优势在于打印的时候显示更友好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flights=tbl_df(hflights)</div><div class="line">flights</div></pre></td></tr></table></figure>
+<h2 id="filter-行过滤"><a href="#filter-行过滤" class="headerlink" title="filter : 行过滤"></a>filter : 行过滤</h2><ul>
+<li>无需像普通data frame里面还需要写data frame变量名</li>
+<li>简单易读<ul>
+<li>首参数为data frame</li>
+<li>后面接着是条件</li>
+<li>返回也是一个data frame</li>
+</ul>
+</li>
+</ul>
+<h2 id="我想知道某月，某天的航班？"><a href="#我想知道某月，某天的航班？" class="headerlink" title="我想知道某月，某天的航班？"></a>我想知道某月，某天的航班？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#原始</div><div class="line">flights[flights$Month==1 &amp; flights$DayofMonth==1,]</div><div class="line"></div><div class="line">#dplyr</div><div class="line">filter(flights,Month==1,DayofMonth==1)</div><div class="line"></div><div class="line">filter(flights,UniqueCarrier==&quot;AA&quot;|UniqueCarrier==&quot;UA&quot;)</div><div class="line">filter(flights,UniqueCarrier %in% c(&quot;AA&quot;,&quot;UA&quot;))</div></pre></td></tr></table></figure>
+<h2 id="select-选择列"><a href="#select-选择列" class="headerlink" title="select: 选择列"></a>select: 选择列</h2><ul>
+<li>类似SQL的SELECT</li>
+</ul>
+<p>查看离开，到达时间以及航班号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">flights[,c(&quot;DepTime&quot;,&quot;ArrTime&quot;,&quot;FlightNum&quot;)]</div><div class="line"></div><div class="line"># dplyr</div><div class="line">select(flights,DepTime,ArrTime,FlightNum)</div><div class="line"></div><div class="line"># &quot;:&quot; 选择连续列，contains来匹配列名</div><div class="line">select(flights,Year:DayofMonth,contains(&quot;Taxi&quot;),contains(&quot;Delay&quot;))</div><div class="line">#  `starts_with`, `ends_with`,  `matches` 更精确匹配</div></pre></td></tr></table></figure>
+<h2 id="链式操作-管道"><a href="#链式操作-管道" class="headerlink" title="链式操作(管道)"></a>链式操作(管道)</h2><ul>
+<li>将多行语句嵌套写入一行，并提高可读性</li>
+<li>%&gt;% (读成then)</li>
+</ul>
+<p><a href="http://cran.r-project.org/web/packages/magrittr/index.html" target="_blank" rel="external">magrittr 包</a></p>
+<p>Q: 所有延迟60分钟起飞的航空公司？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">filter(select(flights,UniqueCarrier,DepDelay),DepDelay&gt;60)</div><div class="line"></div><div class="line">flights %&gt;%</div><div class="line">  select(UniqueCarrier,DepDelay)%&gt;%</div><div class="line">  filter(DepDelay&gt;60)</div></pre></td></tr></table></figure>
+<h2 id="链式操作-管道-1"><a href="#链式操作-管道-1" class="headerlink" title="链式操作(管道)"></a>链式操作(管道)</h2><ul>
+<li>多个操作时，增加了代码的可读性</li>
+<li>自动加载magrittr包提供支持</li>
+<li>也可以在dplyr包之外使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x1=1:5</div><div class="line">x2=2:6</div><div class="line">sqrt(sum((x1-x2)^2))</div><div class="line"></div><div class="line">(x1-x2)^2%&gt;%sum()%&gt;%sqrt()</div></pre></td></tr></table></figure>
+<h2 id="arrange-排序"><a href="#arrange-排序" class="headerlink" title="arrange: 排序"></a>arrange: 排序</h2><p>Q: 按照起飞延迟对所有航空公司排序？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">flights[order(flights$DepDelay),c(&quot;UniqueCarrier&quot;,&quot;DepDelay&quot;)]</div><div class="line"></div><div class="line">flights%&gt;%</div><div class="line">  select(UniqueCarrier,DepDelay)%&gt;%</div><div class="line">  arrange(DepDelay)</div><div class="line"></div><div class="line">flights%&gt;%</div><div class="line">  select(UniqueCarrier,DepDelay)%&gt;%</div><div class="line">  arrange(desc(DepDelay))</div></pre></td></tr></table></figure>
+<h2 id="mutate-添加新变量"><a href="#mutate-添加新变量" class="headerlink" title="mutate: 添加新变量"></a>mutate: 添加新变量</h2><p>Q: 每个航班飞行速度是多少？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#?hflights可知AirTime是分钟数，所以这里需要换算成小时</div><div class="line">flights$Speed=flights$Distance/flights$AirTime*60</div><div class="line">flights[,c(&quot;Distance&quot;,&quot;AirTime&quot;,&quot;Speed&quot;)]</div><div class="line"></div><div class="line">flights%&gt;%</div><div class="line">  select(Distance,AirTime)%&gt;%</div><div class="line">  mutate(Speed=Distance/AirTime*60)</div><div class="line"></div><div class="line">flights=flights%&gt;%mutate(Speed=Distance/AirTime*60)</div></pre></td></tr></table></figure>
+<h2 id="summarise-总结"><a href="#summarise-总结" class="headerlink" title="summarise: 总结"></a>summarise: 总结</h2><ul>
+<li>对数据进行分组统计</li>
+<li>首先用group_by 对数据分组</li>
+<li>n(),n_distinct(vector),…</li>
+</ul>
+<p>Q: 根据目的地统计平均航班延迟</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">head(with(flights,tapply(ArrDelay,Dest,mean,na.rm=T)))</div><div class="line">head(aggregate(ArrDelay~Dest,flights,mean))</div><div class="line"></div><div class="line">flights%&gt;%</div><div class="line">  group_by(Dest)%&gt;%</div><div class="line">  summarise(avg_delay=mean(ArrDelay,na.rm=T))</div></pre></td></tr></table></figure>
+<h2 id="summarise-2"><a href="#summarise-2" class="headerlink" title="summarise - 2"></a>summarise - 2</h2><ul>
+<li>summarise_each 允许对多列同时进行统计</li>
+<li>mutate_each 也可以</li>
+</ul>
+<p>Q: 每个航空公司的平均航班取消与转飞比例<br>Q: 每个航空公司最大/最小到达/离开延迟  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">flights%&gt;%</div><div class="line">  group_by(UniqueCarrier)%&gt;%</div><div class="line">  summarise_each(funs(mean),Cancelled,Diverted)</div><div class="line"></div><div class="line">flights%&gt;%</div><div class="line">  group_by(UniqueCarrier)%&gt;%</div><div class="line">  summarise_each(funs(min(.,na.rm=T),max(.,na.rm=T)),matches(&quot;Delay&quot;))</div></pre></td></tr></table></figure>
+<h2 id="summarise-3"><a href="#summarise-3" class="headerlink" title="summarise - 3"></a>summarise - 3</h2><p>Q: 每天总航班数目排序</p>
+<ul>
+<li>n() 统计组中行数目</li>
+<li>n_distinct(vector) 统计不同行数目</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">flights %&gt;%</div><div class="line">  group_by(Month,DayofMonth)%&gt;%</div><div class="line">  summarise(flight_count=n())%&gt;%</div><div class="line">  arrange(desc(flight_count))</div><div class="line"></div><div class="line"># 飞往每个目的地的总航班数与不同飞机编号(Tail Num)</div><div class="line">flights %&gt;%</div><div class="line">    group_by(Dest) %&gt;%</div><div class="line">    summarise(flight_count = n(), plane_count = n_distinct(TailNum))</div></pre></td></tr></table></figure>
+<h2 id="tally"><a href="#tally" class="headerlink" title="tally"></a>tally</h2><p>tally 可以一步完成上述工作，第一次使用tally进行n()操作，再来一次就是sum(n)</p>
+<p>sort=TRUE 将对结果排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">flights %&gt;%</div><div class="line">    group_by(Month, DayofMonth) %&gt;%</div><div class="line">    tally(sort = TRUE)</div></pre></td></tr></table></figure>
+<h2 id="有时Grouping无需进行summarise也可以得到有意思的信息"><a href="#有时Grouping无需进行summarise也可以得到有意思的信息" class="headerlink" title="有时Grouping无需进行summarise也可以得到有意思的信息"></a>有时Grouping无需进行summarise也可以得到有意思的信息</h2><p>Q: 飞往每个目的地的取消航班与未取消航班对比</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">flights %&gt;%</div><div class="line">    group_by(Dest) %&gt;%</div><div class="line">    select(Cancelled) %&gt;%</div><div class="line">    table() %&gt;%</div><div class="line">    head()</div></pre></td></tr></table></figure>
+<h2 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h2><ul>
+<li>inner_join ：只包含同时出现在x,y表中的行</li>
+<li>left_join: 包含所有x中以及y中匹配的行</li>
+<li>semi_join：包含x中，在y中有匹配的行</li>
+<li>anti_join： 包含x中不匹配y的行</li>
+</ul>
+<h2 id="让代码来说话"><a href="#让代码来说话" class="headerlink" title="让代码来说话"></a>让代码来说话</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x = data.frame(name = c(&quot;John&quot;, &quot;Paul&quot;, &quot;George&quot;, &quot;Ringo&quot;, &quot;Stuart&quot;, &quot;Pete&quot;),</div><div class="line">instrument = c(&quot;guitar&quot;, &quot;bass&quot;, &quot;guitar&quot;, &quot;drums&quot;, &quot;bass&quot;,&quot;drums&quot;))</div><div class="line">y = data.frame(name = c(&quot;John&quot;, &quot;Paul&quot;, &quot;George&quot;, &quot;Ringo&quot;, &quot;Brian&quot;),</div><div class="line">band = c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x</div><div class="line">y</div></pre></td></tr></table></figure>
+<h2 id="inner-join"><a href="#inner-join" class="headerlink" title="inner_join"></a>inner_join</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">inner_join(x, y)</div></pre></td></tr></table></figure>
+<h2 id="left-join"><a href="#left-join" class="headerlink" title="left_join"></a>left_join</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">left_join(x, y)</div></pre></td></tr></table></figure>
+<h2 id="semi-join"><a href="#semi-join" class="headerlink" title="semi_join"></a>semi_join</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">semi_join(x, y)</div></pre></td></tr></table></figure>
+<h2 id="anti-join"><a href="#anti-join" class="headerlink" title="anti_join"></a>anti_join</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">anti_join(x, y)</div></pre></td></tr></table></figure>
+<h2 id="Window-函数"><a href="#Window-函数" class="headerlink" title="Window 函数"></a>Window 函数</h2><ul>
+<li>通常我们汇总是多个输入，一个输出（均值，和…)</li>
+<li>Window 函数是n个输入，返回n个值<ul>
+<li>ranking / ordering (min_rank,…), offset 函数 (lead / lag), cumulative aggregates ( cummean).</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html" target="_blank" rel="external">windows function</a></p>
+<h2 id="统计每个航空公司出发延迟最长的2天"><a href="#统计每个航空公司出发延迟最长的2天" class="headerlink" title="统计每个航空公司出发延迟最长的2天"></a>统计每个航空公司出发延迟最长的2天</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 出发延迟越大应该排在前面，所有用 `desc`</div><div class="line">flights %&gt;%</div><div class="line">    group_by(UniqueCarrier) %&gt;%</div><div class="line">    select(Month, DayofMonth, DepDelay) %&gt;%</div><div class="line">    filter(min_rank(desc(DepDelay)) &lt;= 2) %&gt;%</div><div class="line">    arrange(UniqueCarrier, desc(DepDelay))</div><div class="line"></div><div class="line"># `top_n` </div><div class="line">flights %&gt;%</div><div class="line">    group_by(UniqueCarrier) %&gt;%</div><div class="line">    select(Month, DayofMonth, DepDelay) %&gt;%</div><div class="line">    top_n(2) %&gt;%</div><div class="line">    arrange(UniqueCarrier, desc(DepDelay))</div></pre></td></tr></table></figure>
+<h2 id="每月相对上月的航班数变化"><a href="#每月相对上月的航班数变化" class="headerlink" title="每月相对上月的航班数变化"></a>每月相对上月的航班数变化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">flights %&gt;%</div><div class="line">    group_by(Month) %&gt;%</div><div class="line">    summarise(flight_count = n()) %&gt;%</div><div class="line">    mutate(change = flight_count - lag(flight_count))</div><div class="line"></div><div class="line"># tally</div><div class="line">flights %&gt;%</div><div class="line">    group_by(Month) %&gt;%</div><div class="line">    tally() %&gt;%</div><div class="line">    mutate(change = n - lag(n))</div></pre></td></tr></table></figure>
+<h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>抽样，查看数据结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 随机选5行，不放回</div><div class="line">flights %&gt;% sample_n(5)</div><div class="line"></div><div class="line"># 按比例抽样，放回</div><div class="line">flights %&gt;% sample_frac(0.25, replace=TRUE)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 查看数据结构</div><div class="line">str(flights)</div><div class="line"></div><div class="line">glimpse(flights)</div></pre></td></tr></table></figure>
+<h1 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h1><p>##</p>
+<ul>
+<li>dplyr 可以连接数据库</li>
+<li>使用与本地数据框操作一样的语法</li>
+<li>只支持生成SELECT语句</li>
+<li>支持SQLite, PostgreSQL/Redshift, MySQL/MariaDB, BigQuery, MonetDB</li>
+</ul>
+<p><a href="http://cran.r-project.org/web/packages/dplyr/vignettes/database.html" target="_blank" rel="external">数据库</a></p>
+<h2 id="先建立一个数据库"><a href="#先建立一个数据库" class="headerlink" title="先建立一个数据库"></a>先建立一个数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setwd(&quot;d:/project/datascience/rtraining/&quot;)</div><div class="line">my_db=src_sqlite(&quot;my_db.sqlite3&quot;,create=T)</div><div class="line">flights_sqlite=copy_to(my_db,hflights,temporary=F,indexes=list(c(&quot;Year&quot;,&quot;Month&quot;,&quot;DayofMonth&quot;),&quot;UniqueCarrier&quot;,&quot;Tailnum&quot;))</div></pre></td></tr></table></figure>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 连接到SQLite数据库中的数据表</div><div class="line">my_db = src_sqlite(&quot;my_db.sqlite3&quot;)</div><div class="line"></div><div class="line"># 连接&quot;hflights&quot; 表</div><div class="line">flights_tbl = tbl(my_db, &quot;hflights&quot;)</div><div class="line"></div><div class="line"># 查询</div><div class="line">flights_tbl %&gt;%</div><div class="line">    select(UniqueCarrier, DepDelay) %&gt;%</div><div class="line">    arrange(desc(DepDelay))</div><div class="line"># 显示所有数据需要先collect()</div></pre></td></tr></table></figure>
+<h2 id="SQL命令"><a href="#SQL命令" class="headerlink" title="SQL命令"></a>SQL命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># 直接使用SQL命令。 sqldf包也可以干这个</div><div class="line">tbl(my_db, sql(&quot;SELECT * FROM hflights LIMIT 100&quot;))</div><div class="line"></div><div class="line"># 让dplyr返回执行的 SQL commands</div><div class="line">flights_tbl %&gt;%</div><div class="line">    select(UniqueCarrier, DepDelay) %&gt;%</div><div class="line">    arrange(desc(DepDelay)) %&gt;%</div><div class="line">    explain()</div><div class="line"></div><div class="line">hflights %&gt;%</div><div class="line">    select(UniqueCarrier, DepDelay) %&gt;%</div><div class="line">    arrange(desc(DepDelay))</div></pre></td></tr></table></figure>
+<h1 id="Do"><a href="#Do" class="headerlink" title="Do"></a>Do</h1><p>## </p>
+<p><a href="http://stackoverflow.com/questions/23340150/using-dplyr-window-functions-to-make-trailing-values/23341485#23341485" target="_blank" rel="external">Do</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/R培训/" rel="tag"># R培训</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/10/12/2014-10-12-R-upgrade/" rel="next" title="R软件的升级">
+                <i class="fa fa-chevron-left"></i> R软件的升级
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/24/2014-10-24-r-package-wordcloud/" rel="prev" title="R语言可视化-所有R包词云">
+                R语言可视化-所有R包词云 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/17/2014-10-17-dplyr/"
+           data-title="dplyr使用总结" data-url="http://zjdian.com/2014/10/17/2014-10-17-dplyr/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#会apply-aggregate-也会plyr，为啥还要学dplyr"><span class="nav-number">1.</span> <span class="nav-text">会apply,aggregate,也会plyr，为啥还要学dplyr?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dplyr基本功能"><span class="nav-number">2.</span> <span class="nav-text">dplyr基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始之前"><span class="nav-number">2.1.</span> <span class="nav-text">开始之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好戏马上开演了"><span class="nav-number">2.2.</span> <span class="nav-text">好戏马上开演了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地数据框"><span class="nav-number">2.3.</span> <span class="nav-text">创建本地数据框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter-行过滤"><span class="nav-number">2.4.</span> <span class="nav-text">filter : 行过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我想知道某月，某天的航班？"><span class="nav-number">2.5.</span> <span class="nav-text">我想知道某月，某天的航班？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-选择列"><span class="nav-number">2.6.</span> <span class="nav-text">select: 选择列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式操作-管道"><span class="nav-number">2.7.</span> <span class="nav-text">链式操作(管道)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式操作-管道-1"><span class="nav-number">2.8.</span> <span class="nav-text">链式操作(管道)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arrange-排序"><span class="nav-number">2.9.</span> <span class="nav-text">arrange: 排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutate-添加新变量"><span class="nav-number">2.10.</span> <span class="nav-text">mutate: 添加新变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summarise-总结"><span class="nav-number">2.11.</span> <span class="nav-text">summarise: 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summarise-2"><span class="nav-number">2.12.</span> <span class="nav-text">summarise - 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summarise-3"><span class="nav-number">2.13.</span> <span class="nav-text">summarise - 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tally"><span class="nav-number">2.14.</span> <span class="nav-text">tally</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有时Grouping无需进行summarise也可以得到有意思的信息"><span class="nav-number">2.15.</span> <span class="nav-text">有时Grouping无需进行summarise也可以得到有意思的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Join"><span class="nav-number">2.16.</span> <span class="nav-text">Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让代码来说话"><span class="nav-number">2.17.</span> <span class="nav-text">让代码来说话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inner-join"><span class="nav-number">2.18.</span> <span class="nav-text">inner_join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#left-join"><span class="nav-number">2.19.</span> <span class="nav-text">left_join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#semi-join"><span class="nav-number">2.20.</span> <span class="nav-text">semi_join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#anti-join"><span class="nav-number">2.21.</span> <span class="nav-text">anti_join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-函数"><span class="nav-number">2.22.</span> <span class="nav-text">Window 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计每个航空公司出发延迟最长的2天"><span class="nav-number">2.23.</span> <span class="nav-text">统计每个航空公司出发延迟最长的2天</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每月相对上月的航班数变化"><span class="nav-number">2.24.</span> <span class="nav-text">每月相对上月的航班数变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它功能"><span class="nav-number">2.25.</span> <span class="nav-text">其它功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#连接数据库"><span class="nav-number">3.</span> <span class="nav-text">连接数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先建立一个数据库"><span class="nav-number">3.1.</span> <span class="nav-text">先建立一个数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">3.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL命令"><span class="nav-number">3.3.</span> <span class="nav-text">SQL命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Do"><span class="nav-number">4.</span> <span class="nav-text">Do</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

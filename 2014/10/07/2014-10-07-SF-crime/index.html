@@ -1,0 +1,1002 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,R,data science,可视化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+<meta property="og:type" content="article">
+<meta property="og:title" content="San Francisco过去3月的犯罪案件可视化分析">
+<meta property="og:url" content="http://zjdian.com/2014/10/07/2014-10-07-SF-crime/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+<meta property="og:image" content="http://zjdian.com/images/project/SF/vehicle-theft-map.png">
+<meta property="og:image" content="http://zjdian.com/images/project/SF/crime-dist-day-time.png">
+<meta property="og:image" content="http://zjdian.com/images/project/SF/crime-type-district.png">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="San Francisco过去3月的犯罪案件可视化分析">
+<meta name="twitter:description" content="目标分析San Francisco的犯罪案件的模式。数据来自:https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?
+希望回答以下问题:
+
+在哪里停车最危险?
+SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?
+某种特定偷窃案件是否在某个区域更普遍?
+
+准备分析用的包我们用dply">
+<meta name="twitter:image" content="http://zjdian.com/images/project/SF/vehicle-theft-map.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/10/07/2014-10-07-SF-crime/"/>
+
+
+
+
+
+
+  <title> San Francisco过去3月的犯罪案件可视化分析 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/10/07/2014-10-07-SF-crime/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                San Francisco过去3月的犯罪案件可视化分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-07T11:55:37+00:00">
+                2014-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/10/07/2014-10-07-SF-crime/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/07/2014-10-07-SF-crime/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>分析San Francisco的犯罪案件的模式。数据来自:<br><a href="https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?" target="_blank" rel="external">https://data.sfgov.org/Public-Safety/SFPD-Incidents-Previous-Three-Months/tmnf-yvry?</a></p>
+<p>希望回答以下问题:</p>
+<ul>
+<li>在哪里停车最危险?</li>
+<li>SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</li>
+<li>某种特定偷窃案件是否在某个区域更普遍?</li>
+</ul>
+<h1 id="准备分析用的包"><a href="#准备分析用的包" class="headerlink" title="准备分析用的包"></a>准备分析用的包</h1><p>我们用dplyr来整理数据，ggplot2以及ggmap来进行数据可视化</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(dplyr)</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(ggplot2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Loading required package: ggplot2</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(ggmap)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Loading required package: ggmap</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(ggthemes)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Loading required package: ggthemes</div></pre></td></tr></table></figure>
+<h1 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h1><p>先设置工作目录，读入数据。然后呢把日期格式化，同时呢我们把时间按照小时来分，不考虑分钟。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setwd(<span class="string">"d:/project/datascience/teamleada"</span>)</div><div class="line"><span class="comment">#read in the data</span></div><div class="line">crime=read.csv(<span class="string">"./SFPD_Incidents_-_Previous_Three_Months.csv"</span>)</div><div class="line"><span class="comment"># format the data</span></div><div class="line">crime$Location=<span class="literal">NULL</span></div><div class="line">crime$IncidntNum=<span class="literal">NULL</span></div><div class="line">crime$Date=as.Date(crime$Date,format=<span class="string">"%m/%d/%Y"</span>)</div><div class="line">crime$Hour=as.factor(substr(as.character(crime$Time),<span class="number">1</span>,<span class="number">2</span>))</div><div class="line"><span class="comment"># we will use dplyr package to do the work</span></div><div class="line">crime.df=tbl_df(crime)</div><div class="line">crime.df</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">## Source: local data frame [30,760 x 11]</div><div class="line">## </div><div class="line">##         Category                                   Descript DayOfWeek</div><div class="line">## 1  LARCENY/THEFT             GRAND THEFT FROM UNLOCKED AUTO    Sunday</div><div class="line">## 2  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday</div><div class="line">## 3  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday</div><div class="line">## 4  DRUG/NARCOTIC             POSSESSION OF METH-AMPHETAMINE    Sunday</div><div class="line">## 5  DRUG/NARCOTIC                      POSSESSION OF COCAINE    Sunday</div><div class="line">## 6  LARCENY/THEFT               GRAND THEFT FROM LOCKED AUTO    Sunday</div><div class="line">## 7       WARRANTS                             WARRANT ARREST    Sunday</div><div class="line">## 8  VEHICLE THEFT                          STOLEN AUTOMOBILE    Sunday</div><div class="line">## 9  LARCENY/THEFT                    PETTY THEFT OF PROPERTY    Sunday</div><div class="line">## 10       ROBBERY ROBBERY OF A CHAIN STORE WITH BODILY FORCE    Sunday</div><div class="line">## ..           ...                                        ...       ...</div><div class="line">## Variables not shown: Date (date), Time (fctr), PdDistrict (fctr),</div><div class="line">##   Resolution (fctr), Address (fctr), X (dbl), Y (dbl), Hour (fctr)</div></pre></td></tr></table></figure>
+<h1 id="辅助函数"><a href="#辅助函数" class="headerlink" title="辅助函数"></a>辅助函数</h1><p>这里主要有两个，因为在画直方图的时候，我们希望按count大小来排序，而不是按照数据中的factor变量的level来排序，所以写了一个辅助函数来对factor的lvel重新排序</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">order.level=<span class="keyword">function</span>(level.var,count) &#123;</div><div class="line">  level.var=factor(level.var,levels = </div><div class="line">                     levels(level.var)[order(count,decreasing=<span class="literal">T</span>)])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另一个函数就是控制多个图形绘制时的排版，这个直接使用的R cookbook提供了函数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Multiple plot function</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)</span></div><div class="line"><span class="comment"># - cols:   Number of columns in layout</span></div><div class="line"><span class="comment"># - layout: A matrix specifying the layout. If present, 'cols' is ignored.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),</span></div><div class="line"><span class="comment"># then plot 1 will go in the upper left, 2 will go in the upper right, and</span></div><div class="line"><span class="comment"># 3 will go all the way across the bottom.</span></div><div class="line"><span class="comment">#</span></div><div class="line">multiplot &lt;- <span class="keyword">function</span>(<span class="keyword">...</span>, plotlist=<span class="literal">NULL</span>, file, cols=<span class="number">1</span>, layout=<span class="literal">NULL</span>) &#123;</div><div class="line">  <span class="keyword">require</span>(grid)</div><div class="line">  </div><div class="line">  <span class="comment"># Make a list from the ... arguments and plotlist</span></div><div class="line">  plots &lt;- c(list(<span class="keyword">...</span>), plotlist)</div><div class="line">  </div><div class="line">  numPlots = length(plots)</div><div class="line">  </div><div class="line">  <span class="comment"># If layout is NULL, then use 'cols' to determine layout</span></div><div class="line">  <span class="keyword">if</span> (is.null(layout)) &#123;</div><div class="line">    <span class="comment"># Make the panel</span></div><div class="line">    <span class="comment"># ncol: Number of columns of plots</span></div><div class="line">    <span class="comment"># nrow: Number of rows needed, calculated from # of cols</span></div><div class="line">    layout &lt;- matrix(seq(<span class="number">1</span>, cols * ceiling(numPlots/cols)),</div><div class="line">                     ncol = cols, nrow = ceiling(numPlots/cols))</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">if</span> (numPlots==<span class="number">1</span>) &#123;</div><div class="line">    print(plots[[<span class="number">1</span>]])</div><div class="line">    </div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment"># Set up the page</span></div><div class="line">    grid.newpage()</div><div class="line">    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))</div><div class="line">    </div><div class="line">    <span class="comment"># Make each plot, in the correct location</span></div><div class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:numPlots) &#123;</div><div class="line">      <span class="comment"># Get the i,j matrix positions of the regions that contain this subplot</span></div><div class="line">      matchidx &lt;- as.data.frame(which(layout == i, arr.ind = <span class="literal">TRUE</span>))</div><div class="line">      </div><div class="line">      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,</div><div class="line">                                      layout.pos.col = matchidx$col))</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="在哪里停车"><a href="#在哪里停车" class="headerlink" title="在哪里停车?"></a>在哪里停车?</h1><p>这里我们先只取VEHICLE THEFT进行分析，之后按照案件发生的区域分组统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">crime.df.vehicle=filter(crime.df,Category==<span class="string">"VEHICLE THEFT"</span>)</div><div class="line">crime.vehicle.district=crime.df.vehicle %&gt;% </div><div class="line">  group_by(PdDistrict)%&gt;% </div><div class="line">  summarise(count=n())</div><div class="line"></div><div class="line"><span class="comment"># PdDistrict变量按照count进行排序</span></div><div class="line">crime.vehicle.district$PdDistrict=order.level(crime.vehicle.district$PdDistrict,</div><div class="line">                                              crime.vehicle.district$count)</div><div class="line">p1=qplot(crime.vehicle.district$PdDistrict,data=crime.vehicle.district,</div><div class="line">      weight=crime.vehicle.district$count,geom=<span class="string">"histogram"</span>,</div><div class="line">      xlab=<span class="string">"District"</span>,ylab=<span class="string">"Vehicle Theft Count"</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 经纬度</span></div><div class="line">crime.df$lon=crime.df$X</div><div class="line">crime.df$lat=crime.df$Y</div><div class="line"></div><div class="line"><span class="comment"># 获得San Francisco地图</span></div><div class="line">SFMap &lt;- qmap(<span class="string">'San Francisco'</span>, zoom = <span class="number">13</span>, color = <span class="string">'bw'</span>, legend = <span class="string">'topleft'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=San+Francisco&amp;zoom=13&amp;size=%20640x640&amp;scale=%202&amp;maptype=terrain&amp;sensor=false</div><div class="line">## Google Maps API Terms of Service : http://developers.google.com/maps/terms</div><div class="line">## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=San+Francisco&amp;sensor=false</div><div class="line">## Google Maps API Terms of Service : http://developers.google.com/maps/terms</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 绘制密度图</span></div><div class="line">p2=SFMap+</div><div class="line">  geom_density2d(data=crime.df.vehicle,aes(group=<span class="number">1</span>))+</div><div class="line">  stat_density2d(data=crime.df.vehicle,aes(group=<span class="number">1</span>,fill=..level..,</div><div class="line">                                           alpha=..level..),</div><div class="line">                 size=<span class="number">0.01</span>,bins=<span class="number">16</span>,geom=<span class="string">'polygon'</span>)+</div><div class="line">  scale_fill_gradient(low=<span class="string">"green"</span>,high=<span class="string">"red"</span>)+</div><div class="line">  scale_alpha(range=c(<span class="number">0.00</span>,<span class="number">0.25</span>),guide=<span class="literal">FALSE</span>)+</div><div class="line">  theme(legend.position=<span class="string">"none"</span>,axis.title=element_blank(),</div><div class="line">        text=element_text(size=<span class="number">12</span>))+</div><div class="line">  ggtitle(<span class="string">"Vehicle Theft"</span>)</div><div class="line"></div><div class="line"></div><div class="line">multiplot(p1, p2,  cols=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Loading required package: grid</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## Error: object &apos;lon&apos; not found</div></pre></td></tr></table></figure>
+<p><img src="/images/project/SF/vehicle-theft-map.png" alt="VEHICLE THEFT"> </p>
+<p>显然Ingleside,Mission,Bayview去案件更多，密度图也反映了相同信息</p>
+<h1 id="SF最安全的地方是哪里-每周的哪天-哪个时间最危险"><a href="#SF最安全的地方是哪里-每周的哪天-哪个时间最危险" class="headerlink" title="SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?"></a>SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</h1><p>先按照每个区计算案件数目</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">crime.by.district=crime.df %&gt;% group_by(PdDistrict)%&gt;%summarise(count=n())</div><div class="line">crime.by.district$PdDistrict=order.level(crime.by.district$PdDistrict,</div><div class="line">                                         crime.by.district$count)</div><div class="line">p1=qplot(crime.by.district$PdDistrict,data=crime.by.district,</div><div class="line">      weight=crime.by.district$count,geom=<span class="string">"histogram"</span>,</div><div class="line">      xlab=<span class="string">"District"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by District"</span>)</div></pre></td></tr></table></figure>
+<p>根据每天来统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">crime.by.day=crime.df %&gt;% group_by(DayOfWeek)%&gt;%summarise(count=n())</div><div class="line">crime.by.day$DayOfWeek=order.level(crime.by.day$DayOfWeek,</div><div class="line">                                   crime.by.day$count)</div><div class="line">p2=qplot(crime.by.day$DayOfWeek,data=crime.by.day,</div><div class="line">      weight=crime.by.day$count,geom=<span class="string">"histogram"</span>,</div><div class="line">      xlab=<span class="string">"Day of Week"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by Day"</span>)</div></pre></td></tr></table></figure>
+<p>按照犯罪时间统计</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">crime.by.time=crime.df %&gt;% group_by(Hour)%&gt;%summarise(count=n())</div><div class="line">crime.by.time$Hour=order.level(crime.by.time$Hour,</div><div class="line">                               crime.by.time$count)</div><div class="line">p3=qplot(crime.by.time$Hour,data=crime.by.time,</div><div class="line">      weight=crime.by.time$count,geom=<span class="string">"histogram"</span>,</div><div class="line">      xlab=<span class="string">"Time"</span>,ylab=<span class="string">"# of Crimes"</span>,main=<span class="string">"# of Crimes by Time"</span>)</div><div class="line"></div><div class="line">multiplot(p1, p2,p3  ,cols=<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/project/SF/crime-dist-day-time.png" alt="犯罪区域，日期，时间分析"> </p>
+<p>Richmond和Park区域是最安全的地方，案件什么少于了200.而案件发生的日期显然没有太明显规律，周一到周日基本都在4000左右。相反案件发生时间有高峰期和低点，18:00pm~19:00pm(2087),17:00~18:00pm(2022),19:00pm~20:00pm(1838)是典型的高峰，而04:00am~06:00am(&lt;400)则是低点.</p>
+<h1 id="某种特定偷窃案件是否在某个区域更普遍"><a href="#某种特定偷窃案件是否在某个区域更普遍" class="headerlink" title="某种特定偷窃案件是否在某个区域更普遍?"></a>某种特定偷窃案件是否在某个区域更普遍?</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">theft.filter=grep(<span class="string">"THEFT"</span>,as.character(crime.df$Category))</div><div class="line">crime.by.theft=crime.df[theft.filter,]</div><div class="line"></div><div class="line"><span class="comment"># get the crime by district and category</span></div><div class="line">crime.by.group=crime.by.theft %&gt;% group_by(PdDistrict,Category)%&gt;%summarise(count=n())%&gt;%arrange(Category,desc(count))</div><div class="line"><span class="comment"># sum the count by crime category</span></div><div class="line">crime.by.number=crime.by.theft%&gt;%group_by(Category)%&gt;%summarise(count=n())%&gt;%arrange(desc(count))</div><div class="line"></div><div class="line">ggplot(crime.by.group,</div><div class="line">       aes(x=Category,fill=PdDistrict,weight=count))+</div><div class="line">  geom_histogram(position=<span class="string">"fill"</span>,col=gray(<span class="number">0.2</span>))+</div><div class="line">  ylab(label=<span class="string">"Ratio by District"</span>)+</div><div class="line">  theme_tufte()</div></pre></td></tr></table></figure>
+<p><img src="/images/project/SF/crime-type-district.png" alt="不同偷窃案件发生区域对比"> </p>
+<p>larcen/theft 在Southern和 Central 区域更普遍，而vehicle theft则在Ingleside,Misson 和 Tenderloin区域更普遍。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/data-science/" rel="tag"># data science</a>
+          
+            <a href="/tags/可视化/" rel="tag"># 可视化</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/28/2014-09-28-R语言数据挖掘与机器学习实战/" rel="next" title="R语言数据挖掘与机器学习实战培训">
+                <i class="fa fa-chevron-left"></i> R语言数据挖掘与机器学习实战培训
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/09/2014-10-09-hurricane/" rel="prev" title="2010~2014 飓风可视化尝试">
+                2010~2014 飓风可视化尝试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/07/2014-10-07-SF-crime/"
+           data-title="San Francisco过去3月的犯罪案件可视化分析" data-url="http://zjdian.com/2014/10/07/2014-10-07-SF-crime/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备分析用的包"><span class="nav-number">2.</span> <span class="nav-text">准备分析用的包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备数据"><span class="nav-number">3.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#辅助函数"><span class="nav-number">4.</span> <span class="nav-text">辅助函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在哪里停车"><span class="nav-number">5.</span> <span class="nav-text">在哪里停车?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SF最安全的地方是哪里-每周的哪天-哪个时间最危险"><span class="nav-number">6.</span> <span class="nav-text">SF最安全的地方是哪里? 每周的哪天/哪个时间最危险?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#某种特定偷窃案件是否在某个区域更普遍"><span class="nav-number">7.</span> <span class="nav-text">某种特定偷窃案件是否在某个区域更普遍?</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

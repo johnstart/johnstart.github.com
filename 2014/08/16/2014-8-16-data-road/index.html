@@ -1,0 +1,979 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,data science," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="数据科学家自我修养——一份数据科学的开放课程清单最近一年以来，大数据这个概念被吹嘘的天花乱坠，仿佛你要是不说大数据就落伍了。继云计算之后，大数据已然成为IT行业的热点。《哈佛商业评论》更是宣称“数据科学家”是二十一世纪最性感的职业。所谓性感，既代表着难以名状的诱惑，又说明了大家都不知道它干的是什么。这里我不想重复什么是大数据，什么是数据科学，而是想以个人过去接近2年的通过MOOC（开放课程）来学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据之路">
+<meta property="og:url" content="http://zjdian.com/2014/08/16/2014-8-16-data-road/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="数据科学家自我修养——一份数据科学的开放课程清单最近一年以来，大数据这个概念被吹嘘的天花乱坠，仿佛你要是不说大数据就落伍了。继云计算之后，大数据已然成为IT行业的热点。《哈佛商业评论》更是宣称“数据科学家”是二十一世纪最性感的职业。所谓性感，既代表着难以名状的诱惑，又说明了大家都不知道它干的是什么。这里我不想重复什么是大数据，什么是数据科学，而是想以个人过去接近2年的通过MOOC（开放课程）来学习">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据之路">
+<meta name="twitter:description" content="数据科学家自我修养——一份数据科学的开放课程清单最近一年以来，大数据这个概念被吹嘘的天花乱坠，仿佛你要是不说大数据就落伍了。继云计算之后，大数据已然成为IT行业的热点。《哈佛商业评论》更是宣称“数据科学家”是二十一世纪最性感的职业。所谓性感，既代表着难以名状的诱惑，又说明了大家都不知道它干的是什么。这里我不想重复什么是大数据，什么是数据科学，而是想以个人过去接近2年的通过MOOC（开放课程）来学习">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/08/16/2014-8-16-data-road/"/>
+
+
+
+
+
+
+  <title> 数据之路 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/08/16/2014-8-16-data-road/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据之路
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-16T07:22:50+00:00">
+                2014-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/08/16/2014-8-16-data-road/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/16/2014-8-16-data-road/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据科学家自我修养——一份数据科学的开放课程清单"><a href="#数据科学家自我修养——一份数据科学的开放课程清单" class="headerlink" title="数据科学家自我修养——一份数据科学的开放课程清单"></a>数据科学家自我修养——一份数据科学的开放课程清单</h1><p>最近一年以来，大数据这个概念被吹嘘的天花乱坠，仿佛你要是不说大数据就落伍了。继云计算之后，大数据已然成为IT行业的热点。《哈佛商业评论》更是宣称“数据科学家”是二十一世纪最性感的职业。所谓性感，既代表着难以名状的诱惑，又说明了大家都不知道它干的是什么。这里我不想重复什么是大数据，什么是数据科学，而是想以个人过去接近2年的通过MOOC（开放课程）来学习数据科学的实践来给出一份个人建议的数据科学学习之路的课程与书籍清单。</p>
+<h2 id="数据科学家的自我修养"><a href="#数据科学家的自我修养" class="headerlink" title="数据科学家的自我修养"></a>数据科学家的自我修养</h2><p>Drew Conway给出的数据科学的一个<a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram" target="_blank" rel="external">文氏图</a>，很好的诠释的数据科学的技能要求。而这里我基于传统的道，术，用来将数据科学的课程分成三类在后面一一列出。不过还是让我们先从数据科学入门谈起。</p>
+<h3 id="数据科学入门"><a href="#数据科学入门" class="headerlink" title="数据科学入门"></a>数据科学入门</h3><p>如果你公司的管理层，只是感觉想了解一下什么是大数据，个人建议从<a href="https://www.open2study.com/courses/big-data-for-better-performance" target="_blank" rel="external">big data for performance</a>这门课开始，课程有4个模块，很简单的内容，当然也有些不是很正确的内容;-)，但作为入门还是不错的。接下来你需要了解一下Hadoop，来自Udacity的<a href="https://www.udacity.com/course/ud617" target="_blank" rel="external">Intro to Hadoop and MapReduce</a>是个不错的选择。</p>
+<p>最后如果你要想忽悠一下别人，看看维克托•迈尔•舍恩伯格(Viktor Mayer-Schönberger)的<a href="http://book.douban.com/subject/20429677/" target="_blank" rel="external">大数据时代</a>，这是国外大数据研究的先河之作。</p>
+<h3 id="如何利用大数据"><a href="#如何利用大数据" class="headerlink" title="如何利用大数据"></a>如何利用大数据</h3><h4 id="数据科学之道"><a href="#数据科学之道" class="headerlink" title="数据科学之道"></a>数据科学之道</h4><p>要掌握数据科学，基础的数学与统计学知识不可避免，这里强烈推荐：</p>
+<ul>
+<li>普林斯顿大学<a href="https://www.coursera.org/course/stats1" target="_blank" rel="external">Statistics One</a> 统计学基础，假设检验，ANOVA，线性回归等等</li>
+<li>斯坦福大学<a href="https://class.stanford.edu/courses/HumanitiesScience/StatLearning/Winter2014/about" target="_blank" rel="external">Statistics learning</a> 基本的有监督学习介绍，回归，分类，聚类，树，SVM，K-means clustering等等</li>
+</ul>
+<p>这两门课都是名校教授讲解，课程深入浅出，一个帮助你统计学入门，一个帮助你数据分析与机器学习入门。不过如果你听统计学初步都觉得吃力，那么可以考虑先听一下台湾大学的<a href="https://www.coursera.org/course/prob" target="_blank" rel="external">概率论</a>的前几讲，对概率有了初步知识后再学统计。</p>
+<p>当然如果你想更深入一些你一定不能错过斯坦福大学的<a href="https://www.coursera.org/course/ml" target="_blank" rel="external">Machine Learning</a>，这是Coursera创始人的经典课程。</p>
+<p>除了以上课程，你也可以看看约翰霍普金斯大学5月开设的3门课程：</p>
+<ul>
+<li><a href="https://www.coursera.org/course/statinference" target="_blank" rel="external">Statistical Inference</a></li>
+<li><a href="https://www.coursera.org/course/predmachlearn" target="_blank" rel="external">Practical Machine Learning</a></li>
+<li><a href="https://www.coursera.org/course/regmods" target="_blank" rel="external">Regression Models</a></li>
+</ul>
+<p>当然<a href="http://www.edx.org" target="_blank" rel="external">Edx</a>,<a href="http://www.coursera.org" target="_blank" rel="external">Coursera</a>也是寻找相关课程的好地方</p>
+<h4 id="数据科学之术"><a href="#数据科学之术" class="headerlink" title="数据科学之术"></a>数据科学之术</h4><p>有了数据科学之道，我们下一步需要进行的就是如何实现它了，有人推荐Python，也有人推荐R，或者来自Apache的mahout，个人推荐Python+R，于是你可以看看：</p>
+<ul>
+<li>莱斯大学的<a href="https://www.coursera.org/course/interactivepython" target="_blank" rel="external">An Introduction to Interactive Programming in Python</a></li>
+<li>华盛顿大学的<a href="https://www.coursera.org/course/scicomp" target="_blank" rel="external">High Performance Scientific Computing</a></li>
+<li>约翰霍普金斯大学的<a href="https://www.coursera.org/course/rprog" target="_blank" rel="external">R Programming</a></li>
+</ul>
+<p>之前约翰霍普金斯大学还开过：</p>
+<ul>
+<li><a href="http://coursera.org" target="_blank" rel="external">Computing for data analysis</a></li>
+<li><a href="http://coursera.org" target="_blank" rel="external">data analysis</a></li>
+</ul>
+<p>不过似乎在去年我学完后没有再开了。</p>
+<p>了解了R，Python，下一步就是大名鼎鼎的Hadoop生态系统了，Udacity上的<a href="https://www.udacity.com/course/ud617" target="_blank" rel="external">Intro to Hadoop and MapReduce</a>是不错的入门选择，之后<a href="http://bigdatauniversity.com/" target="_blank" rel="external">IBM 的大数据大学</a>上的Hadoop，云计算，课程也是不错的选择。</p>
+<h4 id="数据科学之用"><a href="#数据科学之用" class="headerlink" title="数据科学之用"></a>数据科学之用</h4><p>一切技术最终都要回归商业的本质，掌握了数据科学之道和数据科学之术，我们还需要将其应用于商业中。这里首当其冲的就是如何把从数据中解读的智慧表达出来，说服别人，这里要推荐来自密歇根大学的<a href="https://www.coursera.org/course/publicspeak" target="_blank" rel="external">Introduction to Public Speaking</a>。这门课可以帮助你更好的组织你的讲演，演示等（目前这门课正在开课中）。</p>
+<p>除了表达能力，很多时候我们的数据不是单纯的数据，我们需要理解数据分析与公司战略的关系，如果我们要开发数据产品，那么它是如何影响我们的运营，财务决策的，当然最终所有的一切都会受到宏观经济的影响，以下的几门课程可以帮助你更好的理解数据之用：</p>
+<ul>
+<li>马里兰大学 <a href="https://www.coursera.org/course/innovativeideas" target="_blank" rel="external">Developing Innovative Ideas for New Companies</a></li>
+<li>弗吉尼亚大学<a href="https://www.coursera.org/course/strategy101" target="_blank" rel="external">Foundations of Business Strategy</a></li>
+<li>加州大学<a href="https://www.coursera.org/course/ucimacroeconomics" target="_blank" rel="external">The Power of Macroeconomics</a></li>
+<li>清华大学<a href="http://www.xuetangx.com/courses/TsinghuaX/80512073_2014_1X/_2014_/about" target="_blank" rel="external">财务分析与决策</a></li>
+<li>宾夕法尼亚大学<a href="https://www.coursera.org/course/operations" target="_blank" rel="external">An Introduction to Operations Management</a></li>
+</ul>
+<p>最后我要推荐<a href="http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323" target="_blank" rel="external">Data Science for Business</a>这本书，这本书将数据科学之道与用完美结合，亚马逊上五星评价！</p>
+<h2 id="其它资源"><a href="#其它资源" class="headerlink" title="其它资源"></a>其它资源</h2><p>除了以上列出的课程，你也可以参考：</p>
+<ul>
+<li><a href="www.coursera.org">coursera</a>上约翰霍普金斯大学的数据科学专业课程 <a href="https://www.coursera.org/specialization/jhudatascience/1?utm_medium=catalogSpec" target="_blank" rel="external">data sicence</a>。一共9门课，目前每个月都在开课。</li>
+<li>来自网络上的<a href="http://datasciencemasters.org/" target="_blank" rel="external">数据科学硕士开发课程清单</a></li>
+<li>以及<a href="http://www.xuetangx.com/knowledge/2/" target="_blank" rel="external">学堂</a>网收集的数据科学课程</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/data-science/" rel="tag"># data science</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/08/03/apply/" rel="next" title="apply,sappy,">
+                <i class="fa fa-chevron-left"></i> apply,sappy,
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/08/16/2014-8-16-machine-learning-and-R(1)-what-is-machine-learning/" rel="prev" title="机器学习与R(1)-什么是机器学习">
+                机器学习与R(1)-什么是机器学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/08/16/2014-8-16-data-road/"
+           data-title="数据之路" data-url="http://zjdian.com/2014/08/16/2014-8-16-data-road/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据科学家自我修养——一份数据科学的开放课程清单"><span class="nav-number">1.</span> <span class="nav-text">数据科学家自我修养——一份数据科学的开放课程清单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据科学家的自我修养"><span class="nav-number">1.1.</span> <span class="nav-text">数据科学家的自我修养</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据科学入门"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据科学入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何利用大数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">如何利用大数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据科学之道"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">数据科学之道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据科学之术"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">数据科学之术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据科学之用"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">数据科学之用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它资源"><span class="nav-number">1.2.</span> <span class="nav-text">其它资源</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

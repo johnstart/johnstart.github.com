@@ -1,0 +1,954 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据科学,Introduction to data science," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="中继点" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第四章 跟着数据走侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据科学(4)-跟着数据走">
+<meta property="og:url" content="http://zjdian.com/2014/08/16/2014-8-data-science-chp4-follow-the-data/index.html">
+<meta property="og:site_name" content="中继点">
+<meta property="og:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第四章 跟着数据走侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临">
+<meta property="og:updated_time" content="2017-02-07T01:56:34.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据科学(4)-跟着数据走">
+<meta name="twitter:description" content="本文为Introduction to Data Science一书的翻译，由网友义务完成，了解参加翻译的网友，请点击这里，如果要加入我们请加入qq群171546473,了解翻译规则点击这里
+第四章 跟着数据走侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zjdian.com/2014/08/16/2014-8-data-science-chp4-follow-the-data/"/>
+
+
+
+
+
+
+  <title> 数据科学(4)-跟着数据走 | 中继点 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">中继点</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zjdian.com/2014/08/16/2014-8-data-science-chp4-follow-the-data/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="中继点">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="中继点">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="中继点" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据科学(4)-跟着数据走
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-16T12:39:34+00:00">
+                2014-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据科学/" itemprop="url" rel="index">
+                    <span itemprop="name">数据科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/08/16/2014-8-data-science-chp4-follow-the-data/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/16/2014-8-data-science-chp4-follow-the-data/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文为<strong>Introduction to Data Science</strong>一书的翻译，由网友义务完成，了解参加翻译的网友，请点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/task.md" target="_blank" rel="external">这里</a>，如果要加入我们请加入qq群171546473,了解翻译规则点击<a href="https://github.com/johnstart/data-science/blob/gh-pages/index.md" target="_blank" rel="external">这里</a></p>
+<h1 id="第四章-跟着数据走"><a href="#第四章-跟着数据走" class="headerlink" title="第四章 跟着数据走"></a>第四章 跟着数据走</h1><h4 id="侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。"><a href="#侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。" class="headerlink" title="侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。"></a>侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。</h4><p>我讨厌唠叨，但是你最近做过体检吗？如果你去看过医生，不管是为什么原因，你可能会记得医生的办公室被数据湮没了。首先，医生有大量的数字传感器，从血压监测器到超声波机器应有尽有，所有这些都会产生大量的数据。也许，对于现在引起广泛关注的关于健康保险的争论，金融和保险数据的一个很重要的出发点就可以是医生的办公室。美国医疗保健体系有一个著名的“特点”，就是我们的医疗保健服务的普遍做法是：按照流程付钱。当你在医生的办公室经历一次“流程”时，不管是一次咨询，一次检查，一次化验，或者其它什么，这是一系列会产生深远结果的数据事件的开端。</p>
+<p>如果你的医生是典型的医生，这些事件的起点是一张纸质的表格。你曾经详细的看过它们吗？这些表格上多半填的是由流程和代码组成的矩阵。虽然许多设备先进的地方可能会用平板电脑或者其它电脑将这些表格数字化，但是纸质表格仍然是普遍存在的。如果要进行保单赔付或者付款，纸质表格的数据会被输进一个系统，这个过程会在医生办公室或者在一个外包公司里进行。</p>
+<p>这些流程数据去哪儿了呢？哪些其它种类的数据（比如病人账号信息）可以在接下来的流程中和它们连接？这些连在一起的数据形成了什么样的网络？或者它们的安全性如何？在这些数据到达保险公司之前，处理数据要多少步骤？保险公司在考虑理赔之前是怎样处理和分析数据的？当保险公司的系统同意理赔之后钱是怎么转账的？这些问题仅仅是从表面上考虑的：还有几十种上百种处理步骤我们连想都想不到。</p>
+<p>我们很容易从这个例子中看到，根本不可能把已有的系统扔掉，然后去设计一个更好的或者至少更标准化的系统。但是如果你的工作是提高系统的效率，或者审查保险理赔以确保它们和保险记录相符，或者使用数据去探测和预测疾病的爆发和流行，或者给顾客提供反馈告诉他们一些流程的期望花费是多少，那么你该怎么办呢？</p>
+<p>你的项目的关键的出发点在于要跟着数据走。你应该像一个侦探一样，充分的弄清楚细节，包括内容，格式，发送人，接收人，转账方法，仓库，还有过程中每一步数据的使用者以及进行数据处理和存储的组织。</p>
+<p>幸运的是，已经有一个广泛的研究和实践领域叫做“数据模型”，它给出理论，策略和工具以帮助实现数据科学家“跟着数据走”的目标。这些想法开始于70年代早期，是由计算机科学家Ed Yourdon提出的称之为数据流程图方法。一个更现代的方法叫做实体关系模型，它和建立关系型数据库的方法有很强的关系。专家们使用这个模型发明了实体关系图（ERDs）来描述一个系统的结构和数据的移动。</p>
+<p>实体关系模型在不同层面出现，从抽象概念侧面到实际存储层面。在概念层面一个实体是一个对象或者东西，通常是真实世界中存在的东西。在医生办公室的例子中，一个重要的“对象”是病人。另一个实体是医生。病人和医生通过一个关系相连：在现代医疗保健术语中这是“供应”关系。如果病人是X先生，医生是Y医生，供应关系提供一个双向的连接：</p>
+<ul>
+<li>Y医生是X先生的提供者</li>
+<li>X先生的提供者是Y医生</li>
+</ul>
+<p>自然的，有一些数据可以描述X先生：名字，地址，年龄，等等。同样的，也有描述Y医生的数据：医龄，专业领域，资质证书，执照。重要的是，有一大块数据用来描述X和Y的联系，这就是关系。</p>
+<p>建立一个ERD需要调查和枚举所有的实体，比如病人和医生，还有它们之间可能存在的所有的关系。就像本章的开始提到的，这可能发生在许多组织上（比如，医生办公室和保险公司），这取决于信息系统被设计出来的目标。最终，ERDs必须足够详细，这样它们才能被用作一个数据库的物理存储的说明书。</p>
+<p>在医疗保健这样的应用领域中，如何设计数据有太多不同的选择了，以至于建立一个好用的系统要求一些经验和一些“艺术”。“艺术”一部分体现在理解用户的现有信息需求以及这些需求在未来预期的变化。如果一个组织在重新设计一个系统，补充一个系统，或者设计新系统，他们这样做是为了未来的利益。这个利益可能是更高的效益，错误/不精确的减少，或者增强的信息能力带来的做出新产品或新服务的可能性。</p>
+<p>不管目标是什么，数据科学家现在在方法上面临重要且困难的挑战，包括纸质表格和手工数据录入，想象一下将来的方法。跟着数据走！</p>
+<p>在下一章，我们介绍组织数据的最普遍也是最有用的方法，叫做矩形结构，它包含行和列。这种把数据布置成矩形的做法出现在电子表格和数据库，被很多应用所使用。理解这些行和列如何组织的，这是数据科学中多数任务的关键。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://en.wikipedia.org/wiki/Data_modeling" target="_blank" rel="external">http://en.wikipedia.org/wiki/Data_modeling</a></p>
+<p><a href="http://en.wikipedia.org/wiki/Entity-relationship_diagram" target="_blank" rel="external">http://en.wikipedia.org/wiki/Entity-relationship_diagram</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据科学/" rel="tag"># 数据科学</a>
+          
+            <a href="/tags/Introduction-to-data-science/" rel="tag"># Introduction to data science</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/08/16/2014-8-data-science-chap3_GettingStartedWithR_full/" rel="next" title="数据科学(3)-R入门">
+                <i class="fa fa-chevron-left"></i> 数据科学(3)-R入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/08/17/2014-8-data-science-chp5-row-col-2/" rel="prev" title="数据科学(5)-行与列-2">
+                数据科学(5)-行与列-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+                      
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/08/16/2014-8-data-science-chp4-follow-the-data/"
+           data-title="数据科学(4)-跟着数据走" data-url="http://zjdian.com/2014/08/16/2014-8-data-science-chp4-follow-the-data/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="中继点" />
+          <p class="site-author-name" itemprop="name">中继点</p>
+          <p class="site-description motion-element" itemprop="description">Python，R，Spark，数据科学，研发管理，移动互联，Lean Startup</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://gitHub.com/johnstart" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/walkinghome" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-跟着数据走"><span class="nav-number">1.</span> <span class="nav-text">第四章 跟着数据走</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">侦探这行有句谚语“跟着钱走。”在数据科学，成功的一个关键是“跟着数据走。”在多数情形，一个数据科学家不会去从无到有的设计一个信息系统。反而，在一些或者许多已有的系统中，就有数据；数据科学家面临的很大一部分挑战就是如何整合这些系统。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">中继点</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zjdian"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
