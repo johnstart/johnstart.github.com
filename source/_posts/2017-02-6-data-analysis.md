@@ -7,7 +7,7 @@ categories:
 tags: [python,数据分析,可视化]
 ---
 
-终于完成了python数据科学系列的第一门课，不愿意付钱购买的的可以去[github](https://github.com/zjdian/data-analysis/)下载讲义以及数据自己学习。如果感兴趣的可以去网易云课堂[Python数据分析与可视化实战](http://study.163.com/course/courseMain.htm?courseId=1003307013#/courseDetail)购买。课程也会提供答疑，以下为课程介绍：
+终于完成了python数据科学系列的第一门课，不愿意付钱购买的也可以关注网站,我将把讲义全部发布到网站上,当然如果感兴趣的可以去网易云课堂[Python数据分析与可视化实战](http://study.163.com/course/courseMain.htm?courseId=1003307013#/courseDetail)购买,因为有许多内容的讲解时语音的,没有写成文字。同时课程也会提供答疑，以下为课程介绍：
 
 课程包含6大模块加上1个实战案例模块。通过本课程学习你将掌握如何利用Python进行：
 +  数据获取
