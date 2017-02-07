@@ -1,10 +1,8 @@
 ---
 title: Python数据分析与可视化实战
 date: 2017-2-6 14:11:04
-categories: 
--数据分析
--python
-tags: [python,数据分析,可视化]
+categories: 数据分析
+tags: [python,数据分析,可视化,Python数据分析与可视化实战]
 ---
 
 终于完成了python数据科学系列的第一门课，不愿意付钱购买的也可以关注网站,我将把讲义全部发布到网站上,当然如果感兴趣的可以去网易云课堂[Python数据分析与可视化实战](http://study.163.com/course/courseMain.htm?courseId=1003307013#/courseDetail)购买,因为有许多内容的讲解时语音的,没有写成文字。同时课程也会提供答疑，以下为课程介绍：
